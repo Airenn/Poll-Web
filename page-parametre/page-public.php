@@ -13,7 +13,7 @@
         ?>
         <style> <!---Ceci est degueulasse et je m'en excuse soly-->
             body{
-                color : <? echo $_SESSION['color'];?>
+                color : <?php echo $_SESSION['color'];?>
             }
         </style>
         <h1>Salutt</h1>
