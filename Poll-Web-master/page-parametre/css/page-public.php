@@ -52,13 +52,17 @@ header
 
 #nbmsg
 {
+    <?php if(trim($_SESSION['nbmess']['checkbox-nb-message'])!=""){?>
     margin-top : 1em;
     padding : .5em;
     padding-bottom : .3em;
     border : solid black 1px;
     border-radius : 5px;
     float : right;
-    <?php text_format_css('nbmess');?>
+    <?php text_format_css('nbmess');}
+    else 
+        echo 'display : none;';
+    ?>
 }
 
 #nbmsg #nbrecus

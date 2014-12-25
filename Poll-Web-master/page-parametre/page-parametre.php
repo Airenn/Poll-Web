@@ -50,23 +50,40 @@
             <form method="post">
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="radio" autocomplete="off" value="question" checked>Question
+                    <label class="btn btn-primary">
+                        <input type="radio" name="radio" autocomplete="off" value="question" onchange="show_and_hide_div();" checked>Question
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio" autocomplete="off" value="reponse"> Réponses
+                        <input type="radio" name="radio" autocomplete="off" value="reponse" onchange="show_and_hide_div();"> Réponses
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio" autocomplete="off" value="nbmess"> Nombre de messages
+                        <input id="messages" type="radio" name="radio" autocomplete="off" value="nbmess" onchange="show_div_mess();"> Nombre de messages
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio" autocomplete="off" value="paragraphe"> Paragraphe
+                        <input type="radio" name="radio" autocomplete="off" value="paragraphe" onchange="show_and_hide_div();"> Paragraphe
                     </label>
                 </div>
-                
+                <script>
+                    function show_div_mess(){
+                            $('#div-mess').css('display','inline');
+                    }
+                    function show_and_hide_div(){
+                        $('#div-mess').css('display','none');
+                        $('#div-format').css('display','inline');
+                    } 
+                    function hide_div_format(){
+                        if ($("#nbmessages").is(':checked')) {
+                            $('#div-format').css('display','inline');
+                        }
+                        else {
+                            $('#div-format').css('display','none');
+                        }
+                    } 
+                </script>
                 <div id="div-mess" style="display:none;">
-                    <label>Afficher le nombre de message : <input type="checkbox" name="chkbx" /></label>
+                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox-nb-message" onchange="hide_div_format();" checked/></label><br/>
                 </div>
+                <div id="div-format">
                     <label>Couleur de la police : <input type="color" name="color"/></label><br/>
                     <label>Taille de la police  : <input type="text" name="taille-police"/></label><br/>
                     <label>Choix de la police d'écriture :
@@ -81,7 +98,7 @@
                         <option value="Trebuchet MS">Trebuchet MS</option>
                         <option value="Verdana">Verdana</option>
                     </select> </label><br/>
-                
+                </div>
                     <input type="submit" name="button" value="Sauvegarder"/>
             </form>
             <?php
@@ -93,6 +110,7 @@
                     text_format('nbmess');
                 else
                     text_format('paragraphe');
+                $_SESSION['nbmess']['checkbox-nb-message']=$_POST['checkbox-nb-message'];
             ?>
             <div class="div-button-section">
             </div>
