@@ -46,7 +46,7 @@
             </ul>
         </nav>
         <section class="pair" id="couleur">
-            <h1>Formattage de texte</h1>
+            <h1>Formatage de texte</h1>
             <form method="post">
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
