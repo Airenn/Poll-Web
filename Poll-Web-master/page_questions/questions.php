@@ -45,25 +45,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Résultats</h3>
             </div>
-            <div class="panel-body">
-                
-                <div class="panel panel-default">
-                    <div class="panel-body" id="stats">
-                        
-                    </div>
-                </div>
-                
-                <div class="panel panel-default">
-                    <div class="panel-body" id="infos_messages">
-                        <ul class="nav nav-tabs">
-                            <li role="presentation" class="messages active" id="all_messages"><a href="#">Tout</a></li>
-                            <li role="presentation" class="messages" id="valid_messages"><a href="#">Valide</a></li>
-                            <li role="presentation" class="messages" id="multi_messages"><a href="#">Doublon</a></li>
-                            <li role="presentation" class="messages" id="wrong_messages"><a href="#">Erroné</a></li>
-                            <li role="presentation" class="messages" id="late_messages"><a href="#">Hors-délai</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="panel-body" id="ajax_panel">
                 
             </div>
         </div>

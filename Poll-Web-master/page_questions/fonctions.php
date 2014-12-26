@@ -114,12 +114,34 @@
             : $pourcentage = 0;
         
             echo
-                '<div class="progress">
+                '<p>'.$rep['texte'].'</p><div class="progress">
                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'.$pourcentage.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$pourcentage.'%" id="'.$rep['ID'].'">
                         <span class="sr-only">'.$pourcentage.'% Complete</span>
                     </div>
                 </div>';
         }
+        
+    }
+
+
+    function create_messages_table($question){
+        $req = get_messages($question);
+        
+        if($messages = $req->fetch(PDO::FETCH_ASSOC)){
+            echo '<thead><tr>';
+            foreach($messages as $key=>$info){
+                echo '<th class="col-md-2">'.$key.'</th>';
+            }
+            echo '</tr></thead>';
+
+            do{
+                echo '<tr>';
+                foreach($messages as $key=>$info){
+                    echo '<td class="col-md-2">'.$info.'</td>';
+                }
+                echo '</tr>';
+            }while($messages = $req->fetch(PDO::FETCH_ASSOC));
+        }  
         
     }
 	
