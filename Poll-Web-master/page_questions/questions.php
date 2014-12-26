@@ -10,23 +10,6 @@
         header('Location: operations.php');
         exit();
     }
-    
-    /*
-    echo 'Operation :<ul>';
-    foreach($operation as $key=>$info){
-        echo '<li>'.htmlspecialchars($key).' = '.htmlspecialchars($info).'</li>';
-    }
-    echo '</ul>';
-
-    echo 'Questions :';
-    while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){
-        echo '<ul>';
-        foreach($question_tab as $key=>$info){
-            echo '<li>'.htmlspecialchars($key).' = '.htmlspecialchars($info).'</li>';
-        }
-        echo '</ul>';
-    }
-    */
 ?>
 
 <!DOCTYPE html>
@@ -38,13 +21,10 @@
     </head>
     
     <body>
-        <!-- Single button -->
         <?php create_dropdown($questions); ?>
         
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Résultats</h3>
-            </div>
+            <div class="panel-heading"><h3 class="panel-title">Résultats</h3></div>
             <div class="panel-body" id="ajax_panel">
                 
             </div>

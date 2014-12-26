@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 23 Décembre 2014 à 11:53
+-- Généré le :  Ven 26 Décembre 2014 à 16:36
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -32,22 +32,24 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `num_tel` varchar(14) NOT NULL,
   `texte` text NOT NULL,
+  `date_reception` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `categorie` text NOT NULL,
   `ID_reponse` int(11) NOT NULL,
   `ID_question` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_question` (`ID_question`),
   KEY `ID_reponse` (`ID_reponse`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `messages`
 --
 
-INSERT INTO `messages` (`ID`, `num_tel`, `texte`, `categorie`, `ID_reponse`, `ID_question`) VALUES
-(1, '+33609692454', '1A', 'Valide', 3, 1),
-(2, '+33609692454', '1B', 'Valide', 4, 1),
-(3, '+33781439434', '1A', 'Valide', 3, 1);
+INSERT INTO `messages` (`ID`, `num_tel`, `texte`, `date_reception`, `categorie`, `ID_reponse`, `ID_question`) VALUES
+(1, '+33609692454', '1A', '2014-12-26 14:59:26', 'Valide', 3, 1),
+(2, '+33609692454', '1B', '2014-12-26 14:59:26', 'Valide', 4, 1),
+(3, '+33781439434', '1A', '2014-12-26 14:59:26', 'Valide', 3, 1),
+(5, '+33609692454', '1D', '2014-12-26 16:29:23', 'Valide', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -106,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `reponses` (
   `ID_question` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_question` (`ID_question`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `reponses`
@@ -116,7 +118,8 @@ INSERT INTO `reponses` (`ID`, `lettre_reponse`, `texte`, `points`, `ID_question`
 (3, 'A', 'test_1_question_1_reponse_1', 0, 1),
 (4, 'B', 'test_1_question_1_reponse_2', 0, 1),
 (5, 'C', 'test_1_question_1_reponse_3', 0, 1),
-(6, 'A', 'test_1_question_2_reponse_1', 0, 2);
+(6, 'A', 'test_1_question_2_reponse_1', 0, 2),
+(9, 'D', 'test_1_question_1_reponse_4', NULL, 1);
 
 --
 -- Contraintes pour les tables exportées
