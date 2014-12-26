@@ -1,13 +1,7 @@
 <?php
+    require('../php/fonctions.php');
     session_start();
     header('content-type: text/css');
-    function text_format_css($key){
-        if(isset($_SESSION[$key]['color']) and isset($_SESSION[$key]['taille-police']) and isset($_SESSION[$key]['police'])){
-            echo 'color : '.$_SESSION[$key]['color'].';';
-            echo 'font-size : '.$_SESSION[$key]['taille-police'].'px;';
-            echo 'font-family : '.$_SESSION[$key]['police'].'px;';
-        }
-    }
 ?>
 
 
@@ -17,7 +11,7 @@
 html, body
 {
     height : 100%;
-
+    <?php  echo 'background-image:url(../'.$_SESSION['arriere-plan']['file'].');'; ?>
 }
 
 #conteneur
