@@ -31,7 +31,7 @@
                     <a class="lien-entete" href="#arriere-plan">Arrière-Plan</a>
                 </li>
                 <li class="liste-entete">
-                    <a class="lien-entete" href="#couleur">Formattage de texte</a>
+                    <a class="lien-entete" href="#couleur">Formatage de texte</a>
                 </li>
             </ul>
         </nav>
@@ -41,20 +41,20 @@
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="show_and_hide_div();" checked>Question
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="show_and_hide_div();" checked/>Question
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="show_and_hide_div();"> Réponses
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="show_and_hide_div();"/> Réponses
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="show_and_hide_div();"> Paragraphe
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="show_and_hide_div();"/> Paragraphe
                     </label>
                    <label class="btn btn-primary">
-                        <input id="messages" type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess();"> Nombre de messages
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess();"/> Nombre de messages
                     </label>
                 </div>
                 <div id="div-mess" style="display:none;">
-                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox-nb-message" onchange="hide_div_format();" checked/></label><br/>
+                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox-nb-message" value="checked" onchange="hide_div_format();" checked/></label><br/>
                 </div>
                 <div id="div-format">
                     <label>Couleur de la police : <input type="color" name="color"/></label><br/>
@@ -83,7 +83,8 @@
                     text_format('nbmess');
                 else
                     text_format('paragraphe');
-                $_SESSION['nbmess']['checkbox-nb-message']=$_POST['checkbox-nb-message'];
+                if(isset($_POST['checkbox-nb-message']) and $_POST['checkbox-nb-message']=='checked')
+                    $_SESSION['nbmess']['checkbox-nb-message']=$_POST['checkbox-nb-message'];
             ?>
             <div class="div-button-section">
             </div>
@@ -92,17 +93,21 @@
             <h1>Arrière-plan et barres progressives</h1>
             <form method="post" enctype="multipart/form-data">
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
-                    <label class="btn btn-primary"> <input type="radio" name="radio-a-b" autocomplete="off" value="arriere-plan" checked>    Arrière-Plan        </label>
-                    <label class="btn btn-primary"> <input type="radio" name="radio-a-b" autocomplete="off" value="barre-progressive">       Barres progressives </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="radio-a-b" autocomplete="off" value="arriere-plan" onchange="hide_barre_prog();" checked/>    Arrière-Plan
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="radio-a-b" autocomplete="off" value="barre-progressive" onchange="hide_arriere_plan();"/>       Barres progressives
+                    </label>
                 </div>
-                <div id="barre-progressive">
+                <div id="barre-progressive" style="display:none;">
                     <label>Couleur de la barre progressive :    <input type="color" name="color"/>              </label><br/>
                     <label>Afficher le hors-délai :             <input type="checkbox" name="hors-delai"/>      </label><br/>
                     <label>Animation des barres progressives :  <input type="checkbox" name="barre-animation"/> </label><br/>
                 </div>
                 <div id="arriere-plan">
                     <p> Type d'arrière plan : 
-                        <label> Couleur :    <input type="radio" name="radio-a" value="color"/>     </label>
+                        <label> Couleur :    <input type="radio" name="radio-a" value="color" checked/>     </label>
                         <label> Image :      <input type="radio" name="radio-a" value="image"/>     </label><br/>
                         <label>Couleur de l'arrière-plan :    <input type="color" name="color"/>    </label><br/>
                         <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
@@ -114,10 +119,26 @@
                 <input type="submit" name="button" value="Sauvegarder"/>
             </form>
             <?php
-                /************UPLOAD DE L'IMAGE + DEPLACEMENT DANS LE DOSSIER IMAGE******************/
-                mkdir("images/", 0777);
-                move_uploaded_file($_FILES["file"]["tmp_name"],"images/".$_FILES["file"]["name"]);
-                $_SESSION['arriere-plan']['file']="images/".$_FILES["file"]["name"];
+                /*************************//**ARRIERE-PLAN**//*************************/
+                if(isset($_POST['radio-a-b']) and $_POST['radio-a-b']=='arriere-plan'){
+                    if(isset($_POST['radio-a']) and $_POST['radio-a']=="image"){
+                        $_SESSION['arriere-plan']['radio-a']="image";
+                        if ($_FILES['file']['error'] > 0)
+                            echo "Error: " . $_FILES['file']['error'] . "<br/>"; 
+                        else
+                        { 
+                            move_uploaded_file($_FILES["file"]["tmp_name"],"images/".$_FILES["file"]["name"]);
+                            $_SESSION['arriere-plan']['file']="images/".$_FILES["file"]["name"];
+                        }
+                    }
+                    elseif(isset($_POST['radio-a']) and $_POST['radio-a']=="color"){
+                        $_SESSION['arriere-plan']['radio-a']="color";
+                        if(isset($_POST['arriere-plan-color'])){
+                            $_SESSION['arriere-plan']['color']=$_POST['arriere-plan-color'];
+                        }
+                    }
+                }
+                /*************************//**ARRIERE-PLAN**//*************************/
             ?>
         </section>
     </body>

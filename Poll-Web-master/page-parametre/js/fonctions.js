@@ -11,4 +11,12 @@ function hide_div_format(){
         $('#div-format').css('display','inline');
     else
         $('#div-format').css('display','none');
-} 
+}
+function hide_barre_prog(){
+    $("#arriere-plan").css('display','inline');
+    $("#barre-progressive").css('display','none');
+}
+function hide_arriere_plan(){
+    $("#barre-progressive").css('display','inline');
+    $("#arriere-plan").css('display','none');
+}
