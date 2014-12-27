@@ -11,7 +11,10 @@
 html, body
 {
     height : 100%;
-    <?php  echo 'background-image:url(../'.$_SESSION['arriere-plan']['file'].');'; ?>
+    <?php  
+        if(isset($_SESSION['arriere-plan']['file']))
+            echo 'background-image:url(../'.$_SESSION['arriere-plan']['file'].');';
+    ?>
 }
 
 #conteneur
@@ -46,7 +49,7 @@ header
 
 #nbmsg
 {
-    <?php if(trim($_SESSION['nbmess']['checkbox-nb-message'])!=""){?>
+    <?php if(isset($_SESSION['nbmess']['checkbox-nb-message']) and trim($_SESSION['nbmess']['checkbox-nb-message'])!=""){?>
     margin-top : 1em;
     padding : .5em;
     padding-bottom : .3em;

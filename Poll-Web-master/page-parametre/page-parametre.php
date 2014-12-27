@@ -19,6 +19,7 @@
         <?php
             require('php/fonctions.php');
             session_start();
+
         ?>
         <nav>
             <a class="lien-entete" href="#">Nom du QCM</a>
@@ -74,11 +75,11 @@
                     <input type="submit" name="button" value="Sauvegarder"/>
             </form>
             <?php
-                if($_POST['radio-f-d-t']=='question')
+                if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='question')
                     text_format('question');
-                elseif($_POST['radio-f-d-t']=='reponse')
+                elseif(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='reponse')
                     text_format('reponse');
-                elseif($_POST['radio-f-d-t']=='nbmess')
+                elseif(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='nbmess')
                     text_format('nbmess');
                 else
                     text_format('paragraphe');
@@ -116,7 +117,6 @@
                 /************UPLOAD DE L'IMAGE + DEPLACEMENT DANS LE DOSSIER IMAGE******************/
                 mkdir("images/", 0777);
                 move_uploaded_file($_FILES["file"]["tmp_name"],"images/".$_FILES["file"]["name"]);
-                echo "répertoire de l'image : " ."images/" . $_FILES["file"]["name"];
                 $_SESSION['arriere-plan']['file']="images/".$_FILES["file"]["name"];
             ?>
         </section>
