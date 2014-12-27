@@ -40,7 +40,7 @@
             <form method="post">
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
-                    <label class="btn btn-primary">
+                    <label class="btn btn-primary active">
                         <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="show_and_hide_div();" checked/>Question
                     </label>
                     <label class="btn btn-primary">
@@ -93,7 +93,7 @@
             <h1>Arrière-plan et barres progressives</h1>
             <form method="post" enctype="multipart/form-data">
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
-                    <label class="btn btn-primary">
+                    <label class="btn btn-primary active">
                         <input type="radio" name="radio-a-b" autocomplete="off" value="arriere-plan" onchange="hide_barre_prog();" checked/>    Arrière-Plan
                     </label>
                     <label class="btn btn-primary">
