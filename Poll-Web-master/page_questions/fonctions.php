@@ -203,11 +203,17 @@
         arsort($lettres);
         
         if($max > 0){
-            $regex .= '([1-'.$first_digit.'])';
-            $regex .= '(\-|\)|\]|\}|\:)?';
-            $regex .= '([A-'.current($lettres).'])';
+            ($first_digit != '1')
+            ? $regex .= '([1-'.$first_digit.'])'
+            : $regex .= '(1)';
             
-            if($multi_rep){
+            $regex .= '(\-|\)|\]|\}|\:)?';
+            
+            (current($lettres) != 'A')
+            ? $regex .= '([A-'.current($lettres).'])'
+            : $regex .= '(A)';
+            
+            if($multi_rep==1 && current($lettres)!='A'){
                 $regex .= '*';   
             }
         }
