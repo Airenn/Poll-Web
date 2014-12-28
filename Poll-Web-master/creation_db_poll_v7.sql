@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 28 Décembre 2014 à 23:40
+-- Généré le :  Dim 28 Décembre 2014 à 23:49
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -120,8 +120,8 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `ID_question` int(11) NOT NULL,
   PRIMARY KEY (`ID`,`num_tel`,`ID_reponse`,`ID_question`),
   UNIQUE KEY `UNIQUE_ID` (`ID`),
-  KEY `ID_question` (`ID_question`),
-  KEY `ID_reponse` (`ID_reponse`)
+  KEY `FK_ID_question` (`ID_question`),
+  KEY `FK_ID_reponse` (`ID_reponse`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
