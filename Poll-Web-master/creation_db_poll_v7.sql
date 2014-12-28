@@ -19,40 +19,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `poll`
 --
+DROP DATABASE IF EXISTS `poll`;
 CREATE DATABASE IF NOT EXISTS `poll` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `poll`;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `messages`
---
-
-CREATE TABLE IF NOT EXISTS `messages` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `num_tel` varchar(14) NOT NULL,
-  `texte` text NOT NULL,
-  `date_reception` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `valide` tinyint(1) NOT NULL DEFAULT '1',
-  `erreur` tinyint(1) NOT NULL DEFAULT '0',
-  `doublon` tinyint(1) NOT NULL DEFAULT '0',
-  `retard` tinyint(1) NOT NULL DEFAULT '0',
-  `ID_reponse` int(11) NOT NULL,
-  `ID_question` int(11) NOT NULL,
-  PRIMARY KEY (`ID`,`num_tel`,`ID_reponse`,`ID_question`),
-  KEY `ID_question` (`ID_question`),
-  KEY `ID_reponse` (`ID_reponse`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Contenu de la table `messages`
---
-
-INSERT INTO `messages` (`ID`, `num_tel`, `texte`, `date_reception`, `valide`, `erreur`, `doublon`, `retard`, `ID_reponse`, `ID_question`) VALUES
-(1, '+33609692454', '1A', '2014-12-28 19:35:18', 1, 0, 0, 0, 2, 2),
-(2, '+33609692454', '1B', '2014-12-28 19:35:18', 1, 0, 0, 0, 3, 2),
-(3, '+33781439434', '1A', '2014-12-28 19:35:18', 1, 0, 0, 0, 2, 2),
-(4, '+33609692454', '1D', '2014-12-28 19:35:18', 1, 0, 0, 0, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -129,6 +98,38 @@ INSERT INTO `reponses` (`ID`, `lettre_reponse`, `texte`, `points`, `ID_question`
 (4, 'C', 'op1_qu1_rep3', NULL, 2),
 (5, 'A', 'op1_qu2_rep1', NULL, 3),
 (6, 'D', 'op1_qu1_rep4', NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `messages`
+--
+
+CREATE TABLE IF NOT EXISTS `messages` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `num_tel` varchar(14) NOT NULL,
+  `texte` text NOT NULL,
+  `date_reception` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `valide` tinyint(1) NOT NULL DEFAULT '1',
+  `erreur` tinyint(1) NOT NULL DEFAULT '0',
+  `doublon` tinyint(1) NOT NULL DEFAULT '0',
+  `retard` tinyint(1) NOT NULL DEFAULT '0',
+  `ID_reponse` int(11) NOT NULL,
+  `ID_question` int(11) NOT NULL,
+  PRIMARY KEY (`ID`,`num_tel`,`ID_reponse`,`ID_question`),
+  KEY `ID_question` (`ID_question`),
+  KEY `ID_reponse` (`ID_reponse`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `messages`
+--
+
+INSERT INTO `messages` (`ID`, `num_tel`, `texte`, `date_reception`, `valide`, `erreur`, `doublon`, `retard`, `ID_reponse`, `ID_question`) VALUES
+(1, '+33609692454', '1A', '2014-12-28 19:35:18', 1, 0, 0, 0, 2, 2),
+(2, '+33609692454', '1B', '2014-12-28 19:35:18', 1, 0, 0, 0, 3, 2),
+(3, '+33781439434', '1A', '2014-12-28 19:35:18', 1, 0, 0, 0, 2, 2),
+(4, '+33609692454', '1D', '2014-12-28 19:35:18', 1, 0, 0, 0, 6, 2);
 
 --
 -- Contraintes pour les tables exportées

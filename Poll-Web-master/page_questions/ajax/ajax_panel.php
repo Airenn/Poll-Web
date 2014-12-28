@@ -1,5 +1,5 @@
 <?php
-    require_once('redirect.php');
+    require_once('../php/redirect.php');
 ?>
 
 <div class="panel panel-default">

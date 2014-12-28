@@ -14,7 +14,7 @@ $question_option.on('click', function () {
     );
     
     //Affichage des données de la question sélectionnée
-    $url = 'ajax_panel.php?question='.concat($(this).val());
+    $url = '../ajax/ajax_panel.php?question='.concat($(this).val());
     $.post($url, function(data){
                     $ajax_panel.html(data);
     });

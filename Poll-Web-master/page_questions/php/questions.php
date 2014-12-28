@@ -10,7 +10,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>Questions</title>
-        <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     
     <body>
@@ -23,8 +23,8 @@
             </div>
         </div>
     
-        <script src="../bootstrap/dist/js/jquery.min.js"></script>
-        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="questions.js"></script>
+        <script src="../../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../js/questions.js"></script>
     </body>
 </html>

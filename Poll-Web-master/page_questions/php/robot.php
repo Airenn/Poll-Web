@@ -8,7 +8,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>Robot</title>
-        <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     
     <?php
@@ -28,7 +28,7 @@
             <input type="submit"/>
         </form>
     
-        <script src="../bootstrap/dist/js/jquery.min.js"></script>
-        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../../bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
 </html>
