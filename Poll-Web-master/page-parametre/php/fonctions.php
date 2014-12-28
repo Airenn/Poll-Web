@@ -18,12 +18,5 @@ function text_format_css($key){
     }
 }
 
-function result_percentage_numbers($type){
-    if($type=="percentage"){
-    }
-    elseif($type=="numbers"){
-    
-    }
-}
-
 ?>
+

@@ -57,17 +57,16 @@ header
 
 #nbmsg
 {
-    <?php 
-    if(isset($_SESSION['nbmess']['checkbox']) and $_SESSION['nbmess']['checkbox']=="on")
-    {
-    ?>
     margin-top : 1em;
     padding : .5em;
     padding-bottom : .3em;
     border : solid black 1px;
     border-radius : 5px;
     float : right;
-    <?php text_format_css('nbmess');}
+
+    <?php 
+    if(isset($_SESSION['nbmess']['checkbox']) and $_SESSION['nbmess']['checkbox']=="on")
+        text_format_css('nbmess');
     else 
         echo 'display : none;';
     ?>

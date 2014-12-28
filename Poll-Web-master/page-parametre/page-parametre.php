@@ -86,7 +86,6 @@
 
                 if(isset($_POST['checkbox'])){
                     $_SESSION['nbmess']['checkbox']=$_POST['checkbox'];
-                    echo $_POST['checkbox'];
                 }
                 else{
                      $_SESSION['nbmess']['checkbox']="off";
