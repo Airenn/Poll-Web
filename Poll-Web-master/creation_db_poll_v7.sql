@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 28 Décembre 2014 à 23:05
+-- Généré le :  Dim 28 Décembre 2014 à 23:40
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -59,7 +59,8 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `fermee` tinyint(1) NOT NULL DEFAULT '1',
   `ID_operation` int(11) NOT NULL,
   PRIMARY KEY (`ID`,`num_question`,`ID_operation`),
-  KEY `ID_operation` (`ID_operation`)
+  UNIQUE KEY `UNIQUE_ID` (`ID`),
+  KEY `FK_ID_operation` (`ID_operation`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
@@ -84,7 +85,8 @@ CREATE TABLE IF NOT EXISTS `reponses` (
   `points` int(11) DEFAULT NULL,
   `ID_question` int(11) NOT NULL,
   PRIMARY KEY (`ID`,`lettre_reponse`,`ID_question`),
-  KEY `ID_question` (`ID_question`)
+  UNIQUE KEY `UNIQUE_ID` (`ID`),
+  KEY `FK_ID_question` (`ID_question`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
@@ -117,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `ID_reponse` int(11) NOT NULL,
   `ID_question` int(11) NOT NULL,
   PRIMARY KEY (`ID`,`num_tel`,`ID_reponse`,`ID_question`),
+  UNIQUE KEY `UNIQUE_ID` (`ID`),
   KEY `ID_question` (`ID_question`),
   KEY `ID_reponse` (`ID_reponse`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
@@ -136,23 +139,23 @@ INSERT INTO `messages` (`ID`, `num_tel`, `texte`, `date_reception`, `valide`, `e
 --
 
 --
--- Contraintes pour la table `messages`
---
-ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_id_question` FOREIGN KEY (`ID_question`) REFERENCES `questions` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `messages_id_reponse` FOREIGN KEY (`ID_reponse`) REFERENCES `reponses` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Contraintes pour la table `questions`
 --
 ALTER TABLE `questions`
-  ADD CONSTRAINT `questions_id_operation` FOREIGN KEY (`ID_operation`) REFERENCES `operations` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_questions_operation` FOREIGN KEY (`ID_operation`) REFERENCES `operations` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `reponses`
 --
 ALTER TABLE `reponses`
-  ADD CONSTRAINT `reponses_id_question` FOREIGN KEY (`ID_question`) REFERENCES `questions` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_reponses_question` FOREIGN KEY (`ID_question`) REFERENCES `questions` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `FK_messages_question` FOREIGN KEY (`ID_question`) REFERENCES `questions` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_messages_reponse` FOREIGN KEY (`ID_reponse`) REFERENCES `reponses` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

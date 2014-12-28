@@ -296,7 +296,6 @@
         if($current_question = $current_question->fetch(PDO::FETCH_ASSOC)){
             $current_question = $current_question['ID'];
             $reponse = get_reponses($current_question);
-            $reponse = $reponse->fetch(PDO::FETCH_ASSOC);
             $reponse = $reponse['ID'];
         }
         else{
@@ -388,7 +387,5 @@
         }
         return $req;
     }
-
-    
 	
 ?>
