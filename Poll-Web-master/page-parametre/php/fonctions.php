@@ -17,4 +17,13 @@ function text_format_css($key){
         echo 'font-family : '.$_SESSION[$key]['police'].'px;';
     }
 }
+
+function result_percentage_numbers($type){
+    if($type=="percentage"){
+    }
+    elseif($type=="numbers"){
+    
+    }
+}
+
 ?>

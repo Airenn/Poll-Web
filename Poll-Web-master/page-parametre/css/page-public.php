@@ -57,7 +57,10 @@ header
 
 #nbmsg
 {
-    <?php if(isset($_SESSION['nbmess']['checkbox-nb-message']) and trim($_SESSION['nbmess']['checkbox-nb-message'])!=""){?>
+    <?php 
+    if(isset($_SESSION['nbmess']['checkbox']) and $_SESSION['nbmess']['checkbox']=="on")
+    {
+    ?>
     margin-top : 1em;
     padding : .5em;
     padding-bottom : .3em;
@@ -97,7 +100,18 @@ section
     margin-bottom : 8em;
 }
 
-
+.progress-bar.progress-bar-striped{
+    <?php
+        if(isset($_SESSION['barre-progressive']['color']))
+            echo 'background-color:'.$_SESSION['barre-progressive']['color'].';';
+    ?>
+}
+.progress-bar.progress-bar-warning.progress-bar-striped.active{
+    <?php
+        if(isset($_SESSION['barre-progressive']['offline-color']))
+            echo 'background-color:'.$_SESSION['barre-progressive']['offline-color'].';';
+    ?>
+}
 
 /* BAS DE PAGE */
 

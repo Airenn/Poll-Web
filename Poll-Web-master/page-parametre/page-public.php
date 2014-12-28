@@ -14,8 +14,11 @@
         <title>Page public</title>
     </head>
     <body>
+        
         <div id="conteneur">
-            
+            <?php
+                session_start();
+            ?>
             <header>
                 <p id="question">Question 2 : Aimez-vous les animaux ?</p>
                 <div id="nbmsg">
@@ -28,30 +31,33 @@
             <section>
                 <p class="rep">A : Les chiens
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                             <span class="sr-only">60% Complete</span>
                         </div>
                     </div>
                 </p>
                 <p class="rep">B : Les chats
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
                     </div>
                 </p>
                 <p class="rep">C : Les chevaux
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
                         </div>
                     </div>
                 </p>
                 <p class="rep">D : Je n'aime pas les animaux
                     <div class="progress">
-                        <div class="progress-bar progress-bar" style="width: 35%">
+                        <div class="progress-bar progress-bar-striped" style="width: 35%">
                             <span class="sr-only">35% Complete (success)</span>
                         </div>
-                        <div class="progress-bar progress-bar-warning progress-bar-striped active" style="width: 20%">
-                            <span class="sr-only">20% Complete (warning)</span>
-                        </div>
+                        <?php 
+                            if(isset($_SESSION['barre-progressive']['hors-delai']) and $_SESSION['barre-progressive']['hors-delai']=="on"){
+                                echo "<div class='progress-bar progress-bar-warning progress-bar-striped active' style='width: 20%'>
+                                    <span class='sr-only'>20% Complete (warning)</span></div>";
+                            } 
+                        ?>
                     </div>
                 </p>
             </section>

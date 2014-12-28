@@ -41,20 +41,20 @@
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
                     <label class="btn btn-primary active">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="show_and_hide_div();" checked/>Question
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess','#div-format');" checked/>Question
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="show_and_hide_div();"/> Réponses
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess','#div-format');"/> Réponses
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="show_and_hide_div();"/> Paragraphe
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess','#div-format');"/> Paragraphe
                     </label>
                    <label class="btn btn-primary">
                         <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess();"/> Nombre de messages
                     </label>
                 </div>
                 <div id="div-mess" style="display:none;">
-                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox-nb-message" value="checked" onchange="hide_div_format();" checked/></label><br/>
+                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#div-format');" checked/></label><br/>
                 </div>
                 <div id="div-format">
                     <label>Couleur de la police : <input type="color" name="color"/></label><br/>
@@ -83,8 +83,14 @@
                     text_format('nbmess');
                 else
                     text_format('paragraphe');
-                if(isset($_POST['checkbox-nb-message']) and $_POST['checkbox-nb-message']=='checked')
-                    $_SESSION['nbmess']['checkbox-nb-message']=$_POST['checkbox-nb-message'];
+
+                if(isset($_POST['checkbox'])){
+                    $_SESSION['nbmess']['checkbox']=$_POST['checkbox'];
+                    echo $_POST['checkbox'];
+                }
+                else{
+                     $_SESSION['nbmess']['checkbox']="off";
+                }
             ?>
             <div class="div-button-section">
             </div>
@@ -94,27 +100,25 @@
             <form method="post" enctype="multipart/form-data">
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
                     <label class="btn btn-primary active">
-                        <input type="radio" name="radio-a-b" autocomplete="off" value="arriere-plan" onchange="hide_barre_prog();" checked/>    Arrière-Plan
+                        <input type="radio" name="radio-a-b" autocomplete="off" value="arriere-plan" onchange="hide_and_seek('#barre-progressive','#arriere-plan');"/>    Arrière-Plan
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-a-b" autocomplete="off" value="barre-progressive" onchange="hide_arriere_plan();"/>       Barres progressives
+                        <input type="radio" name="radio-a-b" autocomplete="off" value="barre-progressive" onchange="hide_and_seek('#arriere-plan','#barre-progressive');"/>       Barres progressives
                     </label>
-                </div>
-                <div id="barre-progressive" style="display:none;">
-                    <label>Couleur de la barre progressive :    <input type="color" name="color"/>              </label><br/>
-                    <label>Afficher le hors-délai :             <input type="checkbox" name="hors-delai"/>      </label><br/>
-                    <label>Animation des barres progressives :  <input type="checkbox" name="barre-animation"/> </label><br/>
                 </div>
                 <div id="arriere-plan">
                     <p> Type d'arrière plan : 
-                        <label> Couleur :    <input type="radio" name="radio-a" value="color" checked/>     </label>
-                        <label> Image :      <input type="radio" name="radio-a" value="image"/>     </label><br/>
-                        <label>Couleur de l'arrière-plan :    <input type="color" name="color"/>    </label><br/>
-                        <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
-                                
-                            Image de l'arrière-plan : <input type="file" name="file" ng-disabled="disabled" accept="image/x-png, image/gif, image/jpeg">
-                        </span>
+                        <label> Couleur :    <input type="radio" name="radio-a" value="color" onchange="hide_and_seek('#background-image','#background-color');" checked/>     </label>
+                        <label> Image :      <input type="radio" name="radio-a" value="image" onchange="hide_and_seek('#background-color','#background-image');"/>     </label><br/>
+                        <label id="background-color">Couleur de l'arrière-plan :    <input type="color" name="color"/>    </label>
+                        <label id="background-image" style="display:none;">Image de l'arrière-plan : <input type="file" name="file" ng-disabled="disabled" accept="image/x-png, image/gif, image/jpeg"/>
+                    </label>
                     </p>
+                </div>
+                <div id="barre-progressive" style="display:none;">
+                    <label>Couleur de la barre progressive :    <input type="color" name="bar-color"/>              </label><br/>
+                    <label>Afficher le hors-délai :             <input id="offline-checkbox" type="checkbox" name="hors-delai" onchange="hide_checkbox('#offline-checkbox','#offline-color');"/></label><br/>
+                    <label id="offline-color" style="display:none;">Couleur de la barre hors-délai :<input type="color" name="offline-color"/><br/></label>
                 </div>
                 <input type="submit" name="button" value="Sauvegarder"/>
             </form>
@@ -139,6 +143,22 @@
                     }
                 }
                 /*************************//**ARRIERE-PLAN**//*************************/
+                /**********************//**BARRE-PROGRESSIVE**//***********************/
+                if(isset($_POST['radio-a-b']) and $_POST['radio-a-b']=='barre-progressive'){
+                    if(isset($_POST['hors-delai'])){
+                         $_SESSION['barre-progressive']['hors-delai']=$_POST['hors-delai'];
+                    }
+                    else{
+                        $_SESSION['barre-progressive']['hors-delai']="off";
+                    }
+                    if(isset($_POST['bar-color'])){
+                        $_SESSION['barre-progressive']['color']=$_POST['bar-color'];
+                    }
+                    if(isset($_POST['offline-color'])){
+                        $_SESSION['barre-progressive']['offline-color']=$_POST['offline-color'];
+                    }
+                }
+        
             ?>
         </section>
     </body>
