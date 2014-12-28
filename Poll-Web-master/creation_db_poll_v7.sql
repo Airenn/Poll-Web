@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 28 Décembre 2014 à 19:37
+-- Généré le :  Dim 28 Décembre 2014 à 23:05
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
 
 INSERT INTO `questions` (`ID`, `num_question`, `texte`, `multi_rep`, `fermee`, `ID_operation`) VALUES
 (1, -1, 'question_erreur', 0, 1, 1),
-(2, 1, 'op1_qu1', 0, 1, 2),
+(2, 1, 'op1_qu1', 0, 0, 2),
 (3, 2, 'op1_qu2', 0, 1, 2);
 
 -- --------------------------------------------------------
