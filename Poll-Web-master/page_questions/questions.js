@@ -23,5 +23,5 @@ $question_option.on('click', function () {
     $auto_refresh = setInterval(
     function(){
         $ajax_panel.hide().load($url).show();
-    }, 100);
+    }, 1000);
 });

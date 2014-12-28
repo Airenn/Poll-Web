@@ -135,7 +135,7 @@
                 <ul class="dropdown-menu" role="menu">';
                     while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){
                         echo'<li class="question" value="'.htmlspecialchars($question_tab['ID']).'">
-                                <a href="#">'.htmlspecialchars($question_tab['ID']).": ".htmlspecialchars($question_tab['texte']).'</a>
+                                <a href="#">'.htmlspecialchars($question_tab['num_question']).": ".htmlspecialchars($question_tab['texte']).'</a>
                             </li>';
                     }
         echo    '</ul>
@@ -192,43 +192,202 @@
     }
 
 
-    function regex_builder($question){
-        $regex = "#^";
-        $max = total_reponses($question);
-        $first_digit = substr((string) $max, 0, 1);
-        $lettres = get_lettres_reponses($question);
-        $multi_rep = get_question($question);
-        $multi_rep = $multi_rep['multi_rep'];
+    function sort_message($message){
+        global $db;
+        $num_tel = (string) $message['num_tel'];
+        $texte = strtoupper(trim($message['texte']));
+        $regex = '#^([1-9])(\-|\)|\]|\}|\:)?([A-Z])+$#';
+        $resultats;
+        $num_question;
+        $lettre;
+        $lettres_reponse;
+        $req;
         
-        arsort($lettres);
+        $operation = get_current_operation();
+        $all_questions = get_questions($operation['ID']);
+        $current_questions = get_current_questions();
+        $all_reponses = null;
         
-        if($max > 0){
-            ($first_digit != '1')
-            ? $regex .= '([1-'.$first_digit.'])'
-            : $regex .= '(1)';
-            
-            $regex .= '(\-|\)|\]|\}|\:)?';
-            
-            (current($lettres) != 'A')
-            ? $regex .= '([A-'.current($lettres).'])'
-            : $regex .= '(A)';
-            
-            if($multi_rep==1 && current($lettres)!='A'){
-                $regex .= '*';   
+        $question = null;
+        $reponses = null;
+        
+        $erreur = false;
+        $retard = true;
+        $ID_reponse = null;
+        $ID_question = null;
+        $insertion = false;
+        
+        if(preg_match($regex, $texte, $resultats)){
+            $num_question = (int) $resultats[1];
+            $lettres_reponse = str_split((string) $resultats[3]);
+        
+            while($quest = $all_questions->fetch(PDO::FETCH_ASSOC)){
+
+                if((string)$num_question == (string)$quest['num_question']){
+                    $question = $quest;
+                    $ID_question = $quest['ID'];
+                    break;
+                }
+            }
+
+            if($question != null){
+                $all_reponses = get_reponses($ID_question);
+                $reponses = get_lettres_reponses($ID_question);
+                $nb_reponses = count($lettres_reponse);
+
+                while($quest = $current_questions->fetch(PDO::FETCH_ASSOC)){
+                    if($num_question == $quest['num_question']){
+                        $retard = false;
+                        break;
+                    }
+                }
+
+                if(($question['multi_rep']==1 && $nb_reponses>=1) || ($question['multi_rep']==0 && $nb_reponses==1)){
+
+                    do{
+                        $valide = false;
+                        $erreur = false;
+                        $doublon = false;
+                        $lettre = current($lettres_reponse);
+                        next($lettres_reponse);
+
+                        if(in_array($lettre, $reponses)){
+                            while($rep = $all_reponses->fetch(PDO::FETCH_ASSOC)){
+                                if($lettre == $rep['lettre_reponse']){
+                                    $ID_reponse = $rep['ID'];
+                                    break;
+                                }
+                            }
+                        }
+                        else{
+                            $erreur = true;   
+                        }
+
+                        $texte = (string) ($num_question.$lettre);
+                        insert_message($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question);
+                        $insertion = true;
+
+                    }while((--$nb_reponses)!=0);
+                }
+                else{
+                    $erreur = true;   
+                }
+            }
+            else{
+                $erreur = true;   
+            }
+        }
+        else{
+            $erreur = true;
+        }
+                    
+        if(!$insertion){
+            insert_message($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question);
+        }
+    }
+
+
+    function insert_message($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question){
+        global $db;
+        $valide = !($erreur || $doublon || $retard);
+        $current_question = get_current_questions();
+        $reponse;
+        
+        if($current_question = $current_question->fetch(PDO::FETCH_ASSOC)){
+            $current_question = $current_question['ID'];
+            $reponse = get_reponses($current_question);
+            $reponse = $reponse['ID'];
+        }
+        else{
+            $current_question = 1;
+            $reponse = 1;
+        }
+        
+        if($erreur == true){
+            if($ID_question == null && $ID_reponse == null){
+                $ID_question = $current_question;
+                $ID_reponse = $reponse;
+            }
+            else if($ID_reponse == null){
+                $ID_reponse = get_reponses($ID_question);
+                $ID_reponse = $ID_reponse->fetch(PDO::FETCH_ASSOC);
+                $ID_reponse = $ID_reponse['ID'];
             }
         }
         
-        return $regex.'$#';
+        $doublon = check_doublon($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question);
+        
+        try{
+            $req=$db->prepare('INSERT INTO messages(`num_tel`, `texte`, `valide`, `erreur`, `doublon`, `retard`, `ID_reponse`, `ID_question`) 
+                                VALUES (:tel, :texte, :valide, :erreur, :doublon, :retard, :rep, :quest)');
+            $req->bindvalue(':tel', $num_tel);
+            $req->bindvalue(':texte', $texte);
+            $req->bindvalue(':valide', $valide);
+            $req->bindvalue(':erreur', $erreur);
+            $req->bindvalue(':doublon', $doublon);
+            $req->bindvalue(':retard', $retard);
+            $req->bindvalue(':rep', $ID_reponse);
+            $req->bindvalue(':quest', $ID_question);
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
     }
 
 
-    function sort_message($message){
+    function check_doublon($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question){
         global $db;
-        $num_tel = $message['num_tel'];
-        $texte = strtoupper(trim($message['texte']));
-        $categorie;
-        $ID_reponse;
-        $ID_question;
+        $req;
+        $doublon;
+        
+        try{
+            $req=$db->prepare('SELECT * FROM messages WHERE num_tel=:tel AND texte=:texte AND erreur=:erreur AND retard=:retard AND ID_reponse=:rep AND ID_question=:quest');
+            $req->bindvalue(':tel', $num_tel);
+            $req->bindvalue(':texte', $texte);
+            $req->bindvalue(':erreur', $erreur);
+            $req->bindvalue(':retard', $retard);
+            $req->bindvalue(':rep', $ID_reponse);
+            $req->bindvalue(':quest', $ID_question);
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        
+        ($req->fetch())
+        ? $doublon = true
+        : $doublon = false;
+        
+        return $doublon;
     }
+
+    
+    function get_current_operation(){
+        global $db;
+        try{
+            $req=$db->prepare('SELECT * FROM operations WHERE fermee=0');
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    function get_current_questions(){
+        global $db;
+        try{
+            $req=$db->prepare('SELECT * FROM questions WHERE fermee=0 ORDER BY num_question');
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        return $req;
+    }
+
+    
 	
 ?>

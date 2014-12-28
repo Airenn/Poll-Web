@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 28 Décembre 2014 à 15:58
+-- Généré le :  Dim 28 Décembre 2014 à 19:37
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -33,23 +33,26 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `num_tel` varchar(14) NOT NULL,
   `texte` text NOT NULL,
   `date_reception` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `categorie` text NOT NULL,
+  `valide` tinyint(1) NOT NULL DEFAULT '1',
+  `erreur` tinyint(1) NOT NULL DEFAULT '0',
+  `doublon` tinyint(1) NOT NULL DEFAULT '0',
+  `retard` tinyint(1) NOT NULL DEFAULT '0',
   `ID_reponse` int(11) NOT NULL,
   `ID_question` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`ID`,`num_tel`,`ID_reponse`,`ID_question`),
   KEY `ID_question` (`ID_question`),
   KEY `ID_reponse` (`ID_reponse`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `messages`
 --
 
-INSERT INTO `messages` (`ID`, `num_tel`, `texte`, `date_reception`, `categorie`, `ID_reponse`, `ID_question`) VALUES
-(1, '+33609692454', '1A', '2014-12-26 14:59:26', 'Valide', 3, 1),
-(2, '+33609692454', '1B', '2014-12-26 14:59:26', 'Valide', 4, 1),
-(3, '+33781439434', '1A', '2014-12-26 14:59:26', 'Valide', 3, 1),
-(5, '+33609692454', '1D', '2014-12-26 16:29:23', 'Valide', 9, 1);
+INSERT INTO `messages` (`ID`, `num_tel`, `texte`, `date_reception`, `valide`, `erreur`, `doublon`, `retard`, `ID_reponse`, `ID_question`) VALUES
+(1, '+33609692454', '1A', '2014-12-28 19:35:18', 1, 0, 0, 0, 2, 2),
+(2, '+33609692454', '1B', '2014-12-28 19:35:18', 1, 0, 0, 0, 3, 2),
+(3, '+33781439434', '1A', '2014-12-28 19:35:18', 1, 0, 0, 0, 2, 2),
+(4, '+33609692454', '1D', '2014-12-28 19:35:18', 1, 0, 0, 0, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -63,14 +66,15 @@ CREATE TABLE IF NOT EXISTS `operations` (
   `date_prevue` date NOT NULL,
   `fermee` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `operations`
 --
 
 INSERT INTO `operations` (`ID`, `nom`, `date_prevue`, `fermee`) VALUES
-(1, 'op1', '2014-12-22', 1);
+(1, 'operation_erreur', '2014-12-22', 1),
+(2, 'op1', '2014-12-22', 0);
 
 -- --------------------------------------------------------
 
@@ -85,17 +89,18 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `multi_rep` tinyint(1) NOT NULL DEFAULT '0',
   `fermee` tinyint(1) NOT NULL DEFAULT '1',
   `ID_operation` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`ID`,`num_question`,`ID_operation`),
   KEY `ID_operation` (`ID_operation`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `questions`
 --
 
 INSERT INTO `questions` (`ID`, `num_question`, `texte`, `multi_rep`, `fermee`, `ID_operation`) VALUES
-(1, 1, 'op1_qu1', 0, 1, 1),
-(2, 2, 'op1_qu2', 0, 1, 1);
+(1, -1, 'question_erreur', 0, 1, 1),
+(2, 1, 'op1_qu1', 0, 1, 2),
+(3, 2, 'op1_qu2', 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -109,20 +114,21 @@ CREATE TABLE IF NOT EXISTS `reponses` (
   `texte` text NOT NULL,
   `points` int(11) DEFAULT NULL,
   `ID_question` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`ID`,`lettre_reponse`,`ID_question`),
   KEY `ID_question` (`ID_question`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `reponses`
 --
 
 INSERT INTO `reponses` (`ID`, `lettre_reponse`, `texte`, `points`, `ID_question`) VALUES
-(3, 'A', 'op1_qu1_rep1', 0, 1),
-(4, 'B', 'op1_qu1_rep2', 0, 1),
-(5, 'C', 'op1_qu1_rep3', 0, 1),
-(6, 'A', 'op1_qu2_rep1', 0, 2),
-(9, 'D', 'op1_qu1_rep4', NULL, 1);
+(1, 'X', 'reponse_erreur', NULL, 1),
+(2, 'A', 'op1_qu1_rep1', NULL, 2),
+(3, 'B', 'op1_qu1_rep2', NULL, 2),
+(4, 'C', 'op1_qu1_rep3', NULL, 2),
+(5, 'A', 'op1_qu2_rep1', NULL, 3),
+(6, 'D', 'op1_qu1_rep4', NULL, 2);
 
 --
 -- Contraintes pour les tables exportées
