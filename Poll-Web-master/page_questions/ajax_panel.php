@@ -1,6 +1,5 @@
 <?php
-    require_once('connexion.php');
-    require('fonctions.php');
+    require_once('redirect.php');
 ?>
 
 <div class="panel panel-default">

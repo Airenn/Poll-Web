@@ -1,15 +1,8 @@
 <?php
-    require_once ('connexion.php');
-    require ('fonctions.php');
-
     $_GET['operation'] = 1;
-    $operation = get_operation($_GET['operation']);
-    $questions = get_questions($_GET['operation']);
+    require_once('redirect.php');
 
-    if(!$operation || !isset($_GET['operation'])){
-        header('Location: operations.php');
-        exit();
-    }
+    $questions = get_questions($_GET['operation']);
 ?>
 
 <!DOCTYPE html>

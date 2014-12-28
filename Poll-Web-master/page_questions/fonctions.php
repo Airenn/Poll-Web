@@ -28,6 +28,20 @@
     }
 
 
+    function get_question($question){
+        global $db;
+        try{
+            $req=$db->prepare('SELECT * FROM questions WHERE ID=:question');
+            $req->bindvalue(':question', $question);
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     function get_reponses($question){
         global $db;
         try{
@@ -42,6 +56,18 @@
     }
 
 
+    function get_lettres_reponses($question){
+        $lettres = array();
+        $reponses = get_reponses($question);
+        
+        while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
+            $lettres[] = $rep['lettre_reponse'];
+        }
+        
+        return $lettres;
+    }
+
+
     function get_messages($question){
         global $db;
         try{
@@ -53,6 +79,21 @@
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
         }
         return $req;
+    }
+
+
+    function total_reponses($question){
+        global $db;
+        try{
+            $req=$db->prepare('SELECT count(*) as nb FROM reponses WHERE ID_question=:question');
+            $req->bindvalue(':question', $question);
+            $req->execute();
+            $total = $req->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        return $total['nb'];
     }
 
 
@@ -71,7 +112,7 @@
     }
 
 
-    function nb_messages($reponse){
+    function nb_messages_rep($reponse){
         global $db;
         try{
             $req=$db->prepare('SELECT count(*) as nb FROM messages WHERE ID_reponse=:reponse');
@@ -110,7 +151,7 @@
         
         while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
             ($total>0) 
-            ? $pourcentage = 100*(nb_messages($rep['ID'])/$total)
+            ? $pourcentage = 100*(nb_messages_rep($rep['ID'])/$total)
             : $pourcentage = 0;
         
             echo
@@ -142,7 +183,46 @@
                 echo '</tr>';
             }while($messages = $req->fetch(PDO::FETCH_ASSOC));
         }  
+
+    }
+
+
+    function count_digit($nb) {
+        return strlen((string) $nb);
+    }
+
+
+    function regex_builder($question){
+        $regex = "#^";
+        $max = total_reponses($question);
+        $first_digit = substr((string) $max, 0, 1);
+        $lettres = get_lettres_reponses($question);
+        $multi_rep = get_question($question);
+        $multi_rep = $multi_rep['multi_rep'];
         
+        arsort($lettres);
+        
+        if($max > 0){
+            $regex .= '([1-'.$first_digit.'])';
+            $regex .= '(\-|\)|\]|\}|\:)?';
+            $regex .= '([A-'.current($lettres).'])';
+            
+            if($multi_rep){
+                $regex .= '*';   
+            }
+        }
+        
+        return $regex.'$#';
+    }
+
+
+    function sort_message($message){
+        global $db;
+        $num_tel = $message['num_tel'];
+        $texte = strtoupper(trim($message['texte']));
+        $categorie;
+        $ID_reponse;
+        $ID_question;
     }
 	
 ?>
