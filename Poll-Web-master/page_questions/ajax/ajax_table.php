@@ -1,5 +1,9 @@
 <?php
     require_once('../php/redirect.php');
     
-    create_messages_table($_GET['question']); 
+    if(!isset($_GET['categorie']) || trim($_GET['categorie'])==""){
+        $_GET['categorie']='Tout';   
+    }
+
+    create_messages_table($_GET['question'], $_GET['categorie']); 
 ?>

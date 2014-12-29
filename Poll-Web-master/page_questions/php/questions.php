@@ -23,11 +23,23 @@
     </head>
     
     <body>
-        <?php create_dropdown($questions); ?>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
+                Question <span class="caret" id="caret_question"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" id="ajax_drop">
+                <?php create_dropdown($questions); ?>
+            </ul>
+        </div>
         
         <div class="btn-group" role="group" aria-label="...">
-          <button type="button" class="btn btn-default" id="robot_masse">Activer le robot</button>
+          <button type="button" class="btn btn-default" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
         </div>
+        
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" id="suppression_question">Réinitialiser la question<br><em>Supprime les messages</em></button>
+        </div>
+        
         <br/><br/>
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">Envoi d'un message</h3></div>
@@ -67,8 +79,8 @@
                             <button type="button" class="btn btn-primary messages" id="all_messages">Tout</button>
                             <button type="button" class="btn btn-success messages" id="valid_messages">Valide</button>
                             <button type="button" class="btn btn-default messages" id="multi_messages">Doublon</button>
-                            <button type="button" class="btn btn-danger messages" id="wrong_messages">Erroné</button>
-                            <button type="button" class="btn btn-warning messages" id="late_messages">Hors-délai</button>
+                            <button type="button" class="btn btn-danger messages" id="wrong_messages">Erreur</button>
+                            <button type="button" class="btn btn-warning messages" id="late_messages">Retard</button>
                         </div>
                         <br/><br/>
                         <table id="ajax_table" class="table">

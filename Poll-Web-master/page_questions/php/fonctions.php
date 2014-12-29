@@ -128,10 +128,25 @@
      *
      * \param $question : int, identifiant de la question dont on doit recuperer les messages
      */
-    function get_messages($question){
+    function get_messages($question, $categorie='Tout'){
         global $db;
         try{
-            $req=$db->prepare('SELECT * FROM messages WHERE ID_question=:question');
+            $req='SELECT * FROM messages WHERE ID_question=:question';
+            
+            if($categorie=='Valide'){
+                $req .= ' AND valide=1';
+            }
+            else if($categorie=='Erreur'){
+                $req .= ' AND erreur=1';
+            }
+            else if($categorie=='Doublon'){
+                $req .= ' AND doublon=1';
+            }
+            else if($categorie=='Retard'){
+                $req .= ' AND retard=1';
+            }
+
+            $req = $db->prepare($req);
             $req->bindvalue(':question', $question);
             $req->execute();
         }
@@ -204,19 +219,11 @@
      * \param $questions : objet PDO, correspond a une liste de question recuperee par un SELECT
      */
     function create_dropdown($questions){
-        echo'<div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
-                    Question <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">';
-                    while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){
-                        echo'<li class="question" value="'.htmlspecialchars($question_tab['ID']).'">
-                                <a href="#">'.htmlspecialchars($question_tab['num_question']).": ".htmlspecialchars($question_tab['texte']).'</a>
-                            </li>';
-                    }
-        echo    '</ul>
-            </div>';
-        
+        while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){
+            echo'<li class="question" value="'.htmlspecialchars($question_tab['ID']).'">
+                    <a href="#">'.htmlspecialchars($question_tab['num_question']).": ".htmlspecialchars($question_tab['texte']).'</a>
+                </li>';
+        }
     }
 
     /*!
@@ -249,8 +256,8 @@
      *
      * \param $question : int, identifiant de la question dont on doit afficher les messages
      */
-    function create_messages_table($question){
-        $req = get_messages($question);
+    function create_messages_table($question, $categorie='Tout'){
+        $req = get_messages($question, $categorie);
         $colonnes = array('Numéro de téléphone', 'Message', 'Date de réception');
         
         if($message = $req->fetch(PDO::FETCH_ASSOC)){
@@ -620,5 +627,23 @@
         }
         
         return $r_letters;
+    }
+
+    /*!
+     * Supprimme les messages rattaches a la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont les messages doivent etre supprimes
+     */
+    function delete_messages_quest($question){
+        global $db;
+         try{
+            $req=$db->prepare('DELETE FROM messages WHERE ID_question=:quest');
+            $req->bindvalue(':quest', $question);
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        
     }
 ?>
