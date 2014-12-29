@@ -20,9 +20,16 @@
         <meta charset="utf-8"/>
         <title>Questions</title>
         <link href="../../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../menu.css" rel="stylesheet">
     </head>
     
     <body>
+        
+        <?php 
+            require('../../menu.php'); 
+            gen_menu('questions');
+        ?>
+        
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
                 Question <span class="caret" id="caret_question"></span>
