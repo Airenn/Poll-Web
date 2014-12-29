@@ -10,13 +10,13 @@
 
 <div class="panel panel-default">
     <div class="panel-body" id="infos_messages">
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="messages" id="all_messages"><a href="#">Tout</a></li>
-            <li role="presentation" class="messages" id="valid_messages"><a href="#">Valide</a></li>
-            <li role="presentation" class="messages" id="multi_messages"><a href="#">Doublon</a></li>
-            <li role="presentation" class="messages" id="wrong_messages"><a href="#">Erroné</a></li>
-            <li role="presentation" class="messages" id="late_messages"><a href="#">Hors-délai</a></li>
-        </ul>
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default messages" id="all_messages">Tout</button>
+            <button type="button" class="btn btn-success messages" id="valid_messages">Valide</button>
+            <button type="button" class="btn btn-info messages" id="multi_messages">Doublon</button>
+            <button type="button" class="btn btn-danger messages" id="wrong_messages">Erroné</button>
+            <button type="button" class="btn btn-warning messages" id="late_messages">Hors-délai</button>
+        </div>
         <table id="messages_table" data-url="data1.json" data-height="400" data-row-style="rowStyle" class="table-hover">
             <?php create_messages_table($_GET['question']); ?>
         </table>

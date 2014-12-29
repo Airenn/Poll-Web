@@ -1,5 +1,9 @@
 <?php
-        
+    /*!
+     * Renvoie le tableau associatif correspondant a l'operation recue en parametre
+     *
+     * \param $operation : int, identifiant de l'operation que l'on veut recuperer
+     */    
     function get_operation($operation){
         global $db;
         try{
@@ -13,7 +17,11 @@
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
-
+    /*!
+     * Renvoie l'objet PDO correspondant aux questions pour l'operation recue en parametre
+     *
+     * \param $operation : int, identifiant de l'operation dont on doit recuperer les questions
+     */
     function get_questions($operation){
         global $db;
         try{
@@ -27,7 +35,11 @@
         return $req;
     }
 
-
+    /*!
+     * Renvoie le tableau associatif correspondant a la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question que l'on veut recuperer
+     */
     function get_question($question){
         global $db;
         try{
@@ -41,7 +53,11 @@
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
-
+    /*!
+     * Renvoie l'objet PDO correspondant aux reponses pour la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont on doit recuperer les reponses
+     */
     function get_reponses($question){
         global $db;
         try{
@@ -55,7 +71,11 @@
         return $req;
     }
 
-
+    /*!
+     * Renvoie l'array correspondant aux lettres des reponses pour la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont on doit recuperer les lettres des reponses
+     */
     function get_lettres_reponses($question){
         $lettres = array();
         $reponses = get_reponses($question);
@@ -67,7 +87,11 @@
         return $lettres;
     }
 
-
+    /*!
+     * Renvoie l'objet PDO correspondant aux messages recus pour la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont on doit recuperer les messages
+     */
     function get_messages($question){
         global $db;
         try{
@@ -81,7 +105,11 @@
         return $req;
     }
 
-
+    /*!
+     * Renvoie le nombre de reponses pour la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont on doit compter les reponses
+     */
     function total_reponses($question){
         global $db;
         try{
@@ -96,7 +124,11 @@
         return $total['nb'];
     }
 
-
+    /*!
+     * Renvoie le nombre de messages recus pour la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont on doit compter les messages
+     */
     function total_messages($question){
         global $db;
         try{
@@ -111,7 +143,11 @@
         return $total['nb'];
     }
 
-
+    /*!
+     * Renvoie le nombre de messages recus pour la reponse recue en parametre
+     *
+     * \param $reponse : int, identifiant de la reponse dont on doit compter les messages
+     */
     function nb_messages_rep($reponse){
         global $db;
         try{
@@ -126,7 +162,11 @@
         return $total['nb'];
     }
 
-
+    /*!
+     * Creer le menu deroulant contenant les questions recues en parametre
+     *
+     * \param $questions : objet PDO, correspond a une liste de question recuperee par un SELECT
+     */
     function create_dropdown($questions){
         echo'<div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
@@ -143,7 +183,11 @@
         
     }
 
-
+    /*!
+     * Creer les barres de progression pour chaque reponse de la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont on doit construire les barres
+     */
     function create_progress_bars($question){
         $reponses = get_reponses($question);
         $total = total_messages($question);
@@ -164,7 +208,11 @@
         
     }
 
-
+    /*!
+     * Creer le tableau repertoriant les messages recus pour la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont on doit afficher les messages
+     */
     function create_messages_table($question){
         $req = get_messages($question);
         
@@ -186,12 +234,20 @@
 
     }
 
-
+    /*!
+     * Renvoie le nombre de digits d'un entier
+     *
+     * \param $nb : int, nombre dont on doit compter les digits
+     */
     function count_digit($nb) {
         return strlen((string) $nb);
     }
 
-
+    /*!
+     * Analyse le message recu en parametre pour detecter les erreurs avant de l'inserer dans la base de donnees
+     *
+     * \param $message : array à 2 champs (num_tel, texte), message envoye par l'expediteur
+     */
     function sort_message($message){
         global $db;
         $num_tel = (string) $message['num_tel'];
@@ -205,7 +261,7 @@
         
         $operation = get_current_operation();
         $all_questions = get_questions($operation['ID']);
-        $current_questions = get_current_questions();
+        $current_question = get_current_question();
         $all_reponses = null;
         
         $question = null;
@@ -276,16 +332,25 @@
         }
     }
 
-
+    /*!
+     * Insere le message recu en parametre dans la base de donnees en effectuant les tests necessaires avant l'insertion
+     *
+     * \param $num_tel : string, numero de telephone de l'expediteur
+     * \param $texte : string, texte envoye par l'expediteur
+     * \param $erreur : bool, vaut 1 si le texte est invalide, 0 sinon
+     * \param $ID_reponse : int, identifiant de la reponse concernee
+     * \param $ID_question : int, identifiant de la question concernee
+     */
     function insert_message($num_tel, $texte, $erreur, $ID_reponse, $ID_question){
         global $db;
-        $current_question = get_current_questions();
+        $current_question = get_current_question();
         $reponse;
         $doublon;
         $retard;
         $valide;
+        $texte = htmlentities($texte);
         
-        if($current_question = $current_question->fetch(PDO::FETCH_ASSOC)){
+        if(isset($current_question['ID'])){
             $current_question = $current_question['ID'];
             $reponse = get_reponses($current_question);
             $reponse = $reponse->fetch(PDO::FETCH_ASSOC);
@@ -330,7 +395,16 @@
         }
     }
 
-
+    /*!
+     * Renvoie un bool valant 1 si le message existe deja dans la base et 0 sinon
+     *
+     * \param $num_tel : string, numero de telephone de l'expediteur
+     * \param $texte : string, texte envoye par l'expediteur
+     * \param $erreur : bool, vaut 1 si le texte est invalide, 0 sinon
+     * \param $retard : bool, vaut 1 si la question concernee est fermee, 0 sinon
+     * \param $ID_reponse : int, identifiant de la reponse concernee
+     * \param $ID_question : int, identifiant de la question concernee
+     */
     function check_doublon($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question){
         global $db;
         $req;
@@ -357,7 +431,11 @@
         return $doublon;
     }
 
-
+    /*!
+     * Renvoie un bool valant 1 si la question est fermee et 0 sinon
+     *
+     * \param $ID_question : int, identifiant de la question a verifier
+     */
     function check_retard($ID_question){
         global $db;
         $req;
@@ -378,7 +456,9 @@
         return $retard;
     }
 
-    
+    /*!
+     * Renvoie le tableau associatif correspondant à l'operation en cours
+     */    
     function get_current_operation(){
         global $db;
         try{
@@ -391,17 +471,99 @@
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
-
-    function get_current_questions(){
+    /*!
+     * Renvoie le tableau associatif correspondant à la question en cours
+     */
+    function get_current_question(){
         global $db;
         try{
-            $req=$db->prepare('SELECT * FROM questions WHERE fermee=0 ORDER BY num_question');
+            $req=$db->prepare('SELECT * FROM questions WHERE fermee=0');
             $req->execute();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
         }
-        return $req;
+        return $req->fetch(PDO::FETCH_ASSOC);
     }
-	
+
+    /*!
+     * Insere un message genere automatiquement dans la base de donnees
+     */
+    function message_bot(){
+        mt_srand();
+        if(isset($_GET['robot_actif']) && $_GET['robot_actif']==1){
+            $message = array();
+            $message['num_tel'] = gen_num_tel();
+            $message['texte'] = gen_texte(mt_rand(0,1));
+            sort_message($message);
+        }
+    }
+
+    /*!
+     * Renvoie un string correspondant à un numero de telephone francais
+     */
+    function gen_num_tel(){
+        $num_tel = '+33';
+        $taille = 8;
+        mt_srand();
+        
+        $num_tel .= (string) mt_rand(6,7);
+        
+        do{
+            $num_tel .= (string) mt_rand(0,9);
+        }while(--$taille>0);
+        
+        return $num_tel;
+    }
+
+    /*!
+     * Renvoie un string valide ou non par rapport à la question en cours
+     *
+     * \param $valide : bool, s'il vaut 1 le texte retour est valide, sinon il ne l'est pas
+     */
+    function gen_texte($valide){
+        $texte = "";
+        $current_question = get_current_question();
+        
+        if($valide && isset($current_question['ID']) && trim($current_question['ID'])!=""){
+            $texte = $current_question['num_question'];
+            $total_reponses = total_reponses($current_question['ID']);
+            $letters = get_lettres_reponses($current_question['ID']);
+            
+            if($current_question['multi_rep']){
+                $texte .= get_random_letters($letters, $total_reponses);
+            }
+            else{
+                $texte .= get_random_letters($letters);
+            }
+        }
+        else{
+            mt_srand();
+            $taille = mt_rand(1,4);
+            
+            for($i=0; $i<$taille; $i++){
+                $texte .= chr(mt_rand(32,126));
+            }
+        }
+        
+        return $texte;
+    }
+
+    /*!
+     * Renvoie un string composé de $nb lettres prises au hasard dans $letters
+     *
+     * \param $letters : array, contient les lettres possibles
+     * \param $nb : int, nombre de lettres a prendre
+     */
+    function get_random_letters($letters, $nb=1){
+        shuffle($letters);
+        
+        $r_letters = "";
+        
+        for ($i = 0; $i < $nb; $i++) {
+            $r_letters .= $letters[$i];
+        }
+        
+        return $r_letters;
+    }
 ?>

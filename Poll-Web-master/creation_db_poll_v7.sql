@@ -122,17 +122,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   UNIQUE KEY `UNIQUE_ID` (`ID`),
   KEY `FK_ID_question` (`ID_question`),
   KEY `FK_ID_reponse` (`ID_reponse`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Contenu de la table `messages`
---
-
-INSERT INTO `messages` (`ID`, `num_tel`, `texte`, `date_reception`, `valide`, `erreur`, `doublon`, `retard`, `ID_reponse`, `ID_question`) VALUES
-(1, '+33609692454', '1A', '2014-12-28 19:35:18', 1, 0, 0, 0, 2, 2),
-(2, '+33609692454', '1B', '2014-12-28 19:35:18', 1, 0, 0, 0, 3, 2),
-(3, '+33781439434', '1A', '2014-12-28 19:35:18', 1, 0, 0, 0, 2, 2),
-(4, '+33609692454', '1D', '2014-12-28 19:35:18', 1, 0, 0, 0, 6, 2);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Contraintes pour les tables exportées
