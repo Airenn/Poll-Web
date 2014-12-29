@@ -1,6 +1,6 @@
 <?php
     $_GET['operation'] = 2;
-    require_once('redirect.php');
+    require_once('php/redirect.php');
 
     $questions = get_questions($_GET['operation']);
 
@@ -19,14 +19,14 @@
     <head>
         <meta charset="utf-8"/>
         <title>Questions</title>
-        <link href="../../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../menu.css" rel="stylesheet">
+        <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../menu.css" rel="stylesheet">
     </head>
     
     <body>
         
         <?php 
-            require('../../menu.php'); 
+            require('../menu.php'); 
             gen_menu('questions');
         ?>
         
@@ -99,8 +99,8 @@
             </div>
         </div>
     
-        <script src="../../bootstrap/dist/js/jquery.min.js"></script>
-        <script src="../../bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../js/questions.js"></script>
+        <script src="../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/questions.js"></script>
     </body>
 </html>

@@ -13,7 +13,7 @@
     }
 
     if((!$operation && isset($_GET['operation'])) || (!$question && isset($_GET['question']))){
-        header('Location: operations.php');
+        header('Location: ../../Page accueil/php/accueil.php');
         exit();
     }
 ?>

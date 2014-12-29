@@ -7,17 +7,17 @@
 
         if($page == 'accueil'){
             $accueil = '"#" id="current"';
-            $questions = '"../../page_questions/php/questions.php"';
-            $parametre = '"../../page-parametre/page-parametre.php"';
+            $questions = '"../page_questions/questions.php"';
+            $parametre = '"../page_parametre/parametre.php"';
         }
         else if($page == 'questions'){
-            $accueil = '"../../Page accueil/php/accueil.php"';
+            $accueil = '"../page_accueil/accueil.php"';
             $questions = '"#" id="current"';
-            $parametre = '"../../page-parametre/page-parametre.php"';
+            $parametre = '"../page_parametre/parametre.php"';
         }
         else{
-            $accueil = '"../../Page accueil/php/accueil.php"';
-            $questions = '"../../page_questions/php/questions.php"';
+            $accueil = '"../page_accueil/accueil.php"';
+            $questions = '"../page_questions/questions.php"';
             $parametre = '"#" id="current"';
         }
         

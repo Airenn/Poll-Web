@@ -2,23 +2,23 @@
 <head>
     <meta charset="utf-8"/>
     <title>Poll</title>
-	<link rel="stylesheet" type="text/css" href="../css/accueil.css"/>
-    <link href="../../menu.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../page-parametre/css/page-parametre.css"/>
-    <link rel="stylesheet" href="../../page-parametre/css/bootstrap.css"/>
-    <link rel="stylesheet" href="../../page-parametre/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/accueil.css"/>
+    <link href="../menu.css" rel="stylesheet">
+    <link rel="stylesheet" href="../page_parametre/css/page-parametre.css"/>
+    <link rel="stylesheet" href="../page_parametre/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../page_parametre/css/bootstrap.min.css"/>
 
-    <script src="../../page-parametre/js/jquery.js"></script>
-    <script src="../../page-parametre/js/bootstrap.min.js"></script>
-    <script src="../../page-parametre/js/jquery.easing.min.js"></script>
-    <script src="../../page-parametre/js/classie.js"></script>
-    <script src="../../page-parametre/js/fonctions.js"></script>
+    <script src="../page_parametre/js/jquery.js"></script>
+    <script src="../page_parametre/js/bootstrap.min.js"></script>
+    <script src="../page_parametre/js/jquery.easing.min.js"></script>
+    <script src="../page_parametre/js/classie.js"></script>
+    <script src="../page_parametre/js/fonctions.js"></script>
 </head>
 
     <?php
-		require('connexion.php');
-		require('fonctions.php');
-        require('../../menu.php'); 
+		require('php/connexion.php');
+		require('php/fonctions.php');
+        require('../menu.php'); 
         gen_menu('accueil');
     ?>
         

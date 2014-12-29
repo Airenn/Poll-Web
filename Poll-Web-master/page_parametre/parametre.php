@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="css/page-parametre.css"/>
         <link rel="stylesheet" href="css/bootstrap.css"/>
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link href="../menu.css" rel="stylesheet">
 
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -20,6 +21,9 @@
         <?php
             session_start();
             require('php/fonctions.php');
+            require('../menu.php'); 
+            gen_menu('parametre');
+
         ?>
         <nav>
             <a class="lien-entete" href="#">Nom du QCM</a>
