@@ -54,6 +54,26 @@
     }
 
     /*!
+     * Renvoie le tableau associatif correspondant au numero de question et a l'operation recues en parametre
+     *
+     * \param $num_question : int, numero de la question que l'on veut recuperer
+     * \param $operation : int, identifiant de l'operation que l'on veut recuperer
+     */
+    function get_question_num($num_question, $operation){
+        global $db;
+        try{
+            $req=$db->prepare('SELECT * FROM questions WHERE num_question=:quest AND ID_operation=:op');
+            $req->bindvalue(':quest', $num_question);
+            $req->bindvalue(':op', $operation);
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /*!
      * Renvoie l'objet PDO correspondant aux reponses pour la question recue en parametre
      *
      * \param $question : int, identifiant de la question dont on doit recuperer les reponses
@@ -85,6 +105,22 @@
         }
         
         return $lettres;
+    }
+
+    /*!
+     * Renvoie l'array correspondant aux numeros des questions pour l'operation recue en parametre
+     *
+     * \param $operation : int, identifiant de l'operation dont on doit recuperer les numeros des questions
+     */
+    function get_num_questions($operation){
+        $nums = array();
+        $questions = get_questions($operation);
+        
+        while($quest = $questions->fetch(PDO::FETCH_ASSOC)){
+            $nums[] = $quest['num_question'];
+        }
+        
+        return $nums;
     }
 
     /*!
@@ -215,21 +251,34 @@
      */
     function create_messages_table($question){
         $req = get_messages($question);
+        $colonnes = array('Numéro de téléphone', 'Message', 'Date de réception');
         
-        if($messages = $req->fetch(PDO::FETCH_ASSOC)){
+        if($message = $req->fetch(PDO::FETCH_ASSOC)){
             echo '<thead><tr>';
-            foreach($messages as $key=>$info){
+            foreach($colonnes as $key){
                 echo '<th class="col-md-2">'.$key.'</th>';
             }
             echo '</tr></thead>';
 
             do{
-                echo '<tr>';
-                foreach($messages as $key=>$info){
-                    echo '<td class="col-md-2">'.$info.'</td>';
+                $classe = "success";
+                
+                if($message['erreur']){
+                    $classe = "danger";
                 }
+                else if($message['retard']){
+                    $classe = "warning";
+                }
+                else if($message['doublon']){
+                    $classe = "default";   
+                }
+                
+                echo '<tr class="'.$classe.'">';
+                echo '<td>'.$message['num_tel'].'</td>';
+                echo '<td>'.$message['texte'].'</td>';
+                echo '<td>'.$message['date_reception'].'</td>';
                 echo '</tr>';
-            }while($messages = $req->fetch(PDO::FETCH_ASSOC));
+            }while($message = $req->fetch(PDO::FETCH_ASSOC));
         }  
 
     }
@@ -525,17 +574,21 @@
         $texte = "";
         $current_question = get_current_question();
         
-        if($valide && isset($current_question['ID']) && trim($current_question['ID'])!=""){
+        if($valide){ 
+            if(!isset($current_question['ID']) || trim($current_question['ID'])==""){
+                $current_operation = get_current_operation();
+                $questions = get_num_questions($current_operation['ID']);
+                shuffle($questions);
+                $current_question = get_question_num($questions[0], $current_operation['ID']);
+            }
+            
             $texte = $current_question['num_question'];
             $total_reponses = total_reponses($current_question['ID']);
             $letters = get_lettres_reponses($current_question['ID']);
-            
-            if($current_question['multi_rep']){
-                $texte .= get_random_letters($letters, $total_reponses);
-            }
-            else{
-                $texte .= get_random_letters($letters);
-            }
+
+            ($current_question['multi_rep'])
+            ? $texte .= get_random_letters($letters, $total_reponses)
+            : $texte .= get_random_letters($letters);
         }
         else{
             mt_srand();
@@ -545,6 +598,8 @@
                 $texte .= chr(mt_rand(32,126));
             }
         }
+        
+        echo $texte.'<br/>'.$valide.'<br/>';
         
         return $texte;
     }

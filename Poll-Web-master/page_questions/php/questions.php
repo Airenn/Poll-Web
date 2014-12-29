@@ -53,7 +53,29 @@
         
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">Résultats</h3></div>
-            <div class="panel-body" id="ajax_panel">
+            <div class="panel-body">
+                
+                <div class="panel panel-default">
+                    <div class="panel-body" id="ajax_bar">
+                        
+                    </div>
+                </div>
+                
+                <div class="panel panel-default">
+                    <div class="panel-body" id="infos_messages">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-primary messages" id="all_messages">Tout</button>
+                            <button type="button" class="btn btn-success messages" id="valid_messages">Valide</button>
+                            <button type="button" class="btn btn-default messages" id="multi_messages">Doublon</button>
+                            <button type="button" class="btn btn-danger messages" id="wrong_messages">Erroné</button>
+                            <button type="button" class="btn btn-warning messages" id="late_messages">Hors-délai</button>
+                        </div>
+                        <br/><br/>
+                        <table id="ajax_table" class="table">
+                            
+                        </table>
+                    </div>
+                </div>
                 
             </div>
         </div>

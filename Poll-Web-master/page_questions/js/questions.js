@@ -1,7 +1,8 @@
 var $question_button = $('#btn-question'),
     $question_option = $('.question'),
     $messages = $('.messages'),
-    $ajax_panel = $('#ajax_panel'),
+    $ajax_bar = $('#ajax_bar'),
+    $ajax_table = $('#ajax_table'),
     $robot_masse = $('#robot_masse'),
     $robot_unitaire = $('#robot_unitaire');
 
@@ -14,15 +15,24 @@ $question_option.on('click', function () {
     );
     
     //Affichage des données de la question sélectionnée
-    $url_panel = '../ajax/ajax_panel.php?question='.concat($(this).val());
-    $.post($url_panel, function(data){
-                    $ajax_panel.html(data);
+    $url_bar = '../ajax/ajax_bar.php?question='.concat($(this).val());
+    $url_table = '../ajax/ajax_table.php?question='.concat($(this).val());
+    
+    $.post($url_bar, function(data){
+                    $ajax_bar.html(data);
+    });
+    $.post($url_table, function(data){
+                    $ajax_table.html(data);
     });
     
     //Définition du rafraîchissement automatique
-    $auto_refresh = setInterval(
+    $bar_refresh = setInterval(
     function(){
-        $ajax_panel.hide().load($url_panel).show();
+        $ajax_bar.hide().load($url_bar).show();
+    }, 1000);
+    $table_refresh = setInterval(
+    function(){
+        $ajax_table.hide().load($url_table).show();
     }, 1000);
 });
 
@@ -48,6 +58,7 @@ $robot_unitaire.on('click', function () {
     $url_unit_bot = $url_unit_bot.concat($('#num_tel').val());
     $url_unit_bot = $url_unit_bot.concat('&texte=');
     $url_unit_bot = $url_unit_bot.concat($('#texte').val());
+    
     
     $.post($url_unit_bot, function(data){ });
 });
