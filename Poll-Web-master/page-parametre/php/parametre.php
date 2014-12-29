@@ -17,16 +17,8 @@
 
 
             /**********************//**NUMERO-TELEPHONE**//***********************/
-            $tel = '#^(0|\+33) ?[6-7]([ -\.]?[0-9]{2}){4}$#';
-            
-            if(isset($_POST['tel']) and trim($_POST['tel']!="")){
-                if(preg_match($tel,$_POST['tel'])){
-                    $_SESSION['paragraphe']['tel']=$_POST['tel'];
-                }
-                else{
-                    $_SESSION['paragraphe']['tel']='06 xx xx xx xx';
-                }
-            }
+            $tel = '#^(0|\+33) ?[6-7]([ -\.]?[0-9]{2}){4}$#';            
+            isset($_POST['tel']) ? preg_match($tel,$_POST['tel']) ? $_SESSION['paragraphe']['tel']=$_POST['tel'] : "" : $_SESSION['paragraphe']['tel']='06 xx xx xx xx';
 
 
             /*************************//**ARRIERE-PLAN**//*************************/

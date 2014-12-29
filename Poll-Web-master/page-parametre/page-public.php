@@ -65,7 +65,7 @@
 
             <footer>
                 <p>
-                    Envoyez votre réponse (exemple: <strong>2A</strong>, ou <strong>2B</strong>) par SMS au <strong><?php echo $_SESSION['paragraphe']['tel'];?></strong><br/>
+                    Envoyez votre réponse (exemple: <strong>2A</strong>, ou <strong>2B</strong>) par SMS au <strong><?php echo $_SESSION['paragraphe']['tel']; ?></strong><br/>
                     Pour donner plusieurs réponses, envoyez par exemple <strong>2AB</strong>
                 </p>
             </footer>
