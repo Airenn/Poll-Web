@@ -17,14 +17,15 @@
             $message['num_tel'] = $_GET['num_tel'];
             $message['texte'] = $_GET['texte'];
             sort_message($message);
+            print_r($_GET);
             unset($_GET);
         }
     ?>
 
     <body>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <p>Numéro: <input type="text" name="num_tel"/></p>
-            <p>Réponse: <input type="text" name="texte"/></p>
+            <p><label>Numéro: </label><input type="text" name="num_tel"/></p>
+            <p><label>Réponse: </label><input type="text" name="texte"/></p>
             <input type="submit"/>
         </form>
     

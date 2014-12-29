@@ -212,7 +212,6 @@
         $reponses = null;
         
         $erreur = false;
-        $retard = true;
         $ID_reponse = null;
         $ID_question = null;
         $insertion = false;
@@ -235,19 +234,10 @@
                 $reponses = get_lettres_reponses($ID_question);
                 $nb_reponses = count($lettres_reponse);
 
-                while($quest = $current_questions->fetch(PDO::FETCH_ASSOC)){
-                    if($num_question == $quest['num_question']){
-                        $retard = false;
-                        break;
-                    }
-                }
-
                 if(($question['multi_rep']==1 && $nb_reponses>=1) || ($question['multi_rep']==0 && $nb_reponses==1)){
 
                     do{
-                        $valide = false;
                         $erreur = false;
-                        $doublon = false;
                         $lettre = current($lettres_reponse);
                         next($lettres_reponse);
 
@@ -264,7 +254,7 @@
                         }
 
                         $texte = (string) ($num_question.$lettre);
-                        insert_message($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question);
+                        insert_message($num_tel, $texte, $erreur, $ID_reponse, $ID_question);
                         $insertion = true;
 
                     }while((--$nb_reponses)!=0);
@@ -282,20 +272,23 @@
         }
                     
         if(!$insertion){
-            insert_message($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question);
+            insert_message($num_tel, $texte, $erreur, $ID_reponse, $ID_question);
         }
     }
 
 
-    function insert_message($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question){
+    function insert_message($num_tel, $texte, $erreur, $ID_reponse, $ID_question){
         global $db;
-        $valide = !($erreur || $doublon || $retard);
         $current_question = get_current_questions();
         $reponse;
+        $doublon;
+        $retard;
+        $valide;
         
         if($current_question = $current_question->fetch(PDO::FETCH_ASSOC)){
             $current_question = $current_question['ID'];
             $reponse = get_reponses($current_question);
+            $reponse = $reponse->fetch(PDO::FETCH_ASSOC);
             $reponse = $reponse['ID'];
         }
         else{
@@ -315,7 +308,9 @@
             }
         }
         
+        $retard = check_retard($ID_question);
         $doublon = check_doublon($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question);
+        $valide = !($erreur || $doublon || $retard);
         
         try{
             $req=$db->prepare('INSERT INTO messages(`num_tel`, `texte`, `valide`, `erreur`, `doublon`, `retard`, `ID_reponse`, `ID_question`) 
@@ -360,6 +355,27 @@
         : $doublon = false;
         
         return $doublon;
+    }
+
+
+    function check_retard($ID_question){
+        global $db;
+        $req;
+        $retard;
+        
+         try{
+            $req=$db->prepare('SELECT fermee FROM questions WHERE ID=:quest');
+            $req->bindvalue(':quest', $ID_question);
+            $req->execute();
+            $req = $req->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        
+        $retard = $req['fermee'];
+        
+        return $retard;
     }
 
     
