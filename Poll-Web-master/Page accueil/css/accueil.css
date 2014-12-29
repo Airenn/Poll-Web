@@ -33,41 +33,6 @@ ul {
 #tableau a:hover {
     text-decoration:underline;
 }
-#menu ul
-{
-    position : fixed;
-    right: 0px;
-    width : 130px;
-	list-style-type: none;
-	padding-left : 0px;
-	text-align : center;
-	border-radius : 10px 0 0 10px;
-}
-
-#menu ul li
-{
-	background: -moz-linear-gradient(-45deg, #1e5799 0%, #2989d8 100%, #207cca 100%, #7db9e8 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#1e5799), color-stop(100%,#2989d8), color-stop(100%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(-45deg, #1e5799 0%,#2989d8 100%,#207cca 100%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(-45deg, #1e5799 0%,#2989d8 100%,#207cca 100%,#7db9e8 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(-45deg, #1e5799 0%,#2989d8 100%,#207cca 100%,#7db9e8 100%); /* IE10+ */
-	background: linear-gradient(135deg, #1e5799 0%,#2989d8 100%,#207cca 100%,#7db9e8 100%); /* W3C */
-	margin-left : 0px;
-	height : 120px;
-    line-height:110px;
-	font-family : arial;
-	font-weight : bold;
-}
-
-#menu ul li a
-{
-	color : white;
-	text-decoration : none;
-}
-
-#menu ul li:hover{
-    background: #3366FF;
-}
 
 .panel.panel-default,#collapseOne{
     background: #e8edff  repeat-x;

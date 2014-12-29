@@ -96,12 +96,6 @@
                     </div>
                 </div>
                 
-                <div class="panel panel-default">
-                    <div class="panel-body" id="ajax_bot">
-                        
-                    </div>
-                </div>
-                
             </div>
         </div>
     
