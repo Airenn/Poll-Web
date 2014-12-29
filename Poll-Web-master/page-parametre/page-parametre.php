@@ -15,11 +15,11 @@
 </head>
         <title>Paramètre (Provisoire)</title>
     </head>
+
     <body>
         <?php
-            require('php/fonctions.php');
             session_start();
-
+            require('php/fonctions.php');
         ?>
         <nav>
             <a class="lien-entete" href="#">Nom du QCM</a>
@@ -41,15 +41,15 @@
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
                     <label class="btn btn-primary active">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess','#div-format');" checked/>Question
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_hide_and_seek('#div-mess','#div-phone','#div-format');" checked/> Question
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess','#div-format');"/> Réponses
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_hide_and_seek('#div-mess','#div-phone','#div-format');"/> Réponses
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess','#div-format');"/> Paragraphe
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_seek_and_seek('#div-mess','#div-format','#div-phone');"/> Paragraphe
                     </label>
-                   <label class="btn btn-primary">
+                    <label class="btn btn-primary">
                         <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess();"/> Nombre de messages
                     </label>
                 </div>
@@ -60,37 +60,26 @@
                     <label>Couleur de la police : <input type="color" name="color"/></label><br/>
                     <label>Taille de la police  : <input type="text" name="taille-police"/></label><br/>
                     <label>Choix de la police d'écriture :
-                    <select name="police" value="button-police">
-                        <option value="Arial">Arial</option>
-                        <option value="Arial Black">Arial Black</option>
-                        <option value="Comic Sans MS">Comic Sans MS</option>
-                        <option value="Courier New">Courier New</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Impact">Impact</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                        <option value="Trebuchet MS">Trebuchet MS</option>
-                        <option value="Verdana">Verdana</option>
-                    </select> </label><br/>
+                        <select name="police" value="button-police">
+                            <option value="Arial">Arial</option>
+                            <option value="Arial Black">Arial Black</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Impact">Impact</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Trebuchet MS">Trebuchet MS</option>
+                            <option value="Verdana">Verdana</option>
+                        </select>
+                    </label><br/>
+                </div>
+                <div id="div-phone" style="display:none;">
+                    <label>Numéro de téléphone : <input id="numtel" type="text" name="tel"/></label><br/>
                 </div>
                     <input type="submit" name="button" value="Sauvegarder"/>
             </form>
-            <?php
-                if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='question')
-                    text_format('question');
-                elseif(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='reponse')
-                    text_format('reponse');
-                elseif(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='nbmess')
-                    text_format('nbmess');
-                else
-                    text_format('paragraphe');
-
-                if(isset($_POST['checkbox'])){
-                    $_SESSION['nbmess']['checkbox']=$_POST['checkbox'];
-                }
-                else{
-                     $_SESSION['nbmess']['checkbox']="off";
-                }
-            ?>
+            
+            
             <div class="div-button-section">
             </div>
         </section>
@@ -121,44 +110,10 @@
                 </div>
                 <input type="submit" name="button" value="Sauvegarder"/>
             </form>
-            <?php
-                /*************************//**ARRIERE-PLAN**//*************************/
-                if(isset($_POST['radio-a-b']) and $_POST['radio-a-b']=='arriere-plan'){
-                    if(isset($_POST['radio-a']) and $_POST['radio-a']=="image"){
-                        $_SESSION['arriere-plan']['radio-a']="image";
-                        if ($_FILES['file']['error'] > 0)
-                            echo "Error: " . $_FILES['file']['error'] . "<br/>"; 
-                        else
-                        { 
-                            move_uploaded_file($_FILES["file"]["tmp_name"],"images/".$_FILES["file"]["name"]);
-                            $_SESSION['arriere-plan']['file']="images/".$_FILES["file"]["name"];
-                        }
-                    }
-                    elseif(isset($_POST['radio-a']) and $_POST['radio-a']=="color"){
-                        $_SESSION['arriere-plan']['radio-a']="color";
-                        if(isset($_POST['arriere-plan-color'])){
-                            $_SESSION['arriere-plan']['color']=$_POST['arriere-plan-color'];
-                        }
-                    }
-                }
-                /*************************//**ARRIERE-PLAN**//*************************/
-                /**********************//**BARRE-PROGRESSIVE**//***********************/
-                if(isset($_POST['radio-a-b']) and $_POST['radio-a-b']=='barre-progressive'){
-                    if(isset($_POST['hors-delai'])){
-                         $_SESSION['barre-progressive']['hors-delai']=$_POST['hors-delai'];
-                    }
-                    else{
-                        $_SESSION['barre-progressive']['hors-delai']="off";
-                    }
-                    if(isset($_POST['bar-color'])){
-                        $_SESSION['barre-progressive']['color']=$_POST['bar-color'];
-                    }
-                    if(isset($_POST['offline-color'])){
-                        $_SESSION['barre-progressive']['offline-color']=$_POST['offline-color'];
-                    }
-                }
-        
-            ?>
         </section>
+        
+        <?php
+            require('php/parametre.php');
+        ?>
     </body>
 </html>

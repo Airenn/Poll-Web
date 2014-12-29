@@ -42,6 +42,7 @@ html, body
 header
 {
     width : 98%;
+    margin-top : 1%;
     margin-left : auto;
     margin-right : auto;
 }
@@ -57,19 +58,20 @@ header
 
 #nbmsg
 {
-    margin-top : 1em;
+<?php 
+    if(isset($_SESSION['nbmess']['checkbox']) and trim($_SESSION['nbmess']['checkbox'])=="")
+             echo 'display : none;';
+    else{
+        text_format('nbmess');
+?>
     padding : .5em;
     padding-bottom : .3em;
     border : solid black 1px;
     border-radius : 5px;
     float : right;
-
-    <?php 
-    if(isset($_SESSION['nbmess']['checkbox']) and $_SESSION['nbmess']['checkbox']=="on")
-        text_format_css('nbmess');
-    else 
-        echo 'display : none;';
-    ?>
+ <?php
+    }
+?>
 }
 
 #nbmsg #nbrecus

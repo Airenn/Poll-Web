@@ -56,7 +56,7 @@
                             if(isset($_SESSION['barre-progressive']['hors-delai']) and $_SESSION['barre-progressive']['hors-delai']=="on"){
                                 echo "<div class='progress-bar progress-bar-warning progress-bar-striped active' style='width: 20%'>
                                     <span class='sr-only'>20% Complete (warning)</span></div>";
-                            } 
+                            }
                         ?>
                     </div>
                 </p>
@@ -65,7 +65,7 @@
 
             <footer>
                 <p>
-                    Envoyez votre réponse (exemple: <strong>2A</strong>, ou <strong>2B</strong>) par SMS au <strong>06 xx xx xx xx</strong><br/>
+                    Envoyez votre réponse (exemple: <strong>2A</strong>, ou <strong>2B</strong>) par SMS au <strong><?php echo $_SESSION['paragraphe']['tel'];?></strong><br/>
                     Pour donner plusieurs réponses, envoyez par exemple <strong>2AB</strong>
                 </p>
             </footer>
