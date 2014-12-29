@@ -8,28 +8,17 @@ ul {
 }
 #tableau {
     font-size: 12px;
-    margin: 10px 0;
-    width: 50%;
     border: center;
     text-align: center;
     border-collapse: collapse;
 }
-#tableau th {
-    font-size: 13px;
-    font-weight: normal;
-    padding: 8px;
-    background: #b9c9fe repeat-x;
-    border-top: 2px solid #d3ddff;
-    border-bottom: 1px solid #fff;
-    color: #039;
-}
 
 #tableau td {
-    padding: 8px;
     border-bottom: 1px solid #fff;
     color: #669;
     border-top: 1px solid #fff;
     background: #e8edff  repeat-x;
+    width: 1000px;
 }
 #tableau tfoot tr td {
     background: #e8edff;
@@ -44,15 +33,14 @@ ul {
 #tableau a:hover {
     text-decoration:underline;
 }
-
 #menu ul
 {
-	width : 120px;
-	float : right;
+    position : fixed;
+    right: 0px;
+    width : 130px;
 	list-style-type: none;
 	padding-left : 0px;
 	text-align : center;
-	margin : 0px;
 	border-radius : 10px 0 0 10px;
 }
 
@@ -66,12 +54,25 @@ ul {
 	background: linear-gradient(135deg, #1e5799 0%,#2989d8 100%,#207cca 100%,#7db9e8 100%); /* W3C */
 	margin-left : 0px;
 	height : 120px;
+    line-height:110px;
 	font-family : arial;
 	font-weight : bold;
 }
 
 #menu ul li a
 {
-	color : white:
+	color : white;
 	text-decoration : none;
+}
+
+#menu ul li:hover{
+    background: #3366FF;
+}
+
+.panel.panel-default,#collapseOne{
+    background: #e8edff  repeat-x;
+}
+.panel-group{
+    margin: auto;
+    width: 1000px;
 }

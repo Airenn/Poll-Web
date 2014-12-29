@@ -1,12 +1,10 @@
 <?php
-
-	
       function AfficheQuestionnaires()
  {
          global $db;
   $req = $db->prepare("SELECT * FROM operations");
   $req->execute();
-  echo '<table id="tableau" >';
+  echo '<table id="tableau" class="table table-striped table-hover >';
   while($val = $req->fetch(PDO::FETCH_ASSOC))
   {
    echo'
@@ -14,10 +12,10 @@
     <td class="titre">'.$val['ID'].'</td>
     <td>'.$val['nom'].'</td> 
     <td class="option">
-    <img class="show" src="../images/afficher.png" alt="" /><img class="edit" src="../images/editer.png" alt="" />
-    <img class="close" src="../images/cloturer.png" alt="" /><img class="export" src="../images/exporter.png" alt="" />
-    <img class="clone" src="../images/dupliquer.png" alt="" /><img class="delete" src="../images/supprimer.png" alt="" />
-   <tr>
+    <img src="../images/afficher.png" alt="" /><img class="edit" src="../images/editer.png" alt="" />
+    <img src="../images/cloturer.png" alt="" /><img class="export" src="../images/exporter.png" alt="" />
+    <img src="../images/dupliquer.png" alt="" /><img class="delete" src="../images/supprimer.png" alt="" />
+   </td></tr><tr>
    <td>Nombre de questions : '.total_questions($val['ID']).'</td><td>Date de realistation prevu : '.$val['date_prevue'].'</td><td>Date de realistation prevu : '.$val['date_prevue'].'</td>
    </tr>';        
   }
