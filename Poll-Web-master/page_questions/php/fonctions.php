@@ -606,8 +606,6 @@
             }
         }
         
-        echo $texte.'<br/>'.$valide.'<br/>';
-        
         return $texte;
     }
 

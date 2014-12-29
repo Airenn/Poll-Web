@@ -57,7 +57,9 @@ $robot_masse.on('click', function () {
     
     $bot_refresh = setInterval(
     function(){
-        $.post($url_multi_bot, function(data){ });
+        $.post($url_multi_bot, function(data){
+            $('#ajax_bot').hide().load($url_multi_bot).show()
+        });
     }, 1000);
     
 });
