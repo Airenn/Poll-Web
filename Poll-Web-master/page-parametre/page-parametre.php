@@ -41,13 +41,13 @@
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
                     <label class="btn btn-primary active">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_hide_and_seek('#div-mess','#div-phone','#div-format');" checked/> Question
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone','#div-format');" checked/> Question
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_hide_and_seek('#div-mess','#div-phone','#div-format');"/> Réponses
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess,#div-phone','#div-format');"/> Réponses
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_seek_and_seek('#div-mess','#div-format','#div-phone');"/> Paragraphe
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess','#div-format,#div-phone');"/> Paragraphe
                     </label>
                     <label class="btn btn-primary">
                         <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess();"/> Nombre de messages

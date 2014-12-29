@@ -4,15 +4,8 @@ function show_div_mess(){
     $('nbmessages').change(hide_checkbox('#nbmessages','#div-format'));
 }
 
-function hide_hide_and_seek(hide,hide2,seek){
+function hide_and_seek(hide,seek){
     $(seek).css('display','inline');
-    $(hide).css('display','none');
-    $(hide2).css('display','none');
-}
-
-function hide_seek_and_seek(hide,seek,seek2){
-    $(seek).css('display','inline');
-    $(seek2).css('display', 'inline');
     $(hide).css('display','none');
 }
 
