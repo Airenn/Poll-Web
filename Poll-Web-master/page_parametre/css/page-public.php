@@ -29,7 +29,7 @@ html, body
     <?php
         if(isset($_SESSION['arriere-plan']['radio-a']) and isset($_SESSION['arriere-plan']['color']) ){         
             if($_SESSION['arriere-plan']['radio-a']=="color"){
-                echo 'background-color:'.$_SESSION['arriere-plan']['color'].';'; 
+                echo 'background:'.$_SESSION['arriere-plan']['color'].';'; 
             }
         }
     ?>

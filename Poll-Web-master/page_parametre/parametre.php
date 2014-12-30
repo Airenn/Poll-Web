@@ -22,28 +22,17 @@
             session_start();
             require('php/fonctions.php');
             require('../menu.php'); 
-            gen_menu('parametre');
-
         ?>
         <nav>
-            <a class="lien-entete" href="#">Nom du QCM</a>
-            <ul>
-                <li class="liste-entete">
-                    <a class="lien-entete" href="page-public.php" target="_blank">Afficher la page public</a>
-                </li>
-                <li class="liste-entete">
-                    <a class="lien-entete" href="#arriere-plan">Arrière-Plan</a>
-                </li>
-                <li class="liste-entete">
-                    <a class="lien-entete" href="#couleur">Formatage de texte</a>
-                </li>
-            </ul>
+        <?php
+            gen_menu('parametre');
+        ?>
         </nav>
         <section class="pair" id="couleur">
             <h1>Formatage de texte</h1>
             <form method="post">
                 
-                <div class="btn-group-justified" role="group" data-toggle="buttons">
+                <div class="btn-group-justified" role="group" data-toggle="buttons" style="">
                     <label class="btn btn-primary active">
                         <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone','#div-format');" checked/> Question
                     </label>
@@ -102,7 +91,7 @@
                     <p> Type d'arrière plan : 
                         <label> Couleur :    <input type="radio" name="radio-a" value="color" onchange="hide_and_seek('#background-image','#background-color');" checked/>     </label>
                         <label> Image :      <input type="radio" name="radio-a" value="image" onchange="hide_and_seek('#background-color','#background-image');"/>     </label><br/>
-                        <label id="background-color">Couleur de l'arrière-plan :    <input type="color" name="color"/>    </label>
+                        <label id="background-color">Couleur de l'arrière-plan :    <input type="color" name="arriere-plan-color"/>    </label>
                         <label id="background-image" style="display:none;">Image de l'arrière-plan : <input type="file" name="file" ng-disabled="disabled" accept="image/x-png, image/gif, image/jpeg"/>
                     </label>
                     </p>

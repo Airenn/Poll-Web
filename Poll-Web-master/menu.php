@@ -4,6 +4,7 @@
         $accueil = "";
         $questions = "";
         $parametre = "";
+        $plus="";
 
         if($page == 'accueil'){
             $accueil = '"#" id="current"';
@@ -19,11 +20,23 @@
             $accueil = '"../page_accueil/accueil.php"';
             $questions = '"../page_questions/questions.php"';
             $parametre = '"#" id="current"';
+            $plus='<ul>
+                <li class="liste-entete">
+                    <a class="lien-entete" href="page-public.php" target="_blank">Afficher la page public</a>
+                </li>
+                <li class="liste-entete">
+                    <a class="lien-entete" href="#arriere-plan">Arrière-Plan</a>
+                </li>
+                <li class="liste-entete">
+                    <a class="lien-entete" href="#couleur">Formatage de texte</a>
+                </li></ul>
+            ';
         }
         
         echo'
             <div id="title_logo">
                 <img src="../poll.png" width="10%" height="10%" id="logo"/>
+                '.$plus.'
             </div>
             <div id="menu">
                 <ul>

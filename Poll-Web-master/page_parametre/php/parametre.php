@@ -22,6 +22,8 @@
 
 
             /*************************//**ARRIERE-PLAN**//*************************/
+            unset($_SESSION['arriere-plan']['color']);
+            unset($_SESSION['arriere-plan']['file']);
             if(isset($_POST['radio-a-b']) and $_POST['radio-a-b']=='arriere-plan'){
                 if(isset($_POST['radio-a']) and $_POST['radio-a']=="image"){
                     $_SESSION['arriere-plan']['radio-a']="image";
@@ -57,4 +59,6 @@
                     $_SESSION['barre-progressive']['offline-color']=$_POST['offline-color'];
                 }
             }
+
+?>
             

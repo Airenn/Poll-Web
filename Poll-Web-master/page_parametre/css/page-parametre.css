@@ -1,43 +1,4 @@
 /*****************************************
-BALISE NAV
-*****************************************/
-nav{
-    top : 0;
-    background-color: grey;
-    position : fixed ;
-    left: 0;
-    right : 0;
-    padding : 1em 0em 1em 0em;
-    -moz-box-shadow: 3px 5px 5px 0px #656565;
-    -webkit-box-shadow: 3px 5px 5px 0px #656565;
-    -o-box-shadow: 3px 5px 5px 0px #656565;
-    box-shadow: 3px 5px 5px 0px #656565;
-    -webkit-border-radius: 0px 0px 5px 5px;
-    -moz-border-radius: 0px 0px 5px 5px;
-    border-radius: 0px 0px 5px 5px;
-}
-
-nav ul{
-    list-style-type: none;
-    display: inline;
-}
-
-.liste-entete{
-    float: right ;
-}
-
-.lien-entete{
-    text-decoration: none;
-    color : white;
-    margin: 0em 2em 0em 2em ;
-}
-
-.lien-entete:hover{
-    color : #989898 ;
-}
-
-
-/*****************************************
 BALISE SECTION
 *****************************************/
 section{
@@ -61,41 +22,39 @@ section h1 {
 .button-section{
     margin: 0em 12em 0em 12em;
 }
-=======
+
 /*****************************************
             BALISE NAV
 *****************************************/
 nav{
-    top : 0;
-    background-color: grey;
     position : fixed ;
-    left: 0;
-    right : 0;
-    padding : 1em 0em 1em 0em;
-    -moz-box-shadow: 3px 5px 5px 0px #656565;
-    -webkit-box-shadow: 3px 5px 5px 0px #656565;
-    -o-box-shadow: 3px 5px 5px 0px #656565;
-    box-shadow: 3px 5px 5px 0px #656565;
-    -webkit-border-radius: 0px 0px 5px 5px;
-    -moz-border-radius: 0px 0px 5px 5px;
-    border-radius: 0px 0px 5px 5px;
+
 }
 nav ul{
     list-style-type: none;
     display: inline;
+    text-align : center;
+    width : 130px;
+    border-radius :  10px;
 }
 .liste-entete{
-         float: right ;
+    float: right ;
+    margin-right: 20px;
+    line-height:110px;
+	font-family : arial;
+	font-weight : bold;
 }
 .lien-entete{
-    text-decoration: none;
     color : white;
-    margin: 0em 2em 0em 2em ;
+    padding : 2em; 
 }
 .lien-entete:hover{
-    color : #989898 ;
-    
+    color : white;
+    background: #3366FF;
+    text-decoration: none;
 }
+
+
 /*****************************************
             BALISE SECTION
 *****************************************/
@@ -113,8 +72,10 @@ section h1 {
     text-align: center;
     font-size : 50px;
     color : white;
+    margin-top : 10%;
 }
 
-.button-section{
-    margin: 0em 12em 0em 12em;
+div[role=group] {
+    width:1000px;
+    margin :auto;
 }
