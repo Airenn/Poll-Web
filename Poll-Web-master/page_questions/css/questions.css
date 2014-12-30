@@ -51,7 +51,27 @@
     float : right;
 }
 
-#pagination_numero
+#ajax_pagination
 {
     text-align: center;
+}
+
+.valide_message
+{
+    background-color: #CEF6D8;
+}
+
+.erreur_message
+{
+    background-color: #F6CECE;
+}
+
+.doublon_message
+{
+    background-color: #CED8F6;
+}
+
+.retard_message
+{
+    background-color: #F5F6CE;
 }

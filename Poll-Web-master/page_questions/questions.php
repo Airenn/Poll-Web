@@ -80,14 +80,14 @@
                             <div class="panel panel-default" id="panel_table">
                                 <div class="panel-body">
                                     <div class="btn-group" role="group" aria-label="...">
-                                        <button type="button" class="btn btn-primary messages_categ" id="Tout">Tout</button>
+                                        <button type="button" class="btn btn-default messages_categ" id="Tout">Tout</button>
                                         <button type="button" class="btn btn-success messages_categ" id="Valide">Valide</button>
-                                        <button type="button" class="btn btn-default messages_categ" id="Doublon">Doublon</button>
+                                        <button type="button" class="btn btn-primary messages_categ" id="Doublon">Doublon</button>
                                         <button type="button" class="btn btn-danger messages_categ" id="Erreur">Erreur</button>
                                         <button type="button" class="btn btn-warning messages_categ" id="Retard">Retard</button>
                                     </div>
                                     <br/><br/>
-                                    <table class="table table-hover">
+                                    <table class="table">
                                         <thead>
                                             <tr>
                                                 <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Numéro de téléphone</button></th>
@@ -99,16 +99,8 @@
 
                                         </tbody>
                                     </table>
-                                    <div id="pagination_numero">
-                                        <button type="button" class="btn btn-default pagination_message" id="previous_page">
-                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                        </button>
-                                        <button class="btn" type="button" id="badge_num_page">
-                                            Page <span class="badge" id="num_page"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-default pagination_message" id="next_page">
-                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                        </button>
+                                    <div id="ajax_pagination">
+                                        
                                     </div>
                                 </div>
                             </div>

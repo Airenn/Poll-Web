@@ -1,10 +1,9 @@
 //------------------------------------------------------- Execution -------------------------------------------------------
 
 var $question_button, $question_option, $robot_masse, $suppression_question,
-    $robot_unitaire, $num_tel, $texte, $resultats, $ajax_bar, $ajax_table, $messages_categ,
-    $tri_button, $pagination, $previous_page, $num_page, $next_page,
-    $bot_refresh, $bar_refresh, $table_refresh,
-    bot_actif, question_courante, categorie_courante, tri_courant, page_courante;
+    $robot_unitaire, $num_tel, $texte, $resultats, $ajax_bar, $ajax_table, $ajax_pagination, $messages_categ, $tri_button,
+    $bot_refresh, $bar_refresh, $table_refresh, $pagination_refresh,
+    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats;
 
 init_page();
 
@@ -46,6 +45,7 @@ $messages_categ.on('click', function () {
     categorie_courante = $(this).text();
     page_courante = 0;
     update_table();
+    update_pagination();
 });
 
 $tri_button.on('click', function () {
@@ -56,28 +56,11 @@ $tri_button.on('click', function () {
     update_table();
 });
 
-$previous_page.on('click', function () {
-    page_courante = page_courante-1;
-    if(page_courante == 0){
-        document.getElementById("previous_page").setAttribute("disabled", "disabled");
-    }
-});
-
-$next_page.on('click', function () {
-    page_courante = page_courante+1;
-    document.getElementById("previous_page").removeAttribute("disabled");
-});
-
-$pagination.on('click', function () {
-    update_table();
-});
-
 
 //------------------------------------------------------- Fonctions -------------------------------------------------------
 
 function init_page(){
     init_var();
-    update_badge_page_courante();
     update_suppr_button();
 }
 
@@ -89,14 +72,11 @@ function init_var(){
     $resultats = $('#panel_resultats');
     $ajax_bar = $('#ajax_bar');
     $ajax_table = $('#ajax_table');
+    $ajax_pagination = $('#ajax_pagination');
     $robot_masse = $('#robot_masse');
     $robot_unitaire = $('#robot_unitaire');
     $tri_button = $('#btn_reception');
     $suppression_question = $('#suppression_question');
-    $previous_page = $('#previous_page');
-    $next_page = $('#next_page');
-    $pagination = $('.pagination_message');
-    $num_page = $('#num_page');
     $num_tel = $('#num_tel');
     $texte = $('#texte');
     
@@ -104,21 +84,15 @@ function init_var(){
     $bot_refresh = "";
     $bar_refresh = "";
     $table_refresh = "";
+    $pagination_refresh = "";
     
     //Variables classiques
     bot_actif = 0;
     question_courante = "";
     categorie_courante = "Tout";
     tri_courant = "DESC";
-    page_courante = 0;   
-}
-
-function update_badge_page_courante(){
-    (page_courante == 0)
-    ? document.getElementById("previous_page").setAttribute("disabled", "disabled")
-    : document.getElementById("previous_page").removeAttribute("disabled");
-    
-    $num_page.html(page_courante+1);
+    page_courante = 0;
+    nb_resultats = 6;
 }
 
 function update_suppr_button(){
@@ -135,13 +109,14 @@ function update_question_button(text){
 }
 
 function activer_affichage(){
-    update_badge_page_courante();
     $resultats.css("visibility", "visible");
     update_suppr_button();
     update_bar();
     update_table();
+    update_pagination();
     refresh_bar();
     refresh_table();
+    refresh_pagination();
 }
 
 function update_bar(){
@@ -167,7 +142,6 @@ function get_url_bar(){
 }
 
 function update_table(){
-    update_badge_page_courante();
     $.post(get_url_table(), function(data){
         $ajax_table.html(data);
     }); 
@@ -196,6 +170,37 @@ function get_url_table(){
         url_table = url_table.concat(page_courante);
     
     return url_table;
+}
+
+function update_pagination(){
+    $.post(get_url_pagination(), function(data){
+        $ajax_pagination.html(data);
+    }); 
+}
+
+function refresh_pagination(){
+    try {
+        clearInterval($pagination_refresh);
+    }
+    finally{
+        $pagination_refresh = setInterval(
+        function(){
+            update_pagination();
+        }, 1000);
+    }
+}
+
+function get_url_pagination(){
+     var url_pagination = 'ajax/ajax_pagination.php?question=';
+        url_pagination = url_pagination.concat(question_courante);
+        url_pagination = url_pagination.concat('&page=');
+        url_pagination = url_pagination.concat(page_courante);
+        url_pagination = url_pagination.concat('&nb=');
+        url_pagination = url_pagination.concat(nb_resultats);
+        url_pagination = url_pagination.concat('&categorie=');
+        url_pagination = url_pagination.concat(categorie_courante);
+    
+    return url_pagination;
 }
 
 function launch_multi_bot(){
@@ -238,5 +243,17 @@ function suppr(){
         url_suppr = url_suppr.concat(question_courante);
     
     $.post(url_suppr, function(data){ });
+    page_courante = 0;
 }
 
+function previous_page(){
+    page_courante -= 1;
+    update_table();
+    update_pagination();
+}
+
+function next_page(){
+    page_courante += 1;
+    update_table();
+    update_pagination();
+}

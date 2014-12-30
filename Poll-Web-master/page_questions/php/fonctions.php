@@ -181,15 +181,82 @@
     }
 
     /*!
+     * Renvoie le nombre de messages errones recus pour la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question
+     */
+    function nb_erreur_quest($question){
+        global $db;
+        try{
+            $req=$db->prepare('SELECT count(*) as nb FROM messages WHERE ID_question=:question AND erreur=1');
+            $req->bindvalue(':question', $question);
+            $req->execute();
+            $total = $req->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        return $total['nb'];
+    }
+
+    /*!
      * Renvoie le nombre de messages recus pour la reponse recue en parametre
      *
      * \param $reponse : int, identifiant de la reponse dont on doit compter les messages
      */
-    function nb_messages_rep($reponse){
+    function nb_messages_rep($reponse, $categorie){
         global $db;
+        $req = 'SELECT count(*) as nb FROM messages WHERE ID_reponse=:reponse';
+        
+        if($categorie=='Valide'){
+            $req .= ' AND valide=1';
+        }
+        else if($categorie=='Doublon'){
+            $req .= ' AND doublon=1';
+        }
+        else if($categorie=='Retard'){
+            $req .= ' AND retard=1';
+        }
+        
+        $req .= ' AND erreur=0';
+        
         try{
-            $req=$db->prepare('SELECT count(*) as nb FROM messages WHERE ID_reponse=:reponse');
+            $req=$db->prepare($req);
             $req->bindvalue(':reponse', $reponse);
+            $req->execute();
+            $total = $req->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        return $total['nb'];
+    }
+
+    /*!
+     * Renvoie le nombre de messages recus pour la reponse recue en parametre
+     *
+     * \param $reponse : int, identifiant de la reponse dont on doit compter les messages
+     */
+    function nb_messages_quest($question, $categorie){
+        global $db;
+        $req = 'SELECT count(*) as nb FROM messages WHERE ID_question=:quest';
+        
+        if($categorie=='Valide'){
+            $req .= ' AND valide=1';
+        }
+        else if($categorie=='Erreur'){
+            $req .= ' AND erreur=1';
+        }
+        else if($categorie=='Doublon'){
+            $req .= ' AND doublon=1';
+        }
+        else if($categorie=='Retard'){
+            $req .= ' AND retard=1';
+        }
+        
+        try{
+            $req=$db->prepare($req);
+            $req->bindvalue(':quest', $question);
             $req->execute();
             $total = $req->fetch(PDO::FETCH_ASSOC);
         }
@@ -220,21 +287,36 @@
     function create_progress_bars($question){
         $reponses = get_reponses($question);
         $total = total_messages($question);
+        $categories = array("success"=>"Valide", "default"=>"Doublon", "warning"=>"Retard");
         $pourcentage;
         
         while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
-            ($total>0) 
-            ? $pourcentage = 100*(nb_messages_rep($rep['ID'])/$total)
-            : $pourcentage = 0;
-        
-            echo
-                '<p>'.$rep['texte'].'</p><div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'.$pourcentage.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$pourcentage.'%" id="'.$rep['ID'].'">
+            echo '<p>'.$rep['texte'].'</p><div class="progress">';
+            
+            foreach($categories as $key=>$categ){
+                ($total>0) 
+                ? $pourcentage = 100*(nb_messages_rep($rep['ID'], $categ)/$total)
+                : $pourcentage = 0;
+
+                echo
+                    '<div class="progress-bar progress-bar-'.$key.' progress-bar-striped" style="width: '.$pourcentage.'%">
                         <span class="sr-only">'.$pourcentage.'% Complete</span>
-                    </div>
-                </div>';
+                    </div>';
+            }
+            
+            echo '</div>';
         }
         
+        ($total>0)
+        ? $pourcentage = 100*(nb_erreur_quest($question)/$total)
+        : $pourcentage = 0;
+        
+        echo'<p>Erreurs</p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: '.$pourcentage.'%">
+                    <span class="sr-only">'.$pourcentage.'% Complete</span>
+                </div>
+            </div>';
     }
 
     /*!
@@ -247,16 +329,16 @@
         
         if($message = $req->fetch(PDO::FETCH_ASSOC)){
             do{
-                $classe = "success";
+                $classe = "valide_message";
                 
                 if($message['erreur']){
-                    $classe = "danger";
+                    $classe = "erreur_message";
                 }
                 else if($message['retard']){
-                    $classe = "warning";
+                    $classe = "retard_message";
                 }
                 else if($message['doublon']){
-                    $classe = "default";   
+                    $classe = "doublon_message";   
                 }
                 
                 echo '<tr class="'.$classe.'">';
@@ -658,5 +740,37 @@
         }
         
         return $req;
+    }
+
+    /*!
+     * Cree le systeme de pagination du tableau
+     *
+     * \param $question : int, identifiant de la question
+     * \param $nb : int, nombre de resultats a renvoyer
+     * \param $page : int, numero de la page
+     */
+    function create_pagination($question, $nb, $page=0, $categorie='Tout'){
+        $total = nb_messages_quest($question, $categorie);
+        $previous = "";
+        $next = "";
+        
+        if(($nb*($page+1)) >= $total){
+            $next = "disabled";
+        }
+        if($page==0){
+            $previous = "disabled";
+        }
+        
+        echo'
+            <button type="button" '.$previous.' onclick="previous_page()" class="btn btn-default pagination_message" id="previous_page">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            </button>
+            <button class="btn" type="button" id="badge_num_page">
+                Page <span class="badge" id="num_page">'.($page+1).'</span>
+            </button>
+            <button type="button" '.$next.' onclick="next_page()" class="btn btn-default pagination_message" id="next_page">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </button> 
+        ';  
     }
 ?>
