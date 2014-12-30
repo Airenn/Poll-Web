@@ -1,11 +1,10 @@
 //------------------------------------------------------- Execution -------------------------------------------------------
 
 var $question_button, $question_option, $robot_masse, $suppression_question,
-    $robot_unitaire, $resultats, $ajax_bar, $ajax_table, $messages_categ,
+    $robot_unitaire, $num_tel, $texte, $resultats, $ajax_bar, $ajax_table, $messages_categ,
     $tri_button, $pagination, $previous_page, $num_page, $next_page,
     $bot_refresh, $bar_refresh, $table_refresh,
     bot_actif, question_courante, categorie_courante, tri_courant, page_courante;
-
 
 init_page();
 
@@ -40,12 +39,7 @@ $suppression_question.on('click', function () {
 });
 
 $robot_unitaire.on('click', function () {
-    var url_unit_bot = 'ajax/ajax_unit_bot.php?num_tel=';
-        url_unit_bot = url_unit_bot.concat($('#num_tel').val());
-        url_unit_bot = url_unit_bot.concat('&texte=');
-        url_unit_bot = url_unit_bot.concat($('#texte').val());
-    
-    use_unit_bot(url_unit_bot)
+    use_unit_bot();
 });
 
 $messages_categ.on('click', function () {
@@ -103,8 +97,10 @@ function init_var(){
     $next_page = $('#next_page');
     $pagination = $('.pagination_message');
     $num_page = $('#num_page');
+    $num_tel = $('#num_tel');
+    $texte = $('#texte');
     
-    //Variables refresh
+    //Variables interval
     $bot_refresh = "";
     $bar_refresh = "";
     $table_refresh = "";
@@ -223,7 +219,18 @@ function get_url_multi_bot(){
 }
 
 function use_unit_bot(url_unit_bot){
-    $.post(url_unit_bot, function(data){ });
+    $.post(get_url_unit_bot(), function(data){ });
+    document.getElementById('num_tel').value = '';
+    document.getElementById('texte').value = '';
+}
+
+function get_url_unit_bot(){
+    var url_unit_bot = 'ajax/ajax_unit_bot.php?num_tel=';
+        url_unit_bot = url_unit_bot.concat($num_tel.val());
+        url_unit_bot = url_unit_bot.concat('&texte=');
+        url_unit_bot = url_unit_bot.concat($texte.val());
+    
+    return url_unit_bot;
 }
 
 function suppr(){
