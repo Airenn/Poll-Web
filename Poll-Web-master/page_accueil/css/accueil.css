@@ -11,6 +11,7 @@ ul {
     border: center;
     text-align: center;
     border-collapse: collapse;
+    width: 70%;
 }
 
 #tableau td {

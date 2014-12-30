@@ -3,22 +3,22 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>Poll</title>
-		<link rel="stylesheet" type="text/css" href="../css/accueil.css"/>
-		<link rel="stylesheet" href="../../page-parametre/css/page-parametre.css"/>
-		<link rel="stylesheet" href="../../page-parametre/css/bootstrap.css"/>
-		<link rel="stylesheet" href="../../page-parametre/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/accueil.css"/>
+		<link rel="stylesheet" href="../page_parametre/css/page-parametre.css"/>
+		<link rel="stylesheet" href="../page_parametre/css/bootstrap.css"/>
+		<link rel="stylesheet" href="../page_parametre/css/bootstrap.min.css"/>
 
-		<script src="../../page-parametre/js/jquery.js"></script>
-		<script src="../../page-parametre/js/bootstrap.min.js"></script>
-		<script src="../../page-parametre/js/jquery.easing.min.js"></script>
-		<script src="../../page-parametre/js/classie.js"></script>
-		<script src="../../page-parametre/js/fonctions.js"></script>
+		<script src="../page_parametre/js/jquery.js"></script>
+		<script src="../page_parametre/js/bootstrap.min.js"></script>
+		<script src="../page_parametre/js/jquery.easing.min.js"></script>
+		<script src="../page_parametre/js/classie.js"></script>
+		<script src="../page_parametre/js/fonctions.js"></script>
 	</head>
 	<body>
 	
 		<?php
-			require('connexion.php');
-			require('fonction.php');
+			require('php/connexion.php');
+			require('php/fonctions.php');
 		?>
 	
 		<div id="title"><h1>Poll</h1></div>
@@ -26,8 +26,8 @@
 		<div id="menu">
 			<ul>
 				<li><a href="accueil.php" title="Liste de tous les questionnaires">Questionnaires</a></li>
-				<li><a href="../../page_questions/php/questions.php" title="Afficher/modifier les questions de votre questionnaire">Questions</a></li>
-				<li><a href="../../page-parametre/page-parametre.php" title="Paramétrer vos questionnaires">Paramètres</a></li>
+				<li><a href="../page_questions/questions.php" title="Afficher/modifier les questions de votre questionnaire">Questions</a></li>
+				<li><a href="../page_parametre/parametre.php" title="Paramétrer vos questionnaires">Paramètres</a></li>
 			</ul>
 		</div>
         
