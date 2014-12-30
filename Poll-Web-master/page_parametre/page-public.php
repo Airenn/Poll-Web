@@ -5,7 +5,7 @@
         <link rel="stylesheet" media="screen" type="text/css" href="css/page-public.php" />
         <link rel="stylesheet" href="css/bootstrap.css"/>
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
-
+        <script src="../page_questions/js/questions.js"></script>
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.easing.min.js"></script>
@@ -21,19 +21,18 @@
                 require("../page_questions/php/connexion.php");
                 require("../page_questions/php/fonctions.php");
                 require("php/fonctions.php");
+
             ?>
             <header>
                 
-                <p id="question"><?php echo current_question_text();?></p>
+                <p id="question"><?php echo get_current_question()['texte'];?></p>
                 <div id="nbmsg">
                     <img src="images/enveloppe.png" alt=""/>
-                    <p id="nbrecus">5</p>
+                    <p id="nbrecus"><?php echo total_reponses(get_current_question()['ID']) ?></p>
                 </div>
             </header>
-            <section>
-               <?php
-                    get_current_reponses();
-                ?>
+            <section id="ajax_bar">
+                <?php progress_bars( get_current_question()['ID']); ?>
             </section>
             <footer>
                 <p>
