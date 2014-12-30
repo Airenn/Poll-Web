@@ -128,26 +128,10 @@
      *
      * \param $question : int, identifiant de la question dont on doit recuperer les messages
      */
-    function get_messages($question, $categorie='Tout', $tri='DESC'){
+    function get_messages($question){
         global $db;
         try{
             $req='SELECT * FROM messages WHERE ID_question=:question';
-            
-            if($categorie=='Valide'){
-                $req .= ' AND valide=1';
-            }
-            else if($categorie=='Erreur'){
-                $req .= ' AND erreur=1';
-            }
-            else if($categorie=='Doublon'){
-                $req .= ' AND doublon=1';
-            }
-            else if($categorie=='Retard'){
-                $req .= ' AND retard=1';
-            }
-            
-            $req .= ' ORDER BY date_reception '.$tri;
-
             $req = $db->prepare($req);
             $req->bindvalue(':question', $question);
             $req->execute();
@@ -258,11 +242,10 @@
      *
      * \param $question : int, identifiant de la question dont on doit afficher les messages
      */
-    function create_messages_table($question, $categorie='Tout', $tri='DESC'){
-        $req = get_messages($question, $categorie, $tri);
+    function create_messages_table($question, $nb, $page=0, $categorie='Tout', $tri='DESC'){
+        $req = pagination($question, $nb, $page, $categorie, $tri);
         
         if($message = $req->fetch(PDO::FETCH_ASSOC)){
-
             do{
                 $classe = "success";
                 
@@ -630,7 +613,7 @@
      */
     function delete_messages_quest($question){
         global $db;
-         try{
+        try{
             $req=$db->prepare('DELETE FROM messages WHERE ID_question=:quest');
             $req->bindvalue(':quest', $question);
             $req->execute();
@@ -639,5 +622,41 @@
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
         }
         
+    }
+
+     /*!
+     * Renvoie l'objet PDO correspondant aux $nb messages concernant $question a partir de la $page*$nb ligne
+     *
+     * \param $question : int, identifiant de la question
+     * \param $nb : int, nombre de resultats a renvoyer
+     * \param $page : int, numero de la page
+     */
+    function pagination($question, $nb, $page=0, $categorie='Tout', $tri='DESC'){
+        global $db;
+        $req = 'SELECT * FROM messages WHERE ID_question=:quest';
+        
+        if($categorie=='Valide'){
+            $req .= ' AND valide=1';
+        }
+        else if($categorie=='Erreur'){
+            $req .= ' AND erreur=1';
+        }
+        else if($categorie=='Doublon'){
+            $req .= ' AND doublon=1';
+        }
+        else if($categorie=='Retard'){
+            $req .= ' AND retard=1';
+        }
+        
+        try{
+            $req=$db->prepare($req.' ORDER BY date_reception '.$tri.' LIMIT '.($page*$nb).', '.$nb);
+            $req->bindvalue(':quest', $question);
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        
+        return $req;
     }
 ?>

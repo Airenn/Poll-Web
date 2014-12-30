@@ -89,26 +89,33 @@
                             <div class="panel panel-default" id="panel_table">
                                 <div class="panel-body">
                                     <div class="btn-group" role="group" aria-label="...">
-                                        <button type="button" class="btn btn-primary messages" id="all_messages">Tout</button>
-                                        <button type="button" class="btn btn-success messages" id="valid_messages">Valide</button>
-                                        <button type="button" class="btn btn-default messages" id="multi_messages">Doublon</button>
-                                        <button type="button" class="btn btn-danger messages" id="wrong_messages">Erreur</button>
-                                        <button type="button" class="btn btn-warning messages" id="late_messages">Retard</button>
+                                        <button type="button" class="btn btn-primary messages" id="Tout">Tout</button>
+                                        <button type="button" class="btn btn-success messages" id="Valide">Valide</button>
+                                        <button type="button" class="btn btn-default messages" id="Doublon">Doublon</button>
+                                        <button type="button" class="btn btn-danger messages" id="Erreur">Erreur</button>
+                                        <button type="button" class="btn btn-warning messages" id="Retard">Retard</button>
                                     </div>
                                     <br/><br/>
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;"><button type="button" class="btn btn-default">Numéro de téléphone</button></th>
-                                                <th style="text-align:center;"><button type="button" class="btn btn-default">Message</button></th>
-                                                <th style="text-align:center;"><button type="button" class="btn btn-default" id="btn_reception" value="DESC">Date de réception</button></th>
+                                                <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Numéro de téléphone</button></th>
+                                                <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Message</button></th>
+                                                <th style="text-align:center;"><button type="button" class="btn btn-default" id="btn_reception">Date de réception</button></th>
                                             </tr>
                                         </thead>
                                         <tbody id="ajax_table">
 
                                         </tbody>
                                     </table>
-                                    
+                                    <div>
+                                        <button type="button" class="btn btn-default pagination_message" id="previous_page">
+                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default pagination_message" id="next_page">
+                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 

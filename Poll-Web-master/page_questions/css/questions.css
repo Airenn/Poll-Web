@@ -41,3 +41,12 @@
     float : right;   
 }
 
+#previous_page
+{
+    float : left;
+}
+
+#next_page
+{
+    float : right;
+}
