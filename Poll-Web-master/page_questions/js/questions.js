@@ -1,6 +1,7 @@
 var $question_button = $('#btn-question'),
     $question_option = $('.question'),
     $messages = $('.messages'),
+    $resultats = $('#panel_resultats'),
     $ajax_bar = $('#ajax_bar'),
     $ajax_table = $('#ajax_table'),
     $ajax_drop = $('#ajax_drop');
@@ -10,12 +11,14 @@ var $question_button = $('#btn-question'),
 
 $question_option.on('click', function () {
     //Mise à jour du texte du bouton de choix de question
-    $new_button = 'Question '.concat($(this).text());
+    $new_button = '<em>Choix de la question</em><br>Question '.concat($(this).text());
     $new_button = $new_button.concat(' <span class="caret" value="');
     $new_button = $new_button.concat($(this).val());
     $new_button = $new_button.concat('" id="caret_question"></span>');
     
     $question_button.html($new_button);
+    
+    $resultats.css("visibility", "visible");
     
     //Affichage des données de la question sélectionnée
     $url_bar = 'ajax/ajax_bar.php?question='.concat($(this).val());

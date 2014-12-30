@@ -1,0 +1,45 @@
+.centrer
+{
+    margin-left : 15%;
+    margin-right : 15%;
+}
+
+#btn-droite
+{
+    float : right;
+    margin-left : 10px;
+}
+
+#panel_envoi, #panel_resultats
+{
+    width : 70%;
+}
+
+#panel_envoi
+{
+
+}
+
+#panel_resultats
+{
+    visibility: hidden;
+}
+
+#panel_bar, #panel_table
+{
+    width : 49%;
+    min-height: 450px;
+    max-height: 450px;
+    overflow-y: scroll;
+}
+
+#panel_bar
+{
+    float : left;   
+}
+
+#panel_table
+{
+    float : right;   
+}
+

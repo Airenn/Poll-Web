@@ -21,6 +21,7 @@
         <title>Questions</title>
         <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../menu.css" rel="stylesheet">
+        <link href="css/questions.css" rel="stylesheet">
     </head>
     
     <body>
@@ -29,29 +30,32 @@
             require('../menu.php'); 
             gen_menu('questions');
         ?>
-        
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
-                Question <span class="caret" id="caret_question"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" id="ajax_drop">
-                <?php create_dropdown($questions); ?>
-            </ul>
+        <div class="centrer">
+            <div class="btn-group" id="btn-gauche">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
+                    <em>Choix de la question</em><br><span class="caret" id="caret_question"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" id="ajax_drop">
+                    <?php create_dropdown($questions); ?>
+                </ul>
+            </div>
+
+            <div id="btn-droite">
+                <div class="btn-group" role="group" aria-label="...">
+                  <button type="button" class="btn btn-default" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" id="suppression_question">Réinitialiser la question<br><em>Supprime les messages</em></button>
+                </div>
+            </div>
         </div>
-        
-        <div class="btn-group" role="group" aria-label="...">
-          <button type="button" class="btn btn-default" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
-        </div>
-        
-        <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default" id="suppression_question">Réinitialiser la question<br><em>Supprime les messages</em></button>
-        </div>
-        
+
         <br/><br/>
-        <div class="panel panel-default">
+        <div class="panel panel-default centrer" id="panel_envoi">
             <div class="panel-heading"><h3 class="panel-title">Envoi d'un message</h3></div>
             <div class="panel-body">
-                
+
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Téléphone</span>
                         <input type="text" class="form-control" placeholder="+33612345678" aria-describedby="basic-addon1" name="num_tel" id="num_tel" value="">
@@ -65,23 +69,22 @@
                     <div class="btn-group" role="group" aria-label="...">
                       <button type="button" class="btn btn-default" id="robot_unitaire">Envoyer</button>
                     </div>
-                
+
             </div>
         </div>
-        
-        
-        <div class="panel panel-default">
+
+        <div class="panel panel-default centrer" id="panel_resultats">
             <div class="panel-heading"><h3 class="panel-title">Résultats</h3></div>
             <div class="panel-body">
-                
-                <div class="panel panel-default">
+
+                <div class="panel panel-default" id="panel_bar">
                     <div class="panel-body" id="ajax_bar">
-                        
+
                     </div>
                 </div>
-                
-                <div class="panel panel-default">
-                    <div class="panel-body" id="infos_messages">
+
+                <div class="panel panel-default" id="panel_table">
+                    <div class="panel-body">
                         <div class="btn-group" role="group" aria-label="...">
                             <button type="button" class="btn btn-primary messages" id="all_messages">Tout</button>
                             <button type="button" class="btn btn-success messages" id="valid_messages">Valide</button>
@@ -91,11 +94,11 @@
                         </div>
                         <br/><br/>
                         <table id="ajax_table" class="table">
-                            
+
                         </table>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     

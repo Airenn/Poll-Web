@@ -260,12 +260,13 @@
         $req = get_messages($question, $categorie);
         $colonnes = array('Numéro de téléphone', 'Message', 'Date de réception');
         
-        if($message = $req->fetch(PDO::FETCH_ASSOC)){
-            echo '<thead><tr>';
+        echo '<thead><tr>';
             foreach($colonnes as $key){
                 echo '<th class="col-md-2">'.$key.'</th>';
             }
-            echo '</tr></thead>';
+        echo '</tr></thead>';
+        
+        if($message = $req->fetch(PDO::FETCH_ASSOC)){
 
             do{
                 $classe = "success";
