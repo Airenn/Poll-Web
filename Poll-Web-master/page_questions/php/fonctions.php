@@ -299,8 +299,8 @@
                 : $pourcentage = 0;
 
                 echo
-                    '<div class="progress-bar progress-bar-'.$key.' progress-bar-striped" style="width: '.$pourcentage.'%">
-                        <span class="sr-only">'.$pourcentage.'% Complete</span>
+                    '<div class="progress-bar progress-bar-'.$key.' progress-bar-striped" style="width: '.(int)$pourcentage.'%">
+                        <span class="sr-only">'.(int)$pourcentage.'% Complete</span>
                     </div>';
             }
             
@@ -313,8 +313,8 @@
         
         echo'<p>Erreurs</p>
             <div class="progress">
-                <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: '.$pourcentage.'%">
-                    <span class="sr-only">'.$pourcentage.'% Complete</span>
+                <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: '.(int)$pourcentage.'%">
+                    <span class="sr-only">'.(int)$pourcentage.'% Complete</span>
                 </div>
             </div>';
     }
