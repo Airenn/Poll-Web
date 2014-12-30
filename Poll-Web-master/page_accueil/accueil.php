@@ -24,10 +24,11 @@
             gen_menu('accueil');
         ?>
         
-		<div id="liste">
+		<div id="background">
 			<input id="create" type="button" value="Créer Questionnaires" />
 			<input id="import" type="button" value="Importer Questionnaire" />
-			<div><span>Questionnaires</span><span>Options</span></div>
+            <div id="liste">
+			     <div id="titre" ><span>Questionnaires</span><span>Options</span></div>
     
 	<!--
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -47,6 +48,7 @@
         </div>
       </div>
     </div>-->
-		</div>
+                </div>
+		  </div>
 	</body>
 </html>

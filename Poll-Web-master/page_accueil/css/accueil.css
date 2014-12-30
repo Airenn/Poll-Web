@@ -1,19 +1,50 @@
-h1
+#background
 {
-    color: maroon;
+    padding-top : 15px;
+    padding-bottom : 15px;
+
 }
-ul {
-   list-style-type:none;
-    
+#liste{
+    margin-top : 15px;
+    margin-bottom : 15px;
+    margin-left : 15%;
+    margin-right : 15%;
 }
+#liste #titre {
+    font-weight: normal;
+    padding: 8px;
+    background: #b9c9fe  repeat-x;
+    border-top: 2px solid #d3ddff;
+    border-bottom: 1px solid #fff;
+    color: #039;
+    -moz-border-radius-topleft: 75px;
+    -moz-border-radius-topright:75px;
+    -moz-border-radius-bottomleft:0px;
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-top-left-radius:75px;
+    -webkit-border-top-right-radius:75px;
+    -webkit-border-bottom-left-radius:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-top-left-radius:75px;
+    border-top-right-radius:75px;
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px; 
+}
+#liste #titre span {
+    margin-left : 35%;
+    margin-right : 5%;
+
+}
+
 #tableau {
-    font-size: 12px;
     border: center;
     text-align: center;
     border-collapse: collapse;
-    width: 70%;
 }
 
+#tableau th {
+
+}
 #tableau td {
     border-bottom: 1px solid #fff;
     color: #669;
@@ -25,7 +56,6 @@ ul {
     background: #e8edff;
     font-size: 16px;
     color: #99c;
-    text-align:center;
 }
 #tableau tbody tr:hover td {
     background: #d0dafd repeat-x;
@@ -35,9 +65,7 @@ ul {
     text-decoration:underline;
 }
 
-.panel.panel-default,#collapseOne{
-    background: #e8edff  repeat-x;
-}
+
 .panel-group{
     margin: auto;
     width: 1000px;
