@@ -18,8 +18,8 @@ $question_option.on('click', function () {
     $question_button.html($new_button);
     
     //Affichage des données de la question sélectionnée
-    $url_bar = '../ajax/ajax_bar.php?question='.concat($(this).val());
-    $url_table = '../ajax/ajax_table.php?question='.concat($(this).val());
+    $url_bar = 'ajax/ajax_bar.php?question='.concat($(this).val());
+    $url_table = 'ajax/ajax_table.php?question='.concat($(this).val());
     
     $.post($url_bar, function(data){
                     $ajax_bar.html(data);
@@ -43,7 +43,7 @@ $robot_masse.on('click', function () {
     $info = '<br><em>Génération automatique</em>';
     $actif = 'Activation du robot'.concat($info);
     $inactif = 'Désactivation du robot'.concat($info);
-    $url_multi_bot = '../ajax/ajax_multi_bot.php?robot_actif=';
+    $url_multi_bot = 'ajax/ajax_multi_bot.php?robot_actif=';
     
     if($(this).html() == $actif){
         $url_multi_bot = $url_multi_bot.concat('1');
@@ -65,7 +65,7 @@ $robot_masse.on('click', function () {
 });
 
 $robot_unitaire.on('click', function () {
-    $url_unit_bot = '../ajax/ajax_unit_bot.php?num_tel=';
+    $url_unit_bot = 'ajax/ajax_unit_bot.php?num_tel=';
     $url_unit_bot = $url_unit_bot.concat($('#num_tel').val());
     $url_unit_bot = $url_unit_bot.concat('&texte=');
     $url_unit_bot = $url_unit_bot.concat($('#texte').val());
@@ -76,7 +76,7 @@ $robot_unitaire.on('click', function () {
 
 $messages.on('click', function () {
     $question = document.getElementById("caret_question").getAttribute("value");
-    $url_table = '../ajax/ajax_table.php?question=';
+    $url_table = 'ajax/ajax_table.php?question=';
     $url_table = $url_table.concat($question);
     $url_table = $url_table.concat('&categorie=');
     $url_table = $url_table.concat($(this).text());
@@ -88,7 +88,7 @@ $messages.on('click', function () {
 
 $suppression_question.on('click', function () {
     $question = document.getElementById("caret_question").getAttribute("value");
-    $url_suppr = '../ajax/ajax_suppr.php?question=';
+    $url_suppr = 'ajax/ajax_suppr.php?question=';
     $url_suppr = $url_suppr.concat($question);
     
     $.post($url_suppr, function(data){ });
