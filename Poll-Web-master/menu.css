@@ -1,6 +1,18 @@
+#title_logo
+{
+    background-image: url("bord.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#logo
+{
+    margin-left : 30px;
+}
+
 #menu ul
 {
-    position : absolute;
+    position : fixed;
     right: 0px;
     width : 130px;
 	list-style-type: none;

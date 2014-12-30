@@ -22,7 +22,9 @@
         }
         
         echo'
-            <img src="../poll.png" width="10%" height="10%"/>
+            <div id="title_logo">
+                <img src="../poll.png" width="10%" height="10%" id="logo"/>
+            </div>
             <div id="menu">
                 <ul>
                     <a href='.$accueil.' title="Liste de tous les questionnaires"><li>Questionnaires</li></a>
