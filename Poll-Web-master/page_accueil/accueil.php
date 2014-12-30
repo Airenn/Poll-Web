@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="../page_parametre/css/page-parametre.css"/>
 		<link rel="stylesheet" href="../page_parametre/css/bootstrap.css"/>
 		<link rel="stylesheet" href="../page_parametre/css/bootstrap.min.css"/>
+        <link href="../menu.css" rel="stylesheet">
 
 		<script src="../page_parametre/js/jquery.js"></script>
 		<script src="../page_parametre/js/bootstrap.min.js"></script>
@@ -19,17 +20,9 @@
 		<?php
 			require('php/connexion.php');
 			require('php/fonctions.php');
-		?>
-	
-		<div id="title"><h1>Poll</h1></div>
-	
-		<div id="menu">
-			<ul>
-				<li><a href="accueil.php" title="Liste de tous les questionnaires">Questionnaires</a></li>
-				<li><a href="../page_questions/questions.php" title="Afficher/modifier les questions de votre questionnaire">Questions</a></li>
-				<li><a href="../page_parametre/parametre.php" title="Paramétrer vos questionnaires">Paramètres</a></li>
-			</ul>
-		</div>
+            require('../menu.php'); 
+            gen_menu('accueil');
+        ?>
         
 		<div id="liste">
 			<input id="create" type="button" value="Créer Questionnaires" />
