@@ -1,5 +1,13 @@
-.centrer
+#background_panel
 {
+    padding-top : 15px;
+    padding-bottom : 15px;
+}
+
+#center_panel
+{
+    margin-top : 15px;
+    margin-bottom : 15px;
     margin-left : 15%;
     margin-right : 15%;
 }
@@ -8,16 +16,6 @@
 {
     float : right;
     margin-left : 10px;
-}
-
-#panel_envoi, #panel_resultats
-{
-    width : 70%;
-}
-
-#panel_envoi
-{
-
 }
 
 #panel_resultats

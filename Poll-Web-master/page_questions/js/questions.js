@@ -7,7 +7,11 @@ var $question_button = $('#btn-question'),
     $ajax_drop = $('#ajax_drop');
     $robot_masse = $('#robot_masse'),
     $robot_unitaire = $('#robot_unitaire'),
-    $suppression_question = $('#suppression_question');
+    $tri_button = $('#btn_reception'),
+    $suppression_question = $('#suppression_question'),
+    $bot_refresh = "";
+    $bar_refresh = "";
+    $table_refresh = "";
 
 $question_option.on('click', function () {
     //Mise à jour du texte du bouton de choix de question
@@ -32,14 +36,24 @@ $question_option.on('click', function () {
     });
     
     //Définition du rafraîchissement automatique
-    $bar_refresh = setInterval(
-    function(){
-        $ajax_bar.hide().load($url_bar).show();
-    }, 1000);
-    $table_refresh = setInterval(
-    function(){
-        $ajax_table.hide().load($url_table).show();
-    }, 1000);
+    try{
+        clearInterval($bar_refresh);
+    }
+    finally{
+        $bar_refresh = setInterval(
+        function(){
+            $ajax_bar.hide().load($url_bar).show();
+        }, 1000);
+    }
+    try{
+        clearInterval($table_refresh);
+    }
+    finally{
+        $table_refresh = setInterval(
+        function(){
+            $ajax_table.hide().load($url_table).show();
+        }, 1000);
+    }
 });
 
 $robot_masse.on('click', function () {
@@ -53,18 +67,20 @@ $robot_masse.on('click', function () {
         $(this).html($inactif);
     }
     else{
-        
         $url_multi_bot = $url_multi_bot.concat('0');
         $(this).html($actif);
     }
     
-    $bot_refresh = setInterval(
-    function(){
-        $.post($url_multi_bot, function(data){
-            $('#ajax_bot').hide().load($url_multi_bot).show()
-        });
-    }, 1000);
-    
+    try {
+        clearInterval($bot_refresh);
+    }
+    finally {
+        $bot_refresh = setInterval(
+        function(){
+            $.post($url_multi_bot, function(data){ });
+            console.log('ddd');
+        }, 1000);
+    }
 });
 
 $robot_unitaire.on('click', function () {
@@ -95,4 +111,24 @@ $suppression_question.on('click', function () {
     $url_suppr = $url_suppr.concat($question);
     
     $.post($url_suppr, function(data){ });
+});
+
+$tri_button.on('click', function () {
+    $question = document.getElementById("caret_question").getAttribute("value");
+    $tri = document.getElementById("btn_reception").getAttribute("value");
+    
+    ($tri == 'DESC')
+    ? $tri = 'ASC'  
+    : $tri = 'DESC';
+    
+    document.getElementById("btn_reception").setAttribute("value", $tri);
+    
+    $url_table = 'ajax/ajax_table.php?question=';
+    $url_table = $url_table.concat($question);
+    $url_table = $url_table.concat('&tri=');
+    $url_table = $url_table.concat($tri);
+    
+    $.post($url_table, function(data){
+        $ajax_table.html(data);
+    });
 });

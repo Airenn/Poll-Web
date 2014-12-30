@@ -128,7 +128,7 @@
      *
      * \param $question : int, identifiant de la question dont on doit recuperer les messages
      */
-    function get_messages($question, $categorie='Tout'){
+    function get_messages($question, $categorie='Tout', $tri='DESC'){
         global $db;
         try{
             $req='SELECT * FROM messages WHERE ID_question=:question';
@@ -145,6 +145,8 @@
             else if($categorie=='Retard'){
                 $req .= ' AND retard=1';
             }
+            
+            $req .= ' ORDER BY date_reception '.$tri;
 
             $req = $db->prepare($req);
             $req->bindvalue(':question', $question);
@@ -256,15 +258,8 @@
      *
      * \param $question : int, identifiant de la question dont on doit afficher les messages
      */
-    function create_messages_table($question, $categorie='Tout'){
-        $req = get_messages($question, $categorie);
-        $colonnes = array('Numéro de téléphone', 'Message', 'Date de réception');
-        
-        echo '<thead><tr>';
-            foreach($colonnes as $key){
-                echo '<th class="col-md-2">'.$key.'</th>';
-            }
-        echo '</tr></thead>';
+    function create_messages_table($question, $categorie='Tout', $tri='DESC'){
+        $req = get_messages($question, $categorie, $tri);
         
         if($message = $req->fetch(PDO::FETCH_ASSOC)){
 
@@ -282,9 +277,9 @@
                 }
                 
                 echo '<tr class="'.$classe.'">';
-                echo '<td>'.$message['num_tel'].'</td>';
-                echo '<td>'.$message['texte'].'</td>';
-                echo '<td>'.$message['date_reception'].'</td>';
+                echo '<td style="text-align:center;">'.$message['num_tel'].'</td>';
+                echo '<td style="text-align:center;">'.$message['texte'].'</td>';
+                echo '<td style="text-align:center;">'.$message['date_reception'].'</td>';
                 echo '</tr>';
             }while($message = $req->fetch(PDO::FETCH_ASSOC));
         }  
