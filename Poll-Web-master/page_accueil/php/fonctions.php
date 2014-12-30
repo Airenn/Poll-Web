@@ -1,22 +1,24 @@
 <?php
-      function AfficheQuestionnaires()
+function AfficheQuestionnaires()
  {
-         global $db;
+        global $db;
   $req = $db->prepare("SELECT * FROM operations");
   $req->execute();
-  echo '<table id="tableau" class="table table-striped table-hover >';
+  echo '<table id="tableau" class="table table-striped table-hover" >';
   while($val = $req->fetch(PDO::FETCH_ASSOC))
   {
    echo'
-    <tr id="'.$val['ID'].'">
-    <td class="titre">'.$val['ID'].'</td>
-    <td>'.$val['nom'].'</td> 
-    <td class="option">
-    <img src="images/afficher.png" alt="" /><img class="edit" src="images/editer.png" alt="" />
-    <img src="images/cloturer.png" alt="" /><img class="export" src="images/exporter.png" alt="" />
-    <img src="images/dupliquer.png" alt="" /><img class="delete" src="images/supprimer.png" alt="" />
-   </td></tr><tr>
-   <td>Nombre de questions : '.total_questions($val['ID']).'</td><td>Date de realistation prevu : '.$val['date_prevue'].'</td><td>Date de realistation prevu : '.$val['date_prevue'].'</td>
+   <tr data-toggle="collapse" data-target=".'.$val['nom'].'" class="accordion-toggle">
+   <td class="titre">'.$val['ID'].'</td>
+   <td>'.$val['nom'].'</td> 
+   <td class="option">
+   <img src="../images/afficher.png" alt="" /><img class="edit" src="../images/editer.png" alt="" />
+   <img src="../images/cloturer.png" alt="" /><img class="export" src="../images/exporter.png" alt="" />
+   <img src="../images/dupliquer.png" alt="" /><img class="delete" src="../images/supprimer.png" alt="" />
+   </td></tr>
+   <tr><td class="hiddenRow"><div class="accordian-body collapse '.$val['nom'].' ">Nombre de questions : '.total_questions($val['ID']).'</div></td>
+   <td class="hiddenRow"><div class="accordian-body collapse '.$val['nom'].' ">Date de realistation prevu : '.$val['date_prevue'].'</div></td>
+   <td class="hiddenRow"><div class="accordian-body collapse  '.$val['nom'].' ">Date de realistation prevu : '.$val['date_prevue'].'</div></td>
    </tr>';        
   }
   echo '</table>';
