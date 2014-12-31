@@ -268,6 +268,9 @@
         if($categorie == 'Erreur'){
             $total['nb'] = nb_erreur_quest($question);   
         }
+        if($categorie == 'Tout'){
+            $total['nb'] = total_messages($question);   
+        }
         
         return $total['nb'];
     }
@@ -779,14 +782,17 @@
      */
     function create_pagination($question, $nb, $page=0, $categorie='Tout'){
         $total = nb_messages_quest($question, $categorie);
-        $previous = "";
-        $next = "";
+        $hidden = 'style="visibility : hidden;"';
+        $visible = 'style="visibility : visible;"';
+        $previous = $visible;
+        $next = $visible;
         
         if(($nb*($page+1)) >= $total){
-            $next = "disabled";
+            $next = $hidden;
         }
+        
         if($page==0){
-            $previous = "disabled";
+            $previous = $hidden;
         }
         
         echo'

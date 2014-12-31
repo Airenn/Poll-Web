@@ -119,16 +119,14 @@ function activer_affichage(){
     update_suppr_button();
     update_bar();
     update_table();
-    update_pagination();
     refresh_bar();
     refresh_table();
-    refresh_pagination();
 }
 
 function update_bar(){
     $.post(get_url_bar(), function(data){
         $ajax_bar.html(data);
-    });   
+    });
 }
 
 function refresh_bar(){
@@ -156,6 +154,7 @@ function update_table(){
     $.post(get_url_table(), function(data){
         $ajax_table.html(data);
     }); 
+    update_pagination();
 }
 
 function refresh_table(){
@@ -187,18 +186,6 @@ function update_pagination(){
     $.post(get_url_pagination(), function(data){
         $ajax_pagination.html(data);
     }); 
-}
-
-function refresh_pagination(){
-    try {
-        clearInterval($pagination_refresh);
-    }
-    finally{
-        $pagination_refresh = setInterval(
-        function(){
-            update_pagination();
-        }, 1000);
-    }
 }
 
 function get_url_pagination(){
@@ -265,13 +252,11 @@ function suppr(){
 function previous_page(){
     page_courante -= 1;
     update_table();
-    update_pagination();
 }
 
 function next_page(){
     page_courante += 1;
     update_table();
-    update_pagination();
 }
 
 function open_close_question(){
