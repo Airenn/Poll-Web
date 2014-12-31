@@ -38,6 +38,10 @@
                         <div class="btn-group" role="group" aria-label="...">
                           <button type="button" class="btn btn-default" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
                         </div>
+                        
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" id="ferme_question">Clôturer la question<br><em>Votes entrants en retard</em></button>
+                        </div>
 
                         <div class="btn-group" role="group" aria-label="...">
                             <button type="button" class="btn btn-default" id="suppression_question">Réinitialiser la question<br><em>Supprime les messages</em></button>

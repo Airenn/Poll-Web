@@ -26,9 +26,7 @@
 #panel_bar, #panel_table
 {
     width : 49%;
-    min-height: 450px;
     max-height: 450px;
-    overflow-y: scroll;
 }
 
 #panel_bar

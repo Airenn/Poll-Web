@@ -203,6 +203,7 @@
      * Renvoie le nombre de messages recus pour la reponse recue en parametre
      *
      * \param $reponse : int, identifiant de la reponse dont on doit compter les messages
+     * \param $categorie : string, categorie de message a selectionner
      */
     function nb_messages_rep($reponse, $categorie){
         global $db;
@@ -233,9 +234,10 @@
     }
 
     /*!
-     * Renvoie le nombre de messages recus pour la reponse recue en parametre
+     * Renvoie le nombre de messages recus pour la question recue en parametre
      *
-     * \param $reponse : int, identifiant de la reponse dont on doit compter les messages
+     * \param $question : int, identifiant de la reponse dont on doit compter les messages
+     * \param $categorie : string, categorie de message a selectionner
      */
     function nb_messages_quest($question, $categorie){
         global $db;
@@ -244,15 +246,14 @@
         if($categorie=='Valide'){
             $req .= ' AND valide=1';
         }
-        else if($categorie=='Erreur'){
-            $req .= ' AND erreur=1';
-        }
         else if($categorie=='Doublon'){
             $req .= ' AND doublon=1';
         }
         else if($categorie=='Retard'){
             $req .= ' AND retard=1';
         }
+        
+        $req .= ' AND erreur=0';
         
         try{
             $req=$db->prepare($req);
@@ -263,6 +264,11 @@
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
         }
+        
+        if($categorie == 'Erreur'){
+            $total['nb'] = nb_erreur_quest($question);   
+        }
+        
         return $total['nb'];
     }
 
@@ -273,7 +279,7 @@
      */
     function create_dropdown($questions){
         while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){
-            echo'<li class="question" value="'.htmlspecialchars($question_tab['ID']).'">
+            echo'<li class="question" fermee="'.htmlspecialchars($question_tab['fermee']).'" multi="'.htmlspecialchars($question_tab['multi_rep']).'" value="'.htmlspecialchars($question_tab['ID']).'">
                     <a href="#">'.htmlspecialchars($question_tab['num_question']).": ".htmlspecialchars($question_tab['texte']).'</a>
                 </li>';
         }
@@ -284,10 +290,26 @@
      *
      * \param $question : int, identifiant de la question dont on doit construire les barres
      */
-    function create_progress_bars($question){
+    function create_progress_bars($question, $categorie='Tout'){
         $reponses = get_reponses($question);
-        $total = total_messages($question);
-        $categories = array("success"=>"Valide", "default"=>"Doublon", "warning"=>"Retard");
+        $total = nb_messages_quest($question, $categorie);
+        $categories = array();
+        
+        if($categorie == 'Valide'){
+            $categories = array("success"=>$categorie);
+            
+        }
+        else if($categorie == 'Doublon'){
+            $categories = array("default"=>$categorie);
+
+        }
+        else if($categorie == 'Retard'){
+            $categories = array("warning"=>$categorie);
+        }
+        else if($categorie == 'Tout'){
+            $categories = array("success"=>"Valide", "default"=>"Doublon", "warning"=>"Retard");
+        }
+        
         $pourcentage;
         
         while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
@@ -297,26 +319,34 @@
                 ($total>0) 
                 ? $pourcentage = 100*(nb_messages_rep($rep['ID'], $categ)/$total)
                 : $pourcentage = 0;
+                
+                $pourcentage = round($pourcentage);
 
                 echo
                     '<div class="progress-bar progress-bar-'.$key.' progress-bar-striped" style="width: '.(int)$pourcentage.'%">
-                        <span class="sr-only">'.(int)$pourcentage.'% Complete</span>
+                        <span class="sr-only">'.(int)$pourcentage.'%</span>
                     </div>';
             }
             
             echo '</div>';
         }
         
-        ($total>0)
-        ? $pourcentage = 100*(nb_erreur_quest($question)/$total)
-        : $pourcentage = 0;
-        
-        echo'<p>Erreurs</p>
-            <div class="progress">
-                <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: '.(int)$pourcentage.'%">
-                    <span class="sr-only">'.(int)$pourcentage.'% Complete</span>
-                </div>
-            </div>';
+        if($categorie == 'Tout' || $categorie == 'Erreur'){
+            $total = total_messages($question);
+            
+            ($total>0)
+            ? $pourcentage = 100*(nb_erreur_quest($question)/$total)
+            : $pourcentage = 0;
+            
+            $pourcentage = round($pourcentage);
+
+            echo'<p>Erreurs</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: '.(int)$pourcentage.'%">
+                        <span class="sr-only">'.(int)$pourcentage.'%</span>
+                    </div>
+                </div>';
+        }
     }
 
     /*!
@@ -325,7 +355,7 @@
      * \param $question : int, identifiant de la question dont on doit afficher les messages
      */
     function create_messages_table($question, $nb, $page=0, $categorie='Tout', $tri='DESC'){
-        $req = pagination($question, $nb, $page, $categorie, $tri);
+        $req = create_table_limit($question, $nb, $page, $categorie, $tri);
         
         if($message = $req->fetch(PDO::FETCH_ASSOC)){
             do{
@@ -605,15 +635,15 @@
 
     /*!
      * Insere un message genere automatiquement dans la base de donnees
+     *
+     * \param $question : int, identifiant de la question concernee
      */
-    function message_bot(){
+    function message_bot($question){
         mt_srand();
-        if(isset($_GET['robot_actif']) && $_GET['robot_actif']==1){
-            $message = array();
-            $message['num_tel'] = gen_num_tel();
-            $message['texte'] = gen_texte(mt_rand(0,1));
-            sort_message($message);
-        }
+        $message = array();
+        $message['num_tel'] = gen_num_tel();
+        $message['texte'] = gen_texte(mt_rand(0,1), $question);
+        sort_message($message);
     }
 
     /*!
@@ -634,27 +664,21 @@
     }
 
     /*!
-     * Renvoie un string valide ou non par rapport à la question en cours
+     * Renvoie un string valide ou non par rapport à la question recue en parametre
      *
-     * \param $valide : bool, s'il vaut 1 le texte retour est valide, sinon il ne l'est pas
+     * \param $valide : bool, s'il vaut 1 le texte retour est valide, sinon il ne l'est pa
+     * \param $question : int, identifiant de la question a laquelle on doit repondre
      */
-    function gen_texte($valide){
+    function gen_texte($valide, $question){
         $texte = "";
-        $current_question = get_current_question();
+        $question = get_question($question);
         
         if($valide){ 
-            if(!isset($current_question['ID']) || trim($current_question['ID'])==""){
-                $current_operation = get_current_operation();
-                $questions = get_num_questions($current_operation['ID']);
-                shuffle($questions);
-                $current_question = get_question_num($questions[0], $current_operation['ID']);
-            }
-            
-            $texte = $current_question['num_question'];
-            $total_reponses = total_reponses($current_question['ID']);
-            $letters = get_lettres_reponses($current_question['ID']);
+            $texte = $question['num_question'];
+            $total_reponses = total_reponses($question['ID']);
+            $letters = get_lettres_reponses($question['ID']);
 
-            ($current_question['multi_rep'])
+            ($question['multi_rep'])
             ? $texte .= get_random_letters($letters, $total_reponses)
             : $texte .= get_random_letters($letters);
         }
@@ -713,7 +737,7 @@
      * \param $nb : int, nombre de resultats a renvoyer
      * \param $page : int, numero de la page
      */
-    function pagination($question, $nb, $page=0, $categorie='Tout', $tri='DESC'){
+    function create_table_limit($question, $nb, $page=0, $categorie='Tout', $tri='DESC'){
         global $db;
         $req = 'SELECT * FROM messages WHERE ID_question=:quest';
         
@@ -728,6 +752,10 @@
         }
         else if($categorie=='Retard'){
             $req .= ' AND retard=1';
+        }
+        
+        if($categorie != 'Erreur' && $categorie != 'Tout'){
+            $req .= ' AND erreur=0';   
         }
         
         try{
@@ -772,5 +800,30 @@
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             </button> 
         ';  
+    }
+
+    /*
+     * Change le statut d'ouverture de la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question dont le statut d'ouverture doit etre change
+     */
+    function open_close_quest($question){
+        global $db;
+        $fermee = get_question($question);
+        $fermee = (int)$fermee['fermee'];
+        
+        ($fermee==1)
+        ? $fermee = 0
+        : $fermee = 1;
+        
+        try{
+            $req=$db->prepare('UPDATE questions SET fermee=:fermee WHERE ID=:quest');
+            $req->bindvalue(':fermee', $fermee);
+            $req->bindvalue(':quest', $question);
+            $req->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
     }
 ?>

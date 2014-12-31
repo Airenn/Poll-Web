@@ -1,9 +1,9 @@
 //------------------------------------------------------- Execution -------------------------------------------------------
 
-var $question_button, $question_option, $robot_masse, $suppression_question,
+var $question_button, $question_option, $robot_masse, $ferme_question, $suppression_question,
     $robot_unitaire, $num_tel, $texte, $resultats, $ajax_bar, $ajax_table, $ajax_pagination, $messages_categ, $tri_button,
     $bot_refresh, $bar_refresh, $table_refresh, $pagination_refresh,
-    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats;
+    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats, question_ouverte;
 
 init_page();
 
@@ -12,7 +12,8 @@ $question_option.on('click', function () {
     update_question_button($(this).text());
 
     //Stockage de la question en cours et reinitialisation de la page
-    question_courante = $(this).val();
+    question_courante = Number($(this).val());
+    question_ouverte = Number($(this).attr("fermee"));
     categorie_courante = "Tout";
     tri_courant = "DESC";
     page_courante = 0;
@@ -22,15 +23,13 @@ $question_option.on('click', function () {
 });
 
 $robot_masse.on('click', function () {
-    var info = '<br><em>Génération automatique</em>',
-        inactif = 'Activation du robot'.concat(info),
-        actif = 'Désactivation du robot'.concat(info);
-    
-    (bot_actif)
-    ? $(this).html(inactif)
-    : $(this).html(actif);
-    
     launch_multi_bot();
+    update_multi_bot_text();
+});
+
+$ferme_question.on('click', function () {
+    open_close_question();
+    update_open_close_text();
 });
 
 $suppression_question.on('click', function () {
@@ -44,6 +43,7 @@ $robot_unitaire.on('click', function () {
 $messages_categ.on('click', function () {
     categorie_courante = $(this).text();
     page_courante = 0;
+    update_bar();
     update_table();
     update_pagination();
 });
@@ -61,6 +61,8 @@ $tri_button.on('click', function () {
 
 function init_page(){
     init_var();
+    update_multi_bot_button();
+    update_open_close_button();
     update_suppr_button();
 }
 
@@ -76,6 +78,7 @@ function init_var(){
     $robot_masse = $('#robot_masse');
     $robot_unitaire = $('#robot_unitaire');
     $tri_button = $('#btn_reception');
+    $ferme_question = $('#ferme_question');
     $suppression_question = $('#suppression_question');
     $num_tel = $('#num_tel');
     $texte = $('#texte');
@@ -93,6 +96,7 @@ function init_var(){
     tri_courant = "DESC";
     page_courante = 0;
     nb_resultats = 6;
+    question_ouverte = "";
 }
 
 function update_suppr_button(){
@@ -110,6 +114,8 @@ function update_question_button(text){
 
 function activer_affichage(){
     $resultats.css("visibility", "visible");
+    update_multi_bot_button();
+    update_open_close_button();
     update_suppr_button();
     update_bar();
     update_table();
@@ -138,7 +144,12 @@ function refresh_bar(){
 }
 
 function get_url_bar(){
-    return 'ajax/ajax_bar.php?question='.concat(question_courante);
+    var url_bar = 'ajax/ajax_bar.php?question=';
+        url_bar = url_bar.concat(question_courante);
+        url_bar = url_bar.concat('&categorie=');
+        url_bar = url_bar.concat(categorie_courante);
+    
+    return url_bar;
 }
 
 function update_table(){
@@ -220,10 +231,15 @@ function launch_multi_bot(){
 }
 
 function get_url_multi_bot(){
-    return 'ajax/ajax_multi_bot.php?robot_actif='.concat(bot_actif);
+    var url_multi_bot = 'ajax/ajax_multi_bot.php?question=';
+        url_multi_bot = url_multi_bot.concat(question_courante);
+        url_multi_bot = url_multi_bot.concat('&robot_actif=');
+        url_multi_bot = url_multi_bot.concat(bot_actif);
+    
+    return url_multi_bot;
 }
 
-function use_unit_bot(url_unit_bot){
+function use_unit_bot(){
     $.post(get_url_unit_bot(), function(data){ });
     document.getElementById('num_tel').value = '';
     document.getElementById('texte').value = '';
@@ -256,4 +272,57 @@ function next_page(){
     page_courante += 1;
     update_table();
     update_pagination();
+}
+
+function open_close_question(){
+    (question_ouverte)
+    ? question_ouverte = 0
+    : question_ouverte = 1;
+    
+    $.post(get_url_open_close(), function(data){ });
+}
+
+function get_url_open_close(){
+    var url_open_close = 'ajax/ajax_open_close.php?question=';
+        url_open_close = url_open_close.concat(question_courante);
+    
+    return url_open_close;
+}
+
+function update_multi_bot_button(){
+    (question_courante === "")
+    ? document.getElementById("robot_masse").setAttribute("disabled", "disabled")
+    : document.getElementById("robot_masse").removeAttribute("disabled");
+    
+    update_multi_bot_text();
+}
+
+function update_multi_bot_text(){
+     var info = '<br><em>Génération automatique</em>',
+        inactif = 'Activation du robot'.concat(info),
+        actif = 'Désactivation du robot'.concat(info);
+    
+    (bot_actif)
+    ? $robot_masse.html(actif)
+    : $robot_masse.html(inactif);
+}
+
+function update_open_close_button(){
+    (question_ouverte === "")
+    ? document.getElementById("ferme_question").setAttribute("disabled", "disabled")
+    : document.getElementById("ferme_question").removeAttribute("disabled");
+    
+    update_open_close_text();
+}
+
+function update_open_close_text(){
+    var info = '<br><em>Votes entrants ',
+        retard = 'en retard</em>',
+        accepte = 'acceptés</em>',
+        fermee = 'Ouvrir la question'.concat(info.concat(accepte)),
+        ouverte = 'Clôturer la question'.concat(info.concat(retard));
+    
+    (question_ouverte)
+    ? $ferme_question.html(fermee)
+    : $ferme_question.html(ouverte);
 }
