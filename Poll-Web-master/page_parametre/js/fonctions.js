@@ -1,10 +1,8 @@
 var question_courante, $bar_refresh;
 
-$('.salut').on('je vous aime les zami', function () {
-    question_courante = $(this).val();
-    $bar_refresh = "";
-    activer_affichage();
-});
+question_courante = $('#salut').attr("value");
+$bar_refresh = "";
+activer_affichage();
 
 function activer_affichage(){
     update_bar();
@@ -34,6 +32,7 @@ function get_url_bar(){
     url_bar = url_bar.concat(question_courante);
     url_bar = url_bar.concat('&categorie=');
     url_bar = url_bar.concat('Valide');
+    
     return url_bar;
 }
 

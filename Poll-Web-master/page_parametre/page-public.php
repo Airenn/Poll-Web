@@ -5,10 +5,6 @@
         <link rel="stylesheet" media="screen" type="text/css" href="css/page-public.php" />
         <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
-        <script src="../bootstrap/dist/js/jquery.min.js"></script>
-        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
-        <script src="js/fonctions.js"></script>
         <title>Page public</title>
     </head>
     <body>
@@ -45,5 +41,9 @@
             </footer>
             
         </div>
+        <script src="../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
+        <script src="js/fonctions.js"></script>
     </body>
 </html>

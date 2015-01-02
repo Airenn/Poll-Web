@@ -45,7 +45,6 @@ $messages_categ.on('click', function () {
     page_courante = 0;
     update_bar();
     update_table();
-    update_pagination();
 });
 
 $tri_button.on('click', function () {

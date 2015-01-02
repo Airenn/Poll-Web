@@ -5,11 +5,9 @@
         <link rel="stylesheet" href="css/page-parametre.css"/>
         <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
-        <script src="../bootstrap/dist/js/jquery.min.js"></script>
-        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
+       
         <link href="../menu.css" rel="stylesheet">
-        <script src="js/fonctions.js"></script>
+        
 
 </head>
         <title>Paramètre (Provisoire)</title>
@@ -106,5 +104,10 @@
         <?php
             require('php/parametre.php');
         ?>
+        
+         <script src="../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
+        <script src="js/fonctions.js"></script>
     </body>
 </html>
