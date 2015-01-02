@@ -3,14 +3,12 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" media="screen" type="text/css" href="css/page-public.php" />
-        <link rel="stylesheet" href="css/bootstrap.css"/>
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-        <script src="../page_questions/js/questions.js"></script>
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.easing.min.js"></script>
-        <script src="js/classie.js"></script>
-        <script src="js/cbpAnimatedHeader.js"></script>
+        <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
+        <script src="../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
+        <script src="js/fonctions.js"></script>
         <title>Page public</title>
     </head>
     <body>
@@ -23,16 +21,21 @@
                 require("php/fonctions.php");
 
             ?>
-            <header>
+            <header class="public">
                 
                 <p id="question"><?php echo get_current_question()['texte'];?></p>
                 <div id="nbmsg">
                     <img src="images/enveloppe.png" alt=""/>
-                    <p id="nbrecus"><?php echo total_reponses(get_current_question()['ID']) ?></p>
+                    <p id="nbrecus"><?php echo nb_messages_quest(get_current_question()['ID'],'Valide'); ?></p>
                 </div>
             </header>
-            <section id="ajax_bar">
-                <?php progress_bars( get_current_question()['ID']); ?>
+            <?php create_pb(); ?>
+            <section id="section_bar">
+                
+                <div id="ajax_bar">
+
+                </div>  
+                
             </section>
             <footer>
                 <p>

@@ -18,9 +18,9 @@ function text_format_css($key){
         echo 'font-family : '.$_SESSION[$key]['police'].'px;';
     }
 }
-function progress_bars($question){
+function progress_bars($question,$categorie){
         $reponses = get_reponses($question);
-        $total = total_messages($question);
+        $total = nb_messages_quest($question,$categorie);
         $categories = array("success"=>"Valide", "default"=>"Doublon", "warning"=>"Retard");
         $pourcentage;
         
@@ -40,4 +40,8 @@ function progress_bars($question){
             echo '</div>';
         }
     }
+
+function create_pb(){
+    echo '<span id="salut" value='.get_current_question()['ID'].'></span>';
+}
 ?>

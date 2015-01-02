@@ -3,14 +3,12 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="css/page-parametre.css"/>
-        <link rel="stylesheet" href="css/bootstrap.css"/>
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
+        <script src="../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
         <link href="../menu.css" rel="stylesheet">
-
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.easing.min.js"></script>
-        <script src="js/classie.js"></script>
         <script src="js/fonctions.js"></script>
 
 </head>
@@ -34,7 +32,7 @@
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons" style="">
                     <label class="btn btn-primary active">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone','#div-format');" checked/> Question
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone','#div-format');" checked="on"/> Question
                     </label>
                     <label class="btn btn-primary">
                         <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess,#div-phone','#div-format');"/> Réponses
@@ -47,7 +45,7 @@
                     </label>
                 </div>
                 <div id="div-mess" style="display:none;">
-                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#div-format');" checked/></label><br/>
+                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#div-format');" checked="on"/></label><br/>
                 </div>
                 <div id="div-format">
                     <label>Couleur de la police : <input type="color" name="color"/></label><br/>
@@ -89,7 +87,7 @@
                 </div>
                 <div id="arriere-plan">
                     <p> Type d'arrière plan : 
-                        <label> Couleur :    <input type="radio" name="radio-a" value="color" onchange="hide_and_seek('#background-image','#background-color');" checked/>     </label>
+                        <label> Couleur :    <input type="radio" name="radio-a" value="color" onchange="hide_and_seek('#background-image','#background-color');" checked="on"/>     </label>
                         <label> Image :      <input type="radio" name="radio-a" value="image" onchange="hide_and_seek('#background-color','#background-image');"/>     </label><br/>
                         <label id="background-color">Couleur de l'arrière-plan :    <input type="color" name="arriere-plan-color"/>    </label>
                         <label id="background-image" style="display:none;">Image de l'arrière-plan : <input type="file" name="file" ng-disabled="disabled" accept="image/x-png, image/gif, image/jpeg"/>
