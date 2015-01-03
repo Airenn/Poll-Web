@@ -7,7 +7,7 @@ $keydown_refresh="";
 activer_affichage();
 
 $("body").keydown(function(e) {
-    if(e.keyCode == 13) { // right
+    if(e.keyCode == 39) { // right
         update_keydown();
         activer_affichage();
     }
