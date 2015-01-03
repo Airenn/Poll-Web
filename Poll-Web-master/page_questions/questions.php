@@ -1,14 +1,12 @@
 <?php
     $_GET['operation'] = 2;
     require_once('php/redirect.php');
-
-    $questions = get_questions($_GET['operation']);
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8"/>
+        <meta charset="utf-8"></meta>
         <title>Questions</title>
         <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
@@ -29,8 +27,8 @@
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
                             <em>Choix de la question</em><br><span class="caret" id="caret_question"></span>
                         </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <?php create_dropdown($questions); ?>
+                        <ul class="dropdown-menu" role="menu" id="ajax_dropdown">
+                            <?php create_dropdown($_GET['operation']); ?>
                         </ul>
                     </div>
 

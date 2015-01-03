@@ -7,9 +7,11 @@
     function get_operation($operation){
         global $db;
         try{
+            lock_sql('operations', 'READ');
             $req=$db->prepare('SELECT * FROM operations WHERE ID=:operation');
             $req->bindvalue(':operation', $operation);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -25,9 +27,11 @@
     function get_questions($operation){
         global $db;
         try{
+            lock_sql('questions', 'READ');
             $req=$db->prepare('SELECT * FROM questions WHERE ID_operation=:operation');
             $req->bindvalue(':operation', $operation);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -43,9 +47,11 @@
     function get_question($question){
         global $db;
         try{
+            lock_sql('questions', 'READ');
             $req=$db->prepare('SELECT * FROM questions WHERE ID=:question');
             $req->bindvalue(':question', $question);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -62,10 +68,12 @@
     function get_question_num($num_question, $operation){
         global $db;
         try{
+            lock_sql('questions', 'READ');
             $req=$db->prepare('SELECT * FROM questions WHERE num_question=:quest AND ID_operation=:op');
             $req->bindvalue(':quest', $num_question);
             $req->bindvalue(':op', $operation);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -81,9 +89,11 @@
     function get_reponses($question){
         global $db;
         try{
+            lock_sql('reponses', 'READ');
             $req=$db->prepare('SELECT * FROM reponses WHERE ID_question=:question');
             $req->bindvalue(':question', $question);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -131,10 +141,12 @@
     function get_messages($question){
         global $db;
         try{
+            lock_sql('messages', 'READ');
             $req='SELECT * FROM messages WHERE ID_question=:question';
             $req = $db->prepare($req);
             $req->bindvalue(':question', $question);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -150,10 +162,12 @@
     function total_reponses($question){
         global $db;
         try{
+            lock_sql('reponses', 'READ');
             $req=$db->prepare('SELECT count(*) as nb FROM reponses WHERE ID_question=:question');
             $req->bindvalue(':question', $question);
             $req->execute();
             $total = $req->fetch(PDO::FETCH_ASSOC);
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -169,10 +183,12 @@
     function total_messages($question){
         global $db;
         try{
+            lock_sql('messages', 'READ');
             $req=$db->prepare('SELECT count(*) as nb FROM messages WHERE ID_question=:question');
             $req->bindvalue(':question', $question);
             $req->execute();
             $total = $req->fetch(PDO::FETCH_ASSOC);
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -188,10 +204,12 @@
     function nb_erreur_quest($question){
         global $db;
         try{
+            lock_sql('messages', 'READ');
             $req=$db->prepare('SELECT count(*) as nb FROM messages WHERE ID_question=:question AND erreur=1');
             $req->bindvalue(':question', $question);
             $req->execute();
             $total = $req->fetch(PDO::FETCH_ASSOC);
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -222,10 +240,12 @@
         $req .= ' AND erreur=0';
         
         try{
+            lock_sql('messages', 'READ');
             $req=$db->prepare($req);
             $req->bindvalue(':reponse', $reponse);
             $req->execute();
             $total = $req->fetch(PDO::FETCH_ASSOC);
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -256,10 +276,12 @@
         $req .= ' AND erreur=0';
         
         try{
+            lock_sql('messages', 'READ');
             $req=$db->prepare($req);
             $req->bindvalue(':quest', $question);
             $req->execute();
             $total = $req->fetch(PDO::FETCH_ASSOC);
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -278,13 +300,24 @@
     /*!
      * Creer le menu deroulant contenant les questions recues en parametre
      *
-     * \param $questions : objet PDO, correspond a une liste de question recuperee par un SELECT
+     * \param $operation : int, identifiant de l'operation dont on veut les questions dans le dropdown
      */
-    function create_dropdown($questions){
+    function create_dropdown($operation){
+        $questions =  get_questions($operation);
+        $texte = "";
+        
         while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){
-            echo'<li class="question" fermee="'.htmlspecialchars($question_tab['fermee']).'" multi="'.htmlspecialchars($question_tab['multi_rep']).'" value="'.htmlspecialchars($question_tab['ID']).'">
-                    <a href="#">'.htmlspecialchars($question_tab['num_question']).": ".htmlspecialchars($question_tab['texte']).'</a>
-                </li>';
+            $texte = htmlspecialchars($question_tab['num_question'].': '.$question_tab['texte']);
+            
+            echo '<li class="question"';
+            echo ' onclick="affichage_question('.htmlspecialchars($question_tab['ID_operation']).'
+                                                , '.htmlspecialchars($question_tab['fermee']).'
+                                                , '.htmlspecialchars($question_tab['multi_rep']).'
+                                                , '.htmlspecialchars($question_tab['ID']).'
+                                                , \''.$texte.'\')"';
+            echo '>';
+            echo '<a href="#">'.$texte.'</a>';
+            echo '</li>';
         }
     }
 
@@ -528,6 +561,7 @@
         $valide = !($erreur || $doublon || $retard);
         
         try{
+            lock_sql('messages', 'WRITE');
             $req=$db->prepare('INSERT INTO messages(`num_tel`, `texte`, `valide`, `erreur`, `doublon`, `retard`, `ID_reponse`, `ID_question`) 
                                 VALUES (:tel, :texte, :valide, :erreur, :doublon, :retard, :rep, :quest)');
             $req->bindvalue(':tel', $num_tel);
@@ -539,6 +573,7 @@
             $req->bindvalue(':rep', $ID_reponse);
             $req->bindvalue(':quest', $ID_question);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -561,6 +596,7 @@
         $doublon;
         
         try{
+            lock_sql('messages', 'READ');
             $req=$db->prepare('SELECT * FROM messages WHERE num_tel=:tel AND texte=:texte AND erreur=:erreur AND retard=:retard AND ID_reponse=:rep AND ID_question=:quest');
             $req->bindvalue(':tel', $num_tel);
             $req->bindvalue(':texte', $texte);
@@ -569,6 +605,7 @@
             $req->bindvalue(':rep', $ID_reponse);
             $req->bindvalue(':quest', $ID_question);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -592,10 +629,12 @@
         $retard;
         
          try{
+            lock_sql('questions', 'READ');
             $req=$db->prepare('SELECT fermee FROM questions WHERE ID=:quest');
             $req->bindvalue(':quest', $ID_question);
             $req->execute();
             $req = $req->fetch(PDO::FETCH_ASSOC);
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -612,8 +651,10 @@
     function get_current_operation(){
         global $db;
         try{
+            lock_sql('operations', 'READ');
             $req=$db->prepare('SELECT * FROM operations WHERE fermee=0');
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -627,8 +668,10 @@
     function get_current_question(){
         global $db;
         try{
+            lock_sql('questions', 'READ');
             $req=$db->prepare('SELECT * FROM questions WHERE fermee=0');
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -723,9 +766,11 @@
     function delete_messages_quest($question){
         global $db;
         try{
+            lock_sql('messages', 'WRITE');
             $req=$db->prepare('DELETE FROM messages WHERE ID_question=:quest');
             $req->bindvalue(':quest', $question);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -762,9 +807,11 @@
         }
         
         try{
+            lock_sql('messages', 'READ');
             $req=$db->prepare($req.' ORDER BY date_reception '.$tri.' LIMIT '.($page*$nb).', '.$nb);
             $req->bindvalue(':quest', $question);
             $req->execute();
+            unlock_sql();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
@@ -823,10 +870,66 @@
         : $fermee = 1;
         
         try{
+            lock_sql('questions', 'WRITE');
             $req=$db->prepare('UPDATE questions SET fermee=:fermee WHERE ID=:quest');
             $req->bindvalue(':fermee', $fermee);
             $req->bindvalue(':quest', $question);
             $req->execute();
+            unlock_sql();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+        
+        echo (int)$fermee;
+    }
+
+    /*
+     * Pose un verrou sur les tables recues en parametre avec le type recu
+     *
+     * \param $tables : string ou array, liste des tables sur lesquelles poser le verrou
+     * \param $type : string, type du verrou (READ ou WRITE)
+     */
+    function lock_sql($tables, $type){
+        global $db;
+        $lock = 'LOCK TABLE ';
+        $valid_types = array('WRITE', 'READ');
+        $type = strtoupper($type);
+        
+        if(in_array($type, $valid_types)){
+            if(is_string($tables)){
+                $lock .= $tables.' '.$type;
+            }
+            else if(is_array($tables)){
+                $max = count($tables);
+                foreach($tables as $table_name){
+                    if(!empty($table_name)){
+                        $lock .= $table_name.' '.$type;
+                        if($tables[$max-1] != $table_name){
+                            $lock .= ', ';
+                        }
+                    }
+                }
+            }
+        }
+        
+        try{
+            $lock=$db->prepare($lock);
+            $lock->execute();
+        }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+    }
+
+    /*
+     * Desactive tous les verrous actifs
+     */
+    function unlock_sql(){
+        global $db;
+        try{
+            $unlock=$db->prepare('UNLOCK TABLES');
+            $unlock->execute();
         }
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
