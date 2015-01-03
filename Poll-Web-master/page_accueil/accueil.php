@@ -4,16 +4,14 @@
 		<meta charset="utf-8"/>
 		<title>Poll</title>
 		<link rel="stylesheet" type="text/css" href="css/accueil.css"/>
-		<link rel="stylesheet" href="../page_parametre/css/page-parametre.css"/>
-		<link rel="stylesheet" href="../page_parametre/css/bootstrap.css"/>
-		<link rel="stylesheet" href="../page_parametre/css/bootstrap.min.css"/>
         <link href="../menu.css" rel="stylesheet">
 
-		<script src="../page_parametre/js/jquery.js"></script>
-		<script src="../page_parametre/js/bootstrap.min.js"></script>
-		<script src="../page_parametre/js/jquery.easing.min.js"></script>
-		<script src="../page_parametre/js/classie.js"></script>
-		<script src="../page_parametre/js/fonctions.js"></script>
+        <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
+        <script src="../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
+        <script src="js/fonctions.js"></script>
 	</head>
 	<body>
 	
