@@ -880,8 +880,6 @@
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
         }
-        
-        echo (int)$fermee;
     }
 
     /*
