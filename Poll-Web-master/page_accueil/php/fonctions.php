@@ -12,9 +12,11 @@ function AfficheQuestionnaires()
         <td class="titre">'.$val['ID'].'</td>
         <td>'.$val['nom'].'</td> 
         <td class="option">
-        <img src="images/afficher.png" alt="" /><img class="edit" src="images/editer.png" alt="" />
-        <img src="images/cloturer.png" alt="" /><img class="export" src="images/exporter.png" alt="" />
-        <img src="images/dupliquer.png" alt="" />
+        <img class="show" src="images/afficher.png" alt="" />
+		<img class="edit" src="images/editer.png" alt="" />
+        <img class="close" src="images/cloturer.png" alt="" />
+		<img class="export" src="images/exporter.png" alt="" />
+        <img class="clone" src="images/dupliquer.png" alt="" />
         <a href="'.$val['ID'].'" data-confirm="Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?"><img class="delete" src="images/supprimer.png" alt="" /></a>
    </td></tr>
    <tr><td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de questions : '.total_questions($val['ID']).'</div></td>
