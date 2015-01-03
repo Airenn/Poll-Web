@@ -41,7 +41,42 @@ function progress_bars($question,$categorie){
         }
     }
 
+function open_question($question){
+    global $db;
+    try{
+        $operation = get_current_operation()['ID'];
+        $req1=$db->prepare('SELECT * FROM questions WHERE ID_operation=:operation');
+        $req1->bindvalue(':operation',$operation);
+        $req1->execute();
+        $test=false;
+        $rep;
+        $req2=$db->prepare('SELECT * FROM questions WHERE fermee=0');
+        $req2->bindvalue(':operation',$operation);
+        $req2->execute();
+        if(empty($req2->fetchAll())){
+        }
+        else{
+            while($rep=$req1->fetch(PDO::FETCH_ASSOC)and $test==false){
+                if($rep['ID']==$question){
+                    $rep=$req1->fetch(PDO::FETCH_ASSOC);
+                    $request=$db->prepare('UPDATE questions SET fermee=:fermee WHERE ID=:question');
+                    $request->bindvalue(':fermee',0);
+                    $request->bindvalue(':question', $rep['ID']);
+                    $request->execute();
+                    open_close_quest($question);
+                    $test=true;
+                }
+            }
+        }
+        
+    }
+        catch(PDOException $e){
+            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+        }
+}
+
 function create_pb(){
-    echo '<span id="salut" value='.get_current_question()['ID'].'></span>';
+    $question = get_current_question()['ID'];
+    echo '<span class="bar" value="'.$question.'"></span>';
 }
 ?>
