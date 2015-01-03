@@ -8,7 +8,7 @@ function AfficheQuestionnaires()
   while($val = $req->fetch(PDO::FETCH_ASSOC))
   {
    echo'
-   <tr data-toggle="collapse" data-target=".'.$val['nom'].'" class="accordion-toggle">
+   <tr id="'.$val['ID'].'" data-toggle="collapse" data-target=".'.$val['ID'].'" class="accordion-toggle">
         <td class="titre">'.$val['ID'].'</td>
         <td>'.$val['nom'].'</td> 
         <td class="option">
@@ -17,9 +17,9 @@ function AfficheQuestionnaires()
         <img src="images/dupliquer.png" alt="" />
         <a href="'.$val['ID'].'" data-confirm="Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?"><img class="delete" src="images/supprimer.png" alt="" /></a>
    </td></tr>
-   <tr><td class="hiddenRow"><div class="accordian-body collapse '.$val['nom'].' ">Nombre de questions : '.total_questions($val['ID']).'</div></td>
-        <td class="hiddenRow"><div class="accordian-body collapse '.$val['nom'].' ">Date de realistation prevu : '.$val['date_prevue'].'</div></td>
-        <td class="hiddenRow"><div class="accordian-body collapse  '.$val['nom'].' ">Date de realistation prevu : '.$val['date_prevue'].'</div></td>
+   <tr><td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de questions : '.total_questions($val['ID']).'</div></td>
+        <td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Date de realistation prevu : '.$val['date_prevue'].'</div></td>
+        <td class="hiddenRow"><div class="accordian-body collapse  '.$val['ID'].' ">Date de realistation prevu : '.$val['date_prevue'].'</div></td>
    </tr>';        
   }
   echo '</table>';
