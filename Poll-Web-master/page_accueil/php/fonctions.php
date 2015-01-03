@@ -12,8 +12,8 @@ function AfficheQuestionnaires()
         <td class="titre">'.$val['ID'].'</td>
         <td>'.$val['nom'].'</td> 
         <td class="option">
-        <img class="show" src="images/afficher.png" alt="" />
-		<img class="edit" src="images/editer.png" alt="" />
+        <a href="../page_questions/questions.php?operation='.$val['ID'].'" title="Afficher les questions de ce questionnaire"><img class="show" src="images/afficher.png" alt="" /></a>
+		<a href="../page_questions/questions.php?operation='.$val['ID'].'" title="Modifier les questions de ce questionnaire"><img class="edit" src="images/editer.png" alt="" /></a>
         <img class="close" src="images/cloturer.png" alt="" />
 		<img class="export" src="images/exporter.png" alt="" />
         <img class="clone" src="images/dupliquer.png" alt="" />
