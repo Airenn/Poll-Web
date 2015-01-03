@@ -73,8 +73,6 @@ function open_question($question){
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
         }
-    
-    echo get_current_question()['ID'];
 }
 
 function create_pb(){
