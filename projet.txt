@@ -1,0 +1,42 @@
+﻿2 "Robots" SMS : 
+	- Formulaire (numéro + message) pour test unitaire
+	- Programme paramétrable qui simule des SMS en boucle pour test de grande ampleur
+
+
+1 Vote = 1 opération (nom + date)
+Enregistrement de plusieurs opérations possible.
+	- Affichage de la liste (classé par date, plus récent en premier)
+	- Créer
+	- Supprimer
+	- Modifier
+	- Exporter le paramétrage (dupliquer sur un autre ordinateur)
+	- Importer (depuis fichier exporté)
+	- Exporter SMS (enregistrement dans un fichier de tous les sms reçus pour l'OP)
+
+[1..N] questions par opération.
+	- Créer question
+	- Supprimer
+	- Modifier question (changer le texte)
+	- Changer ordre des questions (seulement si aucun sms reçu pour la question)
+	- Effacer tous les SMS reçus pour une question
+
+[1..N] réponses par question, parfois plusieurs réponses par question, prise en charge des écarts d'écriture, possibilité d'attribuer des points aux questions
+	- Créer réponse
+	- Supprimer réponse
+	- Modifier réponse (changer texte et/ou points, texte non modifiable si réponse déjà reçue)
+
+Une seule participation par question, seul premier SMS pris en compte. Si réponse non interprétable, classée en erreur.
+
+Organisateur décide de la fin du vote, pas de compteur auto.
+
+Fenêtre Web d'affichage (diffusion des questions) sans barres de menu ni quoi que ce soit.
+	- Taille du texte
+	- Couleur du texte
+	- Affichage ou non du nombre de SMS reçus
+	- Choix d'une image de fond d'écran
+	- Choix de la couleur des barres de résultat
+	- Affichage du résultat en %age et/ou nombre de votes
+	- Modifier le numéro de téléphone dans le texte d'explication en bas
+
+Mise à jour dynamique (AJAX, JQuery, Javascript)
+Affichage possible d'un podium avec identification des 3 meilleurs participants identifiés par leur numéro de tél partiellement affichés.
