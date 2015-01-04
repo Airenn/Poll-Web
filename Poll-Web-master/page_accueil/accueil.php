@@ -8,10 +8,6 @@
 
         <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
-        <script src="../bootstrap/dist/js/jquery.min.js"></script>
-        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
-        <script src="js/fonctions.js"></script>
 	</head>
 	<body>
 	
@@ -48,5 +44,13 @@
     </div>-->
                 </div>
 		  </div>
+		  
+		  
+		<script src="../bootstrap/dist/js/jquery.min.js"></script>
+        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
+        <script src="js/fonctions.js"></script>
+		<script src="js/passage_get.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	</body>
 </html>

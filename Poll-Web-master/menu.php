@@ -40,9 +40,9 @@
             </div>
             <div id="menu">
                 <ul>
-                    <a href='.$accueil.' title="Liste de tous les questionnaires"><li>Questionnaires</li></a>
-                    <a href='.$questions.' title="Afficher/modifier les questions de votre questionnaire"><li>Questions</li></a>
-                    <a href='.$parametre.' title="Paramétrer vos questionnaires"><li>Paramètres</li></a>
+                    <a class="accueil" href='.$accueil.' title="Liste de tous les questionnaires"><li>Questionnaires</li></a>
+                    <a class="questions" href='.$questions.' title="Afficher/modifier les questions de votre questionnaire"><li>Questions</li></a>
+                    <a class="parametres" href='.$parametre.' title="Paramétrer vos questionnaires"><li>Paramètres</li></a>
                 </ul>
             </div>
             ';
