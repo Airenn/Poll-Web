@@ -237,8 +237,6 @@
             $req .= ' AND retard=1';
         }
         
-        $req .= ' AND erreur=0';
-        
         try{
             lock_sql('messages', 'READ');
             $req=$db->prepare($req);
@@ -333,11 +331,9 @@
         
         if($categorie == 'Valide'){
             $categories = array("success"=>$categorie);
-            
         }
         else if($categorie == 'Doublon'){
             $categories = array("default"=>$categorie);
-
         }
         else if($categorie == 'Retard'){
             $categories = array("warning"=>$categorie);
@@ -346,43 +342,88 @@
             $categories = array("success"=>"Valide", "default"=>"Doublon", "warning"=>"Retard");
         }
         
-        $pourcentage;
-        
         while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
-            echo '<p>'.$rep['texte'].'</p><div class="progress">';
-            
-            foreach($categories as $key=>$categ){
-                ($total>0) 
-                ? $pourcentage = 100*(nb_messages_rep($rep['ID'], $categ)/$total)
-                : $pourcentage = 0;
-                
-                $pourcentage = round($pourcentage);
-
-                echo
-                    '<div class="progress-bar progress-bar-'.$key.' progress-bar-striped" style="width: '.(int)$pourcentage.'%">
-                        <span class="sr-only">'.(int)$pourcentage.'%</span>
-                    </div>';
-            }
-            
-            echo '</div>';
+            construct_full_bar($categories, $question, $rep['ID'], $total, $rep['texte']);
         }
         
         if($categorie == 'Tout' || $categorie == 'Erreur'){
+            $categories = array("danger"=>"Erreur");
             $total = total_messages($question);
-            
-            ($total>0)
-            ? $pourcentage = 100*(nb_erreur_quest($question)/$total)
-            : $pourcentage = 0;
-            
-            $pourcentage = round($pourcentage);
-
-            echo'<p>Erreurs</p>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: '.(int)$pourcentage.'%">
-                        <span class="sr-only">'.(int)$pourcentage.'%</span>
-                    </div>
-                </div>';
+            construct_full_bar($categories, $question, null, $total, 'Erreur');
         }
+    }
+
+    /*
+     * Renvoie l'entier correspondant au pourcentage de barre pour les parametres recus
+     *
+     * \param $question : int, identifiant de la question
+     * \param $reponse : int, identifiant de la reponse concernee
+     * \param $categorie : string, categorie de message dont on veut le pourcentage
+     * \param $total : int, total de messages a prendre en compte
+     */
+    function get_pourcentage($question, $reponse, $categorie, $total){
+        if($total>0){
+            ($categorie!='Erreur')
+            ? $pourcentage = 100*(nb_messages_rep($reponse, $categorie)/$total)
+            : $pourcentage = 100*(nb_erreur_quest($question)/$total);
+        }
+        else{
+            $pourcentage = 0;
+        }
+
+        $pourcentage = round($pourcentage);
+        
+        return $pourcentage;
+    }
+
+    /*
+     * Creer la sous-barre de la barre principale pour la reponse et la categorie recues en parametre
+     *
+     * \param $pourcentage : int, pourcentage de la reponse
+     * \param $reponse : int, identifiant de la reponse concernee
+     * \param $progress_clas : string, classe de la progress-bar a construire
+     * \param $categorie : string, categorie de message a representer
+     * \param $total : int, total de messages a prendre en compte
+     */
+    function construct_part_bar($pourcentage, $reponse, $progress_class, $categorie, $total){
+        echo
+            '<div class="progress-bar progress-bar-'.$progress_class.' progress-bar-striped" style="width: '.$pourcentage.'%">
+                <span class="sr-only">'.$pourcentage.'%</span>
+            </div>';
+    }
+
+    /*
+     * Creer la barre principale pour la reponse recue en parametre
+     *
+     * \param $categories : array, liste des categories a inclure dans la barre
+     * \param $question : int, identifiant de la question
+     * \param $reponse : int, identifiant de la reponse concernee
+     * \param $total : int, total de messages a prendre en compte
+     * \param $texte : string, texte a inclure dans le titre de la barre
+     */
+    function construct_full_bar($categories, $question, $reponse, $total, $texte){
+        $pourcentage_total = 0;
+        $pourcentage = 0;
+        
+        if($total>0){
+            foreach($categories as $key=>$categ){
+                $pourcentage_total += get_pourcentage($question, $reponse, $categ, $total);
+            }
+        }
+
+        echo '<h4>'.$texte;
+
+        if($pourcentage_total != 0){
+            echo '<span class="label label-default" style="float: right;">'.$pourcentage_total.'%</span>';
+        }
+
+        echo '</h4><div class="progress">';
+
+        foreach($categories as $key=>$categ){
+            $pourcentage = get_pourcentage($question, $reponse, $categ, $total);
+            construct_part_bar($pourcentage, $reponse, $key, $categ, $total);
+        }
+        echo '</div>';
     }
 
     /*!
