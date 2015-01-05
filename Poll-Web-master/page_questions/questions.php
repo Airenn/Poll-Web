@@ -92,9 +92,9 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Numéro de téléphone</button></th>
+                                                <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Téléphone</button></th>
                                                 <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Message</button></th>
-                                                <th style="text-align:center;"><button type="button" class="btn btn-default" id="btn_reception">Date de réception</button></th>
+                                                <th style="text-align:center;"><button type="button" class="btn btn-default" id="btn_reception">Réception</button></th>
                                             </tr>
                                         </thead>
                                         <tbody id="ajax_table">
