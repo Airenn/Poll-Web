@@ -19,8 +19,8 @@
         ?>
         
 		<div id="background">
-			<input id="create" type="button" value="Créer Questionnaires" />
-			<input id="import" type="button" value="Importer Questionnaire" />
+			<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
+			<input id="import" type="button" class="btn btn-default" value="Importer Questionnaire" />
             <div id="liste">
 			     <div id="titre" ><span>Questionnaires</span><span>Options</span></div>
 

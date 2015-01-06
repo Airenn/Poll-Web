@@ -2,7 +2,7 @@
 function AfficheQuestionnaires()
  {
         global $db;
-  $req = $db->prepare("SELECT * FROM operations");
+  $req = $db->prepare("SELECT * FROM operations WHERE ID!=1");
   $req->execute();
   echo '<table id="tableau" class="table table-striped table-hover" >';
   while($val = $req->fetch(PDO::FETCH_ASSOC))
