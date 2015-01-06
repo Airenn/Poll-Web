@@ -601,24 +601,28 @@
         $doublon = check_doublon($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question);
         $valide = !($erreur || $doublon || $retard);
         
-        try{
-            lock_sql('messages', 'WRITE');
-            $req=$db->prepare('INSERT INTO messages(`num_tel`, `texte`, `valide`, `erreur`, `doublon`, `retard`, `ID_reponse`, `ID_question`) 
-                                VALUES (:tel, :texte, :valide, :erreur, :doublon, :retard, :rep, :quest)');
-            $req->bindvalue(':tel', $num_tel);
-            $req->bindvalue(':texte', $texte);
-            $req->bindvalue(':valide', $valide);
-            $req->bindvalue(':erreur', $erreur);
-            $req->bindvalue(':doublon', $doublon);
-            $req->bindvalue(':retard', $retard);
-            $req->bindvalue(':rep', $ID_reponse);
-            $req->bindvalue(':quest', $ID_question);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args_open_close = array(
+                                'champs_cibles'=>array('num_tel', 
+                                                       'texte', 
+                                                       'valide', 
+                                                       'erreur', 
+                                                       'doublon', 
+                                                       'retard', 
+                                                       'ID_reponse', 
+                                                       'ID_question'
+                                                ), 
+                                'clause_values'=>array('num_tel'=>$num_tel, 
+                                                       'texte'=>$texte, 
+                                                       'valide'=>$valide, 
+                                                       'erreur'=>$erreur, 
+                                                       'doublon'=>$doublon, 
+                                                       'retard'=>$retard, 
+                                                       'ID_reponse'=>$ID_reponse, 
+                                                       'ID_question'=>$ID_question
+                                                )
+                            );
+        
+        execute_sql("INSERT", "messages", $args_open_close);
     }
 
     /*!
@@ -910,17 +914,12 @@
         ? $fermee = 0
         : $fermee = 1;
         
-        try{
-            lock_sql('questions', 'WRITE');
-            $req=$db->prepare('UPDATE questions SET fermee=:fermee WHERE ID=:quest');
-            $req->bindvalue(':fermee', $fermee);
-            $req->bindvalue(':quest', $question);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args_open_close = array(
+                                'clause_set'=>array('fermee'=>$fermee), 
+                                'clause_where'=>array('ID'=>$question)
+                            );
+        
+        execute_sql("UPDATE", "questions", $args_open_close);
     }
 
     /*
@@ -973,5 +972,339 @@
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
         }
+    }
+
+    /*
+     * Renvoie la requete sql correspondant aux parametres recus.
+     * Les exceptions et verrous sont gerees au sein de la fonction qui s'occupe egalement de construire la requete grace aux arguments fournis
+     *
+     * \param $type_operation : string, type de l'operation SQL, peut prendre 4 valeurs, SELECT / INSERT / UPDATE / DELETE
+     * \param $table_cible : string, nom de la table cible
+     * \param $args_operation : array, liste des arguments, peut contenir plusieurs elements selon le type de requete :
+     *
+     *                          - Pour une requete SELECT
+     *                              # Une cle "champs_cibles" pour un array listant les colonnes cibles de la requete
+     *                                  ~ "champs_cibles" => array(string, string, ...)
+     *                                  ~ "champs_cibles" => array(NOM_COLONNE_1, NOM_COLONNE_2, ...)
+     *
+     *                              # Une cle "clause_where" pour un array listant les conditions du WHERE (s'il y en a un)
+     *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
+     *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *
+     *                              # Une cle "clause_order_by" pour un array listant les deux conditions du ORDER BY (s'il y en a un)
+     *                                  ~ "clause_order_by" => array(string => string, string => string)
+     *                                  ~ "clause_order_by" => array("colonne_tri" => NOM_COLONNE, "ordre_tri" => "DESC" OU "ordre_tri" => "ASC")
+     *
+     *                              # Une cle "clause_limit" pour un array listant les deux conditions du LIMIT (s'il y en a un)
+     *                                  ~ "clause_limit" => array(string => int, string => int)
+     *                                  ~ "clause_limit" => array("ligne_depart" => NUMERO_LIGNE, "nombre_lignes" => NOMBRE_DE_LIGNE_A_SELECTIONNER)
+     *
+     *
+     *                          - Pour une requete INSERT
+     *                              # Une cle "champs_cibles" pour un array listant les colonnes cibles de la requete
+     *                                  ~ "champs_cibles" => array(string, string, ...)
+     *                                  ~ "champs_cibles" => array(NOM_COLONNE_1, NOM_COLONNE_2, ...)
+     *
+     *                              # Une cle "clause_values" pour un array listant les valeurs a ajouter
+     *                                  ~ "clause_values" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
+     *                                  ~ "clause_values" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *
+     *
+     *                          - Pour une requete UPDATE
+     *                              # Une cle "clause_set" pour un array listant les valeurs a mettre a jour
+     *                                  ~ "clause_set" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
+     *                                  ~ "clause_set" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *
+     *                              # Une cle "clause_where" pour un array listant les conditions du WHERE
+     *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
+     *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *
+     *
+     *                          - Pour une requete DELETE
+     *                              # Une cle "clause_where" pour un array listant les conditions du WHERE
+     *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
+     *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     */
+    function execute_sql($type_operation, $table_cible, $args_operation=array()){
+        global $db;
+        $req = "";
+        
+        $type_operation = strtoupper(trim($type_operation));
+        $op_select = array("operation"=>"SELECT", "liaison"=>"FROM", "condition"=>"WHERE", "verrou"=>"READ");
+        $op_insert = array("operation"=>"INSERT", "liaison"=>"INTO", "condition"=>"VALUES", "verrou"=>"WRITE");
+        $op_update = array("operation"=>"UPDATE", "liaison"=>"SET", "condition"=>"WHERE", "verrou"=>"WRITE");
+        $op_delete = array("operation"=>"DELETE", "liaison"=>"FROM", "condition"=>"WHERE", "verrou"=>"WRITE");
+        $types_valides = array($op_select, $op_insert, $op_update, $op_delete);
+        
+        $select_valide = array("champs_cibles", "clause_where", "clause_order_by", "clause_limit");
+        $insert_valide = array("champs_cibles", "clause_values");
+        $update_valide = array("clause_set", "clause_where");
+        $delete_valide = array("clause_where");
+        $args_valides = array("SELECT"=>$select_valide, "INSERT"=>$insert_valide, "UPDATE"=>$update_valide, "DELETE"=>$delete_valide);
+        
+        $ordre_composantes = "";
+        $args_operation_valides = ($args_operation === "");
+        $operation_valide = false;
+        
+        foreach($types_valides as $type){
+            if($type_operation == $type['operation']){
+                $type_operation = $type;
+                $operation_valide = true;
+                
+                if($args_operation_valides == 0){
+                    $args_operation_valides = 1;
+                    foreach($args_operation as $key=>$info){
+                        $args_operation_valides *= in_array($key, $args_valides[$type['operation']]);
+                    }
+                } 
+                
+                break;
+            }
+        }
+        
+        if($type_operation['operation'] == "SELECT"){
+            $champs_cibles = "";
+            $clause_where = "";
+            $clause_order_by = "";
+            $clause_limit = "";
+            
+            (!isset($args_operation['champs_cibles']))
+            ? $champs_cibles = array("*")
+            : $champs_cibles = $args_operation['champs_cibles'];
+            
+            (!isset($args_operation['clause_where']))
+            ? $clause_where = ""
+            : $clause_where = $args_operation['clause_where'];
+            
+            (!isset($args_operation['clause_order_by']))
+            ? $clause_order_by = ""
+            : $clause_order_by = $args_operation['clause_order_by'];
+            
+            (!isset($args_operation['clause_limit']))
+            ? $clause_limit = ""
+            : $clause_limit = $args_operation['clause_limit'];
+            
+            if($clause_where == ""){
+                $type_operation['condition'] = "";
+            }
+
+            $args_operation = array("champs_cibles"=>$champs_cibles, "clause_where"=>$clause_where, "clause_order_by"=>$clause_order_by, "clause_limit"=>$clause_limit);
+        }
+        else if($type_operation['operation'] == "INSERT"){
+            $champs_cibles = "";
+            $clause_values = "";
+            
+            (!isset($args_operation['champs_cibles']))
+            ? $champs_cibles = ""
+            : $champs_cibles = $args_operation['champs_cibles'];
+            
+            (!isset($args_operation['clause_values']))
+            ? $clause_values = ""
+            : $clause_values = $args_operation['clause_values'];
+
+            $args_operation = array("champs_cibles"=>$champs_cibles, "clause_values"=>$clause_values);
+        }
+        else if($type_operation['operation'] == "UPDATE"){
+            $clause_set = "";
+            $clause_where = "";
+            
+            (!isset($args_operation['clause_set']))
+            ? $clause_set = ""
+            : $clause_set = $args_operation['clause_set'];
+            
+            (!isset($args_operation['clause_where']))
+            ? $clause_where = ""
+            : $clause_where = $args_operation['clause_where'];
+
+            $args_operation = array("clause_set"=>$clause_set, "clause_where"=>$clause_where);
+        }
+        else{
+            $clause_where = "";
+            
+            (!isset($args_operation['clause_where']))
+            ? $clause_where = ""
+            : $clause_where = $args_operation['clause_where'];
+            
+            if($clause_where == ""){
+                $type_operation['condition'] = "";
+            }
+
+            $args_operation = array("clause_where"=>$clause_where);
+        }
+        
+        if($operation_valide && is_string($table_cible) && trim($table_cible)!="" && $args_operation_valides){
+            
+            $champs = "";
+            $where = "";
+            $order_by = "";
+            $limit = "";
+            $values = "";
+            $set = "";
+            
+            if(isset($args_operation['champs_cibles']) && !empty($args_operation['champs_cibles']) && $args_operation['champs_cibles'][0]!=""){
+                $i = count($args_operation['champs_cibles']);
+                if($type_operation['operation'] == "INSERT"){
+                    $champs .= "(";    
+                }
+                foreach($args_operation['champs_cibles'] as $colonne){
+                    $i--;
+                    if($colonne!=""){
+                        $champs .= "$colonne";
+            
+                        if($i>0){
+                            $champs .= ", ";   
+                        }
+                    }
+                }
+                if($type_operation['operation'] == "INSERT"){
+                    $champs .= ")";    
+                }
+            }
+            
+            if(isset($args_operation['clause_where']) && !empty($args_operation['clause_where'])){
+                $i = count($args_operation['clause_where']);
+                foreach($args_operation['clause_where'] as $colonne=>$valeur){
+                    $i--;
+                    if($colonne!=""){
+                        $where .= "$colonne=:where_$colonne";
+            
+                        if($i>0){
+                            $where .= " AND ";   
+                        }
+                    }
+                }
+            }                
+            
+            if(isset($args_operation['clause_order_by']) && !empty($args_operation['clause_order_by'])){
+                $order_by = 'ORDER BY '.$args_operation['clause_order_by']['colonne_tri'].' '.$args_operation['clause_order_by']['ordre_tri'];
+            }                
+            
+            if(isset($args_operation['clause_limit']) && !empty($args_operation['clause_limit'])){
+                $limit = 'LIMIT '.$args_operation['clause_limit']['ligne_depart'].', '.$args_operation['clause_limit']['nombre_lignes'];
+            }                
+            
+            if(isset($args_operation['clause_values']) && !empty($args_operation['clause_values'])){
+                $i = count($args_operation['clause_values']);
+                $values .= "(";
+                foreach($args_operation['clause_values'] as $colonne=>$valeur){
+                    $i--;
+                    if($colonne!=""){
+                        $values .= ":values_$colonne";
+            
+                        if($i>0){
+                            $values .= ", ";   
+                        }
+                    }
+                }
+                $values .= ")";
+            }                
+            
+            if(isset($args_operation['clause_set']) && !empty($args_operation['clause_set'])){
+                $i = count($args_operation['clause_set']);
+                foreach($args_operation['clause_set'] as $colonne=>$valeur){
+                    $i--;
+                    if($colonne!=""){
+                        $set .= "$colonne=:set_$colonne";
+            
+                        if($i>0){
+                            $set .= ", ";   
+                        }
+                    }
+                }
+            }                
+            
+            if($type_operation['operation'] == "SELECT"){
+                $ordre_composantes = array(
+                                        $type_operation['operation'], 
+                                        $champs, 
+                                        $type_operation['liaison'],
+                                        $table_cible,
+                                        $type_operation['condition'],
+                                        $where,
+                                        $order_by,
+                                        $limit
+                                    );
+            }
+            else if($type_operation['operation'] == "INSERT"){
+                $ordre_composantes = array(
+                                        $type_operation['operation'], 
+                                        $type_operation['liaison'],
+                                        $table_cible,
+                                        $champs,
+                                        $type_operation['condition'],
+                                        $values
+                                    );
+                
+                if($values == ""){
+                    $ordre_composantes = "";
+                }
+            }
+            else if($type_operation['operation'] == "UPDATE"){
+                $ordre_composantes = array(
+                                        $type_operation['operation'], 
+                                        $table_cible,
+                                        $type_operation['liaison'],
+                                        $set,
+                                        $type_operation['condition'],
+                                        $where
+                                    );
+                if($set == "" || $where == ""){
+                    $ordre_composantes = "";
+                }
+            }
+            else{
+                $ordre_composantes = array(
+                                        $type_operation['operation'], 
+                                        $type_operation['liaison'],
+                                        $table_cible,
+                                        $type_operation['condition'],
+                                        $where
+                                    );
+            }
+            
+            if($ordre_composantes != ""){
+                foreach($ordre_composantes as $composantes){
+                    $req .= "$composantes ";
+                }
+            }
+
+            try{
+                lock_sql($table_cible, $type_operation['verrou']);
+                $req = $db->prepare($req);
+                
+                if($type_operation['operation'] == "SELECT" || $type_operation['operation'] == "UPDATE" || $type_operation['operation'] == "DELETE"){
+                    if($where != ""){
+                        foreach($args_operation['clause_where'] as $colonne=>$valeur){
+                            $req->bindvalue(":where_$colonne", $valeur);
+                        }
+                    }
+                }
+                
+                if($type_operation['operation'] == "INSERT"){
+                    if($values != ""){
+                        foreach($args_operation['clause_values'] as $colonne=>$valeur){
+                            $req->bindvalue(":values_$colonne", $valeur);
+                        } 
+                    }
+                }
+                
+                if($type_operation['operation'] == "UPDATE"){
+                    if($set != ""){
+                        foreach($args_operation['clause_set'] as $colonne=>$valeur){
+                            $req->bindvalue(":set_$colonne", $valeur);
+                        } 
+                    }
+                }
+                
+                $req->execute();
+                unlock_sql();
+            }
+            catch(PDOException $e){
+                die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+            }
+            
+        }
+        
+        return $req;
     }
 ?>
