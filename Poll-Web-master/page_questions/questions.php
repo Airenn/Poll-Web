@@ -1,5 +1,5 @@
 <?php
-    $_GET['operation'] = 2;
+    //$_GET['operation'] = 2;
     require_once('php/redirect.php');
 ?>
 
