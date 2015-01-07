@@ -25,7 +25,6 @@
                     <p id="nbrecus"><?php echo nb_messages_quest(get_current_question()['ID'],'Valide'); ?></p>
                 </div>
             </header>
-                
                 <section id="section_bar">
                     <?php create_pb(); ?>
                     <div id="ajax_bar"></div>  

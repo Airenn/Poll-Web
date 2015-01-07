@@ -7,7 +7,7 @@
         <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
        
         <link href="../menu.css" rel="stylesheet">
-        
+        <script src="js/fonctions.js"></script>
 
 </head>
         <title>Paramètre (Provisoire)</title>
@@ -69,13 +69,13 @@
             </form>
             
             <div id="remote">
-                <button type="button" class="btn btn-default btn-lg">
+                <button type="button" class="btn btn-default btn-lg" id="bouton-left">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="btn btn-default btn-lg">
+                <button type="button" class="btn btn-default btn-lg" id="bouton-result">
                     <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="btn btn-default btn-lg">
+                <button type="button" class="btn btn-default btn-lg" id="bouton-right">
                     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 </button>
             </div>

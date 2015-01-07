@@ -22,7 +22,7 @@
             $parametre = '"#" id="current"';
             $plus='<ul>
                 <li class="liste-entete">
-                    <a class="lien-entete" href="page-public.php" target="_blank">Afficher la page public</a>
+                    <a class="lien-entete" onclick="maximize_screen();" href="">Afficher la page public</a>
                 </li>
                 <li class="liste-entete">
                     <a class="lien-entete" href="#arriere-plan">Arrière-Plan</a>
@@ -40,9 +40,9 @@
             </div>
             <div id="menu">
                 <ul>
-                    <a class="accueil" href='.$accueil.' title="Liste de tous les questionnaires"><li>Questionnaires</li></a>
-                    <a class="questions" href='.$questions.' title="Afficher/modifier les questions de votre questionnaire"><li>Questions</li></a>
-                    <a class="parametres" href='.$parametre.' title="Paramétrer vos questionnaires"><li>Paramètres</li></a>
+                    <a href='.$accueil.' title="Liste de tous les questionnaires"><li>Questionnaires</li></a>
+                    <a href='.$questions.' title="Afficher/modifier les questions de votre questionnaire"><li>Questions</li></a>
+                    <a href='.$parametre.' title="Paramétrer vos questionnaires"><li>Paramètres</li></a>
                 </ul>
             </div>
             ';

@@ -87,7 +87,6 @@ header
 {
     margin-left : 2em;
     clear : both;
-    width : 40px;
 }
 
 .rep

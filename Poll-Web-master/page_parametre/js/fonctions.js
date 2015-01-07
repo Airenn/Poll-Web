@@ -7,17 +7,15 @@ $keydown_refresh="";
 
 activer_affichage();
 
-$("body").keydown(function(e) {
-    if(e.keyCode == 39 ) { // right
+$("#bouton-right").click(function() {
         update_keydown();
         activer_affichage();
-    }
 });
-
 function activer_affichage(){
+    update_title();
     update_bar();
     refresh_bar();
-    update_title();
+
 }
 
 function update_bar(){
@@ -54,6 +52,7 @@ function refresh_bar(){
 function get_url_keydown(){
     var url_bar = 'ajax/ajax_keydown.php?question='; 
     url_bar = url_bar.concat(question_courante);
+    url_bar = url_bar.concat('&openclose=true');
     return url_bar;
 }
 
@@ -82,4 +81,9 @@ function hide_checkbox(checkbox,hide){
         $(hide).css('display','inline');
     else
         $(hide).css('display','none');
+}
+
+function maximize_screen(){
+        var myWindow = window.open("page-public.php", "", "width=100%", "height=100%")
+        myWindow.resizeTo(screen.availWidth, screen.availHeight);
 }

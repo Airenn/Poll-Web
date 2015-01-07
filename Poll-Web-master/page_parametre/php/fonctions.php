@@ -41,22 +41,26 @@ function progress_bars($question,$categorie){
         }
     }
 
-function open_question($question){
+function open_question($question,$open_close){
     global $db;
+    $val;
     try{
         $operation = get_current_operation()['ID'];
         $req1=$db->prepare('SELECT * FROM questions WHERE ID_operation=:operation');
         $req1->bindvalue(':operation',$operation);
         $req1->execute();
         $test=false;
-        $rep;
         $req2=$db->prepare('SELECT * FROM questions WHERE fermee=0');
         $req2->bindvalue(':operation',$operation);
         $req2->execute();
         if(empty($req2->fetchAll())){
             reset_bdd_question('2');
+            $req2->$db->prepare('SELECT * FROM questions WHERE ID_operation=:operation');
+            $req2->bindvalue(':operation',$operation);
+            $req2->execute();
+            $rep=$req2->fetch(PDO::FETCH_ASSOC);
         }
-        elseif(empty($req2->fetchAll())){
+        else{
             while($rep=$req1->fetch(PDO::FETCH_ASSOC) and $test==false){
                 if($rep['ID']==$question){
                     $rep=$req1->fetch(PDO::FETCH_ASSOC);
@@ -71,8 +75,8 @@ function open_question($question){
         catch(PDOException $e){
             die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
         }
-    
-    echo get_current_question()['ID'];
+    $val=get_current_question()['ID'];
+    echo $val;
 }
 
 function reset_bdd_question($question){
