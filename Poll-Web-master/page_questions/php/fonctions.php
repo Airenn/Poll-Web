@@ -244,14 +244,14 @@
         $texte = "";
         
         while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){
-            $texte = htmlspecialchars($question_tab['num_question'].': '.$question_tab['texte']);
-            
+            $texte = htmlspecialchars($question_tab['num_question']).' : '.htmlspecialchars($question_tab['texte']);
             echo '<li class="question"';
             echo ' onclick="affichage_question('.htmlspecialchars($question_tab['ID_operation']).'
                                                 , '.htmlspecialchars($question_tab['fermee']).'
                                                 , '.htmlspecialchars($question_tab['multi_rep']).'
                                                 , '.htmlspecialchars($question_tab['ID']).'
-                                                , \''.$texte.'\')"';
+                                                , '.htmlspecialchars($question_tab['num_question']).'
+                                                , \''.htmlspecialchars($question_tab['texte']).'\')"';
             echo '>';
             echo '<a href="#">'.$texte.'</a>';
             echo '</li>';

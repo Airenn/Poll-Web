@@ -1,5 +1,4 @@
 <?php
-    //$_GET['operation'] = 2;
     require_once('php/redirect.php');
 ?>
 
@@ -22,17 +21,10 @@
         ?>
         <div id="background_panel">
             <div class="panel panel-default" id="center_panel">
+                <div class="panel-heading"><h3 class="panel-title">Questionnaire : <?php echo get_operation($_GET['operation'])['nom']; ?> </h3></div>
                 <div class="panel-body">
-                    <div class="btn-group" id="btn-gauche">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
-                            <em>Choix de la question</em><br><span class="caret" id="caret_question"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" id="ajax_dropdown">
-                            <?php create_dropdown($_GET['operation']); ?>
-                        </ul>
-                    </div>
 
-                    <div id="btn-droite">
+                    <div id="btn-centre">
                         <div class="btn-group" role="group" aria-label="...">
                           <button type="button" class="btn btn-default" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
                         </div>
@@ -45,7 +37,54 @@
                             <button type="button" class="btn btn-default" id="suppression_question">Réinitialiser la question<br><em>Supprime les messages</em></button>
                         </div>
                     </div>
-
+                    <div class="input-group">
+                        <span class="input-group-addon" id="input_texte_question">
+                            Question
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
+                                <span class="caret" id="caret_question"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" id="ajax_dropdown">
+                                <?php create_dropdown($_GET['operation']); ?>
+                            </ul>
+                        </span>
+                        
+                        <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" name="question_texte" id="question_texte" value="">
+                        
+                        <span class="input-group-addon" id="modification_texte_question">
+                            <div class="btn-group" role="group" aria-label="..." title="Valider les modifications">
+                                <button type="button" class="btn btn-default" id="validation_modification"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                            </div>
+                            
+                            <div class="btn-group" role="group" aria-label="..." title="Supprimer la question">
+                                <button type="button" class="btn btn-default" id="suppression_question"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            </div>
+                        </span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="input-group-addon informations_question">
+                            Numéro
+                            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" name="num_quest" id="input_num_question" value="">
+                        </span>
+                
+                        <span class="input-group-addon informations_question">
+                            Question fermée<br><br>
+                            <input type="checkbox" aria-label="...">
+                        </span>
+                        
+                        <span class="input-group-addon informations_question">
+                            Réponses multiples<br><br>
+                            <input type="checkbox" aria-label="...">
+                        </span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="input-group-addon" id="ajouter-question">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default" id="btn-ajouter-question">Ajouter une question</button>
+                            </div>
+                        </span>
+                    </div>
 
                     <br/><br/>
                     <div class="panel panel-default" id="panel_envoi">
@@ -53,12 +92,12 @@
                         <div class="panel-body">
 
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1">Téléphone</span>
+                                    <span class="input-group-addon" id="input_telephone">Téléphone</span>
                                     <input type="text" class="form-control" placeholder="+33612345678" aria-describedby="basic-addon1" name="num_tel" id="num_tel" value="">
                                 </div>
                                 <br/>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1">Texte SMS</span>
+                                    <span class="input-group-addon" id="input_texte_sms">Texte SMS</span>
                                     <input type="text" class="form-control" placeholder="1A" aria-describedby="basic-addon1" name="texte" id="texte" value="">
                                 </div>
                                 <br/>

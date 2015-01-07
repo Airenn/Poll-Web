@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Questions </title>
+		<meta charset = "utf-8" />
+		<link href = "projet1.css" rel = "stylesheet" type = "text/css" />
+	</head>
+
+	<body class = "body">
+		<header id="header" >
+			<h1 id = "h1" > Questionnaire : </h1>
+		</header>
+
+		<section>	
+			<div id = "div1" >
+
+				<form name="form" method="post" action="" >
+					Question n° : 
+				<input id="entrez_question" type="text" size="50" value="Entrez votre question ici !" onclick="question();">
+				
+				</form>
+			</div>
+
+			<div id = "div2" >
+				<p> Propositions: </p>
+			</div>
+
+			
+			<table id="table_reponses" border="0" cellspacing="1" cellpadding="0">
+				<thead> <tr>
+					<th> Choix </th> <th> Texte </th> <th> Points </th> </tr> <thead>
+				</tr> </thead> 
+				<tr>
+					<td><input type="text" value="" size="32" maxlength="64" align="center"></td>
+					<td><input type="text" value="" size="32" maxlength="64" align="center"></td>
+					<td><input type="number" value="" size="32" maxlength="64" min="0" align="center">
+						 <button class="boutons" value="Gras" align="" ><img class="croix" src="croix.png" alt="" /></button> 
+				</tr><tr>
+					<td><input type="text" value="" size="32" maxlength="64" align="center"></td>
+					<td><input type="text" value="" size="32" maxlength="64" align="center"></td>
+					<td><input type="number" value="" size="32" maxlength="64" min="0"align="center">
+						<button class="boutons" value="Gras" ><img class="croix" src="croix.png" alt="" /></button> 
+				</tr>
+			</table>
+			<p>
+				<button type="button" onclick="dupliquerLigne(1);">Ajouter une ligne </button>
+			</p>
+
+			<p>
+				<input id="Valider" type="submit" value="Valider"> 
+			</p>
+
+		</section>
+
+		<script src="projet1.js"></script>
+	</body>
+</html>
+				
+ 
+
+
+
+
+
+
+
+
+
+
+
+

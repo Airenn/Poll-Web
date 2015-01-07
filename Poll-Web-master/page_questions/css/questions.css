@@ -12,10 +12,37 @@
     margin-right : 15%;
 }
 
-#btn-droite
+#btn-centre
 {
-    float : right;
-    margin-left : 10px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#ajouter-question
+{
+    border: 1px solid #ccc;
+    border-radius: 0 0 4px 4px;
+}
+
+#input_texte_question, #modification_texte_question
+{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.informations_question
+{
+    border-radius: 0;
+}
+
+#btn-ajouter-question
+{
+
+}
+
+#question_texte
+{
+    height : 50px;
 }
 
 #panel_resultats

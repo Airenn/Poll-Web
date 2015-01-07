@@ -45,6 +45,7 @@ $tri_button.on('click', function () {
 
 function init_page(){
     init_var();
+    update_question_texte("");
     update_multi_bot_button();
     update_open_close_button();
     update_suppr_button();
@@ -85,8 +86,9 @@ function init_var(){
     operation_courante = "";
 }
 
-function affichage_question(operation, fermee, multi, ID, texte){
-    update_question_button(texte);
+function affichage_question(operation, fermee, multi, ID, num_question, texte){
+    update_question_button(num_question);
+    update_question_texte(texte);
 
     operation_courante = Number(operation);
     question_courante = Number(ID);
@@ -111,11 +113,15 @@ function activer_affichage(){
     refresh_table();
 }
 
-function update_question_button(text){
-    var new_button = '<em>Choix de la question</em><br>Question '.concat(text);
+function update_question_button(num_question){
+    var new_button = "".concat(num_question);
         new_button = new_button.concat(' <span class="caret"></span>');
     
     $question_button.html(new_button);
+}
+
+function update_question_texte(texte){
+    document.getElementById('question_texte').value = texte;
 }
 
 function update_multi_bot_button(){
