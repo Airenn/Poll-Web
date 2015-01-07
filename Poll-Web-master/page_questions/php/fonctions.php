@@ -5,17 +5,12 @@
      * \param $operation : int, identifiant de l'operation que l'on veut recuperer
      */    
     function get_operation($operation){
-        global $db;
-        try{
-            lock_sql('operations', 'READ');
-            $req=$db->prepare('SELECT * FROM operations WHERE ID=:operation');
-            $req->bindvalue(':operation', $operation);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>array('ID'=>$operation)
+                );
+        
+        $req = execute_sql("SELECT", "operations", $args);
+
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -25,17 +20,12 @@
      * \param $operation : int, identifiant de l'operation dont on doit recuperer les questions
      */
     function get_questions($operation){
-        global $db;
-        try{
-            lock_sql('questions', 'READ');
-            $req=$db->prepare('SELECT * FROM questions WHERE ID_operation=:operation');
-            $req->bindvalue(':operation', $operation);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>array('ID_operation'=>$operation)
+                );
+        
+        $req = execute_sql("SELECT", "questions", $args);
+        
         return $req;
     }
 
@@ -45,17 +35,12 @@
      * \param $question : int, identifiant de la question que l'on veut recuperer
      */
     function get_question($question){
-        global $db;
-        try{
-            lock_sql('questions', 'READ');
-            $req=$db->prepare('SELECT * FROM questions WHERE ID=:question');
-            $req->bindvalue(':question', $question);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>array('ID'=>$question)
+                );
+        
+        $req = execute_sql("SELECT", "questions", $args);
+
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -66,18 +51,14 @@
      * \param $operation : int, identifiant de l'operation que l'on veut recuperer
      */
     function get_question_num($num_question, $operation){
-        global $db;
-        try{
-            lock_sql('questions', 'READ');
-            $req=$db->prepare('SELECT * FROM questions WHERE num_question=:quest AND ID_operation=:op');
-            $req->bindvalue(':quest', $num_question);
-            $req->bindvalue(':op', $operation);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>array('num_question'=>$num_question,
+                                          'ID_operation'=>$operation
+                                    )
+                );
+        
+        $req = execute_sql("SELECT", "questions", $args);
+        
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -87,17 +68,12 @@
      * \param $question : int, identifiant de la question dont on doit recuperer les reponses
      */
     function get_reponses($question){
-        global $db;
-        try{
-            lock_sql('reponses', 'READ');
-            $req=$db->prepare('SELECT * FROM reponses WHERE ID_question=:question');
-            $req->bindvalue(':question', $question);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>array('ID_question'=>$question)
+                );
+        
+        $req = execute_sql("SELECT", "reponses", $args);
+
         return $req;
     }
 
@@ -139,18 +115,12 @@
      * \param $question : int, identifiant de la question dont on doit recuperer les messages
      */
     function get_messages($question){
-        global $db;
-        try{
-            lock_sql('messages', 'READ');
-            $req='SELECT * FROM messages WHERE ID_question=:question';
-            $req = $db->prepare($req);
-            $req->bindvalue(':question', $question);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+         $args = array(
+                    'clause_where'=>array('ID_question'=>$question)
+                );
+        
+        $req = execute_sql("SELECT", "messages", $args);
+
         return $req;
     }
 
@@ -160,18 +130,14 @@
      * \param $question : int, identifiant de la question dont on doit compter les reponses
      */
     function total_reponses($question){
-        global $db;
-        try{
-            lock_sql('reponses', 'READ');
-            $req=$db->prepare('SELECT count(*) as nb FROM reponses WHERE ID_question=:question');
-            $req->bindvalue(':question', $question);
-            $req->execute();
-            $total = $req->fetch(PDO::FETCH_ASSOC);
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+         $args = array(
+                    'champs_cibles'=>array('count(*) as nb'), 
+                    'clause_where'=>array('ID_question'=>$question)
+                );
+        
+        $total = execute_sql("SELECT", "reponses", $args);
+        $total = $total->fetch(PDO::FETCH_ASSOC);
+
         return $total['nb'];
     }
 
@@ -181,18 +147,14 @@
      * \param $question : int, identifiant de la question dont on doit compter les messages
      */
     function total_messages($question){
-        global $db;
-        try{
-            lock_sql('messages', 'READ');
-            $req=$db->prepare('SELECT count(*) as nb FROM messages WHERE ID_question=:question');
-            $req->bindvalue(':question', $question);
-            $req->execute();
-            $total = $req->fetch(PDO::FETCH_ASSOC);
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+         $args = array(
+                    'champs_cibles'=>array('count(*) as nb'), 
+                    'clause_where'=>array('ID_question'=>$question)
+                );
+        
+        $total = execute_sql("SELECT", "messages", $args);
+        $total = $total->fetch(PDO::FETCH_ASSOC);
+        
         return $total['nb'];
     }
 
@@ -202,18 +164,16 @@
      * \param $question : int, identifiant de la question
      */
     function nb_erreur_quest($question){
-        global $db;
-        try{
-            lock_sql('messages', 'READ');
-            $req=$db->prepare('SELECT count(*) as nb FROM messages WHERE ID_question=:question AND erreur=1');
-            $req->bindvalue(':question', $question);
-            $req->execute();
-            $total = $req->fetch(PDO::FETCH_ASSOC);
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'champs_cibles'=>array('count(*) as nb'), 
+                    'clause_where'=>array('ID_question'=>$question,
+                                          'erreur'=>1
+                                    )
+                );
+        
+        $total = execute_sql("SELECT", "messages", $args);
+        $total = $total->fetch(PDO::FETCH_ASSOC);
+
         return $total['nb'];
     }
 
@@ -224,30 +184,20 @@
      * \param $categorie : string, categorie de message a selectionner
      */
     function nb_messages_rep($reponse, $categorie){
-        global $db;
-        $req = 'SELECT count(*) as nb FROM messages WHERE ID_reponse=:reponse';
+        $where = array('ID_reponse'=>$reponse);
         
-        if($categorie=='Valide'){
-            $req .= ' AND valide=1';
-        }
-        else if($categorie=='Doublon'){
-            $req .= ' AND doublon=1';
-        }
-        else if($categorie=='Retard'){
-            $req .= ' AND retard=1';
+        if($categorie != 'Erreur' && $categorie != 'Tout'){
+            $where[strtolower($categorie)] = 1;
         }
         
-        try{
-            lock_sql('messages', 'READ');
-            $req=$db->prepare($req);
-            $req->bindvalue(':reponse', $reponse);
-            $req->execute();
-            $total = $req->fetch(PDO::FETCH_ASSOC);
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'champs_cibles'=>array('count(*) as nb'), 
+                    'clause_where'=>$where
+                );
+        
+        $total = execute_sql("SELECT", "messages", $args);
+        $total = $total->fetch(PDO::FETCH_ASSOC);
+
         return $total['nb'];
     }
 
@@ -258,32 +208,21 @@
      * \param $categorie : string, categorie de message a selectionner
      */
     function nb_messages_quest($question, $categorie){
-        global $db;
-        $req = 'SELECT count(*) as nb FROM messages WHERE ID_question=:quest';
+        $where = array('ID_question'=>$question);
         
-        if($categorie=='Valide'){
-            $req .= ' AND valide=1';
-        }
-        else if($categorie=='Doublon'){
-            $req .= ' AND doublon=1';
-        }
-        else if($categorie=='Retard'){
-            $req .= ' AND retard=1';
+        if($categorie != 'Erreur' && $categorie != 'Tout'){
+            $where[strtolower($categorie)] = 1;
         }
         
-        $req .= ' AND erreur=0';
+        $where['erreur'] = 0;
         
-        try{
-            lock_sql('messages', 'READ');
-            $req=$db->prepare($req);
-            $req->bindvalue(':quest', $question);
-            $req->execute();
-            $total = $req->fetch(PDO::FETCH_ASSOC);
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'champs_cibles'=>array('count(*) as nb'), 
+                    'clause_where'=>$where
+                );
+        
+        $total = execute_sql("SELECT", "messages", $args);
+        $total = $total->fetch(PDO::FETCH_ASSOC);
         
         if($categorie == 'Erreur'){
             $total['nb'] = nb_erreur_quest($question);   
@@ -601,28 +540,28 @@
         $doublon = check_doublon($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question);
         $valide = !($erreur || $doublon || $retard);
         
-        $args_open_close = array(
-                                'champs_cibles'=>array('num_tel', 
-                                                       'texte', 
-                                                       'valide', 
-                                                       'erreur', 
-                                                       'doublon', 
-                                                       'retard', 
-                                                       'ID_reponse', 
-                                                       'ID_question'
-                                                ), 
-                                'clause_values'=>array('num_tel'=>$num_tel, 
-                                                       'texte'=>$texte, 
-                                                       'valide'=>$valide, 
-                                                       'erreur'=>$erreur, 
-                                                       'doublon'=>$doublon, 
-                                                       'retard'=>$retard, 
-                                                       'ID_reponse'=>$ID_reponse, 
-                                                       'ID_question'=>$ID_question
-                                                )
-                            );
+        $args = array(
+                    'champs_cibles'=>array('num_tel', 
+                                           'texte', 
+                                           'valide', 
+                                           'erreur', 
+                                           'doublon', 
+                                           'retard', 
+                                           'ID_reponse', 
+                                           'ID_question'
+                                    ), 
+                    'clause_values'=>array('num_tel'=>$num_tel, 
+                                           'texte'=>$texte, 
+                                           'valide'=>$valide, 
+                                           'erreur'=>$erreur, 
+                                           'doublon'=>$doublon, 
+                                           'retard'=>$retard, 
+                                           'ID_reponse'=>$ID_reponse, 
+                                           'ID_question'=>$ID_question
+                                    )
+                );
         
-        execute_sql("INSERT", "messages", $args_open_close);
+        execute_sql("INSERT", "messages", $args);
     }
 
     /*!
@@ -636,25 +575,17 @@
      * \param $ID_question : int, identifiant de la question concernee
      */
     function check_doublon($num_tel, $texte, $erreur, $retard, $ID_reponse, $ID_question){
-        global $db;
-        $req;
-        $doublon;
+        $args = array(
+                    'clause_where'=>array('num_tel'=>$num_tel, 
+                                           'texte'=>$texte, 
+                                           'erreur'=>$erreur, 
+                                           'retard'=>$retard, 
+                                           'ID_reponse'=>$ID_reponse, 
+                                           'ID_question'=>$ID_question
+                                    )
+                );
         
-        try{
-            lock_sql('messages', 'READ');
-            $req=$db->prepare('SELECT * FROM messages WHERE num_tel=:tel AND texte=:texte AND erreur=:erreur AND retard=:retard AND ID_reponse=:rep AND ID_question=:quest');
-            $req->bindvalue(':tel', $num_tel);
-            $req->bindvalue(':texte', $texte);
-            $req->bindvalue(':erreur', $erreur);
-            $req->bindvalue(':retard', $retard);
-            $req->bindvalue(':rep', $ID_reponse);
-            $req->bindvalue(':quest', $ID_question);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $req = execute_sql("SELECT", "messages", $args);
         
         ($req->fetch())
         ? $doublon = true
@@ -669,22 +600,13 @@
      * \param $ID_question : int, identifiant de la question a verifier
      */
     function check_retard($ID_question){
-        global $db;
-        $req;
-        $retard;
+        $args = array(
+                    'champs_cibles'=>array('fermee'),
+                    'clause_where'=>array('ID'=>$ID_question)
+                );
         
-         try{
-            lock_sql('questions', 'READ');
-            $req=$db->prepare('SELECT fermee FROM questions WHERE ID=:quest');
-            $req->bindvalue(':quest', $ID_question);
-            $req->execute();
-            $req = $req->fetch(PDO::FETCH_ASSOC);
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
-        
+        $req = execute_sql("SELECT", "questions", $args);
+        $req = $req->fetch(PDO::FETCH_ASSOC);
         $retard = $req['fermee'];
         
         return $retard;
@@ -694,16 +616,12 @@
      * Renvoie le tableau associatif correspondant à l'operation en cours
      */    
     function get_current_operation(){
-        global $db;
-        try{
-            lock_sql('operations', 'READ');
-            $req=$db->prepare('SELECT * FROM operations WHERE fermee=0');
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>array('fermee'=>0)
+                );
+        
+        $req = execute_sql("SELECT", "operations", $args);
+        
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -711,16 +629,12 @@
      * Renvoie le tableau associatif correspondant à la question en cours
      */
     function get_current_question(){
-        global $db;
-        try{
-            lock_sql('questions', 'READ');
-            $req=$db->prepare('SELECT * FROM questions WHERE fermee=0');
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>array('fermee'=>0)
+                );
+        
+        $req = execute_sql("SELECT", "questions", $args);
+        
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -809,18 +723,11 @@
      * \param $question : int, identifiant de la question dont les messages doivent etre supprimes
      */
     function delete_messages_quest($question){
-        global $db;
-        try{
-            lock_sql('messages', 'WRITE');
-            $req=$db->prepare('DELETE FROM messages WHERE ID_question=:quest');
-            $req->bindvalue(':quest', $question);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>array('ID_question'=>$question)
+                );
         
+        execute_sql("DELETE", "messages", $args);
     }
 
      /*!
@@ -831,36 +738,23 @@
      * \param $page : int, numero de la page
      */
     function create_table_limit($question, $nb, $page=0, $categorie='Tout', $tri='DESC'){
-        global $db;
-        $req = 'SELECT * FROM messages WHERE ID_question=:quest';
+        $where = array('ID_question'=>$question);
         
-        if($categorie=='Valide'){
-            $req .= ' AND valide=1';
-        }
-        else if($categorie=='Erreur'){
-            $req .= ' AND erreur=1';
-        }
-        else if($categorie=='Doublon'){
-            $req .= ' AND doublon=1';
-        }
-        else if($categorie=='Retard'){
-            $req .= ' AND retard=1';
+        if($categorie!='Tout'){
+            $where[strtolower($categorie)] = 1;   
         }
         
         if($categorie != 'Erreur' && $categorie != 'Tout'){
-            $req .= ' AND erreur=0';   
+             $where['erreur']=0;   
         }
         
-        try{
-            lock_sql('messages', 'READ');
-            $req=$db->prepare($req.' ORDER BY date_reception '.$tri.' LIMIT '.($page*$nb).', '.$nb);
-            $req->bindvalue(':quest', $question);
-            $req->execute();
-            unlock_sql();
-        }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
+        $args = array(
+                    'clause_where'=>$where, 
+                    'clause_order_by'=>array('colonne_tri'=>'date_reception', 'ordre_tri'=>$tri), 
+                    'clause_limit'=>array('ligne_depart'=>$page*$nb, 'nombre_lignes'=>$nb)
+                );
+
+        $req = execute_sql("SELECT", "messages", $args);
         
         return $req;
     }
@@ -906,7 +800,6 @@
      * \param $question : int, identifiant de la question dont le statut d'ouverture doit etre change
      */
     function open_close_quest($question){
-        global $db;
         $fermee = get_question($question);
         $fermee = (int)$fermee['fermee'];
         
@@ -914,12 +807,12 @@
         ? $fermee = 0
         : $fermee = 1;
         
-        $args_open_close = array(
-                                'clause_set'=>array('fermee'=>$fermee), 
-                                'clause_where'=>array('ID'=>$question)
-                            );
+        $args = array(
+                    'clause_set'=>array('fermee'=>$fermee), 
+                    'clause_where'=>array('ID'=>$question)
+                );
         
-        execute_sql("UPDATE", "questions", $args_open_close);
+        execute_sql("UPDATE", "questions", $args);
     }
 
     /*
@@ -975,6 +868,7 @@
     }
 
     /*
+     * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      * Renvoie la requete sql correspondant aux parametres recus.
      * Les exceptions et verrous sont gerees au sein de la fonction qui s'occupe egalement de construire la requete grace aux arguments fournis
      *
@@ -986,44 +880,71 @@
      *                              # Une cle "champs_cibles" pour un array listant les colonnes cibles de la requete
      *                                  ~ "champs_cibles" => array(string, string, ...)
      *                                  ~ "champs_cibles" => array(NOM_COLONNE_1, NOM_COLONNE_2, ...)
+     *                                  ~ Si non definie, la cle "champs_cibles" sera telle que "champs_cibles" => array("*")
      *
      *                              # Une cle "clause_where" pour un array listant les conditions du WHERE (s'il y en a un)
      *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
      *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *                                  ~ Si non definie, la cle "clause_where" sera telle que "clause_where" => ""
      *
      *                              # Une cle "clause_order_by" pour un array listant les deux conditions du ORDER BY (s'il y en a un)
      *                                  ~ "clause_order_by" => array(string => string, string => string)
      *                                  ~ "clause_order_by" => array("colonne_tri" => NOM_COLONNE, "ordre_tri" => "DESC" OU "ordre_tri" => "ASC")
+     *                                  ~ Si non definie, la cle "clause_order_by" sera telle que "clause_order_by" => ""
      *
      *                              # Une cle "clause_limit" pour un array listant les deux conditions du LIMIT (s'il y en a un)
      *                                  ~ "clause_limit" => array(string => int, string => int)
      *                                  ~ "clause_limit" => array("ligne_depart" => NUMERO_LIGNE, "nombre_lignes" => NOMBRE_DE_LIGNE_A_SELECTIONNER)
+     *                                  ~ Si non definie, la cle "clause_limit" sera telle que "clause_limit" => ""
+     *                           
+     *                              # Forme de la requete
+     *                                  ~ SELECT "champs_cibles" FROM $table_cible [ WHERE "clause_where" ORDER BY "clause_order_by" LIMIT "clause_limit" ]
+     *                                  ~  ------------- Obligatoire ------------   ----------------------- Lorsque cles definies ------------------------
      *
      *
      *                          - Pour une requete INSERT
      *                              # Une cle "champs_cibles" pour un array listant les colonnes cibles de la requete
      *                                  ~ "champs_cibles" => array(string, string, ...)
      *                                  ~ "champs_cibles" => array(NOM_COLONNE_1, NOM_COLONNE_2, ...)
+     *                                  ~ Si non definie, la cle "champs_cibles" sera telle que "champs_cibles" => ""
      *
      *                              # Une cle "clause_values" pour un array listant les valeurs a ajouter
      *                                  ~ "clause_values" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
      *                                  ~ "clause_values" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *                                  ~ Si non definie, la cle "clause_values" sera telle que "clause_values" => ""
+     *                           
+     *                              # Forme de la requete
+     *                                  ~ INSERT INTO $table_cible "champs_cibles" VALUES "clause_values"
+     *                                  ~  ------------------------ Obligatoire ------------------------
      *
      *
      *                          - Pour une requete UPDATE
      *                              # Une cle "clause_set" pour un array listant les valeurs a mettre a jour
      *                                  ~ "clause_set" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
      *                                  ~ "clause_set" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *                                  ~ Si non definie, la cle "clause_set" sera telle que "clause_set" => ""
      *
      *                              # Une cle "clause_where" pour un array listant les conditions du WHERE
      *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
      *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *                                  ~ Si non definie, la cle "clause_set" sera telle que "clause_set" => ""
+     *
+     *                              # Forme de la requete
+     *                                  ~ UPDATE $table_cible SET "clause_set" WHERE "clause_where"
+     *                                  ~  --------------------- Obligatoire ---------------------
      *
      *
      *                          - Pour une requete DELETE
      *                              # Une cle "clause_where" pour un array listant les conditions du WHERE
      *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
      *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *                                  ~ Si non definie, la cle "clause_where" sera telle que "clause_where" => ""
+     *
+     *                              # Forme de la requete
+     *                                  ~ DELETE FROM $table_cible WHERE "clause_where"
+     *                                  ~  --------------- Obligatoire ---------------
+     *
+     * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      */
     function execute_sql($type_operation, $table_cible, $args_operation=array()){
         global $db;
