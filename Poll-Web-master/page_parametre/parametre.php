@@ -68,6 +68,18 @@
                     <input type="submit" name="button" value="Sauvegarder"/>
             </form>
             
+            <div id="remote">
+                <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </button>
+            </div>
+            
             
             <div class="div-button-section">
             </div>

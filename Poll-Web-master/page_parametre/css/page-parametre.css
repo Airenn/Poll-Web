@@ -1,29 +1,4 @@
 /*****************************************
-BALISE SECTION
-*****************************************/
-section{
-    min-height: 50em;
-    background-color : #99CC99;
-    padding :1em 1em 1em 1em;
-}
-
-.pair{
-    min-height: 50em;
-    background-color : #9999FF;
-    padding :1em 1em 1em 1em;
-}
-
-section h1 {
-    text-align: center;
-    font-size : 50px;
-    color : white;
-}
-
-.button-section{
-    margin: 0em 12em 0em 12em;
-}
-
-/*****************************************
             BALISE NAV
 *****************************************/
 nav{
@@ -75,7 +50,22 @@ section h1 {
     margin-top : 10%;
 }
 
+.button-section{
+    margin: 0em 12em 0em 12em;
+}
+
 div[role=group] {
     width:1000px;
     margin :auto;
+}
+
+
+/*****************************************
+                REMOTE
+*****************************************/
+
+#remote{
+    position : fixed;
+    right : 0;
+    bottom : 0;
 }
