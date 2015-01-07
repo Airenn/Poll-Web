@@ -101,4 +101,33 @@ function create_title(){
     $texte= get_current_question()['texte'];
     echo '<p id="question">'.$texte.'</p>';
 }
+
+
+function formulaire_couleur($choix_section){
+    echo "
+    <div id='div-mess' style='display:none;'>
+            <label>Afficher le nombre de message : <input id='nbmessages' type='checkbox' name='checkbox' onchange="."hide_checkbox('#nbmessages','#div-format');"." checked='on'/></label><br/>
+    </div>
+    <div id='div-format'>
+        <label>Couleur de la police : <input type='color' name='color-.$choix_section'/></label><br/>
+        <label>Taille de la police  : <input type='text' name='taille-police-.$choix_section'/></label><br/>
+        <label>Choix de la police d'écriture :
+            <select name='police' value='button-police-.$choix_section'>
+                <option value='Arial'>Arial</option>
+                <option value='Arial Black'>Arial Black</option>
+                <option value='Comic Sans MS'>Comic Sans MS</option>
+                <option value='Courier New'>Courier New</option>
+                <option value='Georgia'>Georgia</option>
+                <option value='Impact'>Impact</option>
+                <option value='Times New Roman'>Times New Roman</option>
+                <option value='Trebuchet MS'>Trebuchet MS</option>
+                <option value='Verdana'>Verdana</option>
+            </select>
+        </label><br/>
+    </div>
+    <div id='div-phone' style='display:none;'>
+        <label>Numéro de téléphone : <input id='numtel' type='text' name='tel'/></label><br/>
+    </div>
+    ";
+}
 ?>
