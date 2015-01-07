@@ -1,13 +1,14 @@
 var question_courante, $bar_refresh;
 
 question_courante = $('.bar').attr("value");
+question_texte_courante = $('#question').attr("value");
 $bar_refresh = "";
 $keydown_refresh="";
 
 activer_affichage();
 
 $("body").keydown(function(e) {
-    if(e.keyCode == 39) { // right
+    if(e.keyCode == 39 ) { // right
         update_keydown();
         activer_affichage();
     }
@@ -16,6 +17,7 @@ $("body").keydown(function(e) {
 function activer_affichage(){
     update_bar();
     refresh_bar();
+    update_title();
 }
 
 function update_bar(){
@@ -30,14 +32,21 @@ function update_keydown(){
     });
 }
 
+function update_title(){
+        $.post("ajax/ajax_title.php", function(data){
+        $('#ajax_title').html(data);
+    });
+}
+
 function refresh_bar(){
     try {
         clearInterval($bar_refresh);
+        
     }
     finally{
         $bar_refresh = setInterval(
         function(){
-            update_bar();
+            update_bar(); update_title();
         }, 1000);
     }
 }

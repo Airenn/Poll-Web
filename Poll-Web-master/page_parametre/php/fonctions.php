@@ -54,15 +54,13 @@ function open_question($question){
         $req2->bindvalue(':operation',$operation);
         $req2->execute();
         if(empty($req2->fetchAll())){
+            reset_bdd_question('2');
         }
-        else{
-            while($rep=$req1->fetch(PDO::FETCH_ASSOC)and $test==false){
+        elseif(empty($req2->fetchAll())){
+            while($rep=$req1->fetch(PDO::FETCH_ASSOC) and $test==false){
                 if($rep['ID']==$question){
                     $rep=$req1->fetch(PDO::FETCH_ASSOC);
-                    $request=$db->prepare('UPDATE questions SET fermee=:fermee WHERE ID=:question');
-                    $request->bindvalue(':fermee',0);
-                    $request->bindvalue(':question', $rep['ID']);
-                    $request->execute();
+                    reset_bdd_question($rep['ID']);
                     open_close_quest($question);
                     $test=true;
                 }
@@ -77,8 +75,26 @@ function open_question($question){
     echo get_current_question()['ID'];
 }
 
+function reset_bdd_question($question){
+    global $db;
+    try{
+        $req=$db->prepare('UPDATE questions SET fermee=:fermee WHERE ID=:question');
+        $req->bindvalue(':question',$question);
+        $req->bindvalue(':fermee',0);
+        $req->execute();
+    }catch(PDOException $e){
+    die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+    }
+}
+
 function create_pb(){
     $question = get_current_question()['ID'];
-    echo '<span class="bar" value="'.$question.'"></span>';
+    $texte= get_current_question()['texte'];
+    echo '<span class="bar" value="'.$question.'" texte="'.$texte.'"></span>';
+}
+
+function create_title(){
+    $texte= get_current_question()['texte'];
+    echo '<p id="question">'.$texte.'</p>';
 }
 ?>

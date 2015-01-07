@@ -36,7 +36,6 @@ html, body
 }
 
 
-
 /* HAUT DE PAGE */
 
 header
@@ -84,10 +83,11 @@ header
 
 /* BLOC PRINCIPAL */
 
-section
+#section_bar
 {
     margin-left : 2em;
     clear : both;
+    width : 40px;
 }
 
 .rep

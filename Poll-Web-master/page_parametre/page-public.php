@@ -19,7 +19,7 @@
             ?>
             <header class="public">
                 
-                <p id="question"><?php echo get_current_question()['texte'];?></p>
+                <div id="ajax_title"></div>
                 <div id="nbmsg">
                     <img src="images/enveloppe.png" alt=""/>
                     <p id="nbrecus"><?php echo nb_messages_quest(get_current_question()['ID'],'Valide'); ?></p>
