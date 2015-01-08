@@ -27,6 +27,10 @@
             <?php
                 AfficheQuestionnaires();
             ?>
+			<div id="selected_question">
+				<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
+				<span id="id_questionnaire_selected">aucun</span>
+			</div>
                 </div>
           </div>
 		  
