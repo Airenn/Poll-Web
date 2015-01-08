@@ -38,6 +38,7 @@
 		<script src="../bootstrap/dist/js/jquery.min.js"></script>
         <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
+        <script src="../bootbox.min.js"></script>
         <script src="js/fonctions.js"></script>
 		<script src="js/passage_get.js"></script>
 		

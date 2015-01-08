@@ -6,7 +6,11 @@ $(function() {
 		var href = $(this).attr('href');
 		
 		if (!$('#dataConfirmModal').length) {
-			$('body').append('<div id="dataConfirmModal" class="modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button><a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+			$('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+                             '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
+                             '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
+                             '<div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>'+
+                             '<a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
 		}
 		$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
 		$('#dataConfirmModal').modal({show:true});
@@ -23,3 +27,39 @@ $(function() {
 		return false;
 	});
 });
+
+$(function() {
+	$('#create').click(function(ev) {
+        $('body').append(bootbox.dialog({
+                title: "Création d'un questionnaire",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-5 control-label" for="name">Nom</label> ' +
+                    '<div class="col-md-5"> ' +
+                    '<input id="name" name="name" type="text" placeholder="Nom du questionnaire" class="form-control input-md"> ' +
+                    '</div> ' +
+                    '</div> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-5 control-label" for="awesomeness">Choisissez la date prevu </label> ' +
+                    '<div class="col-md-5">' +
+                    '<input id="date" name="date" type="text" placeholder="Date du quetionnaire" class="form-control input-md"> ' +
+                    '</div> ' +
+                    '</div> </div>' +
+                    '</form> </div>  </div>',
+                    buttons: {
+                        success: {
+                        label: "Sauvegarder",
+                        className: "btn-success",
+                        callback: function () {
+                            var name = $('#name').val();
+                            Example.show("Le questionnaire" + name + "a bien été créé</b>");
+                        }
+                    }
+                }
+            }));
+    return false;
+	});
+});
+
