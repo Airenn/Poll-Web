@@ -258,6 +258,14 @@
         }
     }
 
+    /*
+     * Creer les input voulus selon les parametres recus
+     *
+     * \param $type : string, type de l'input ("button" ou "input")
+     * \param $id : string, identifiant du champ
+     * \param $modal_id : string, identifiant du modal a declencher
+     * \param $question : int, identifiant de la question concernee
+     */
     function create_input($type, $id, $modal_id="", $question=""){
         $total = "";
         if($question != ""){
@@ -323,6 +331,49 @@
             $total = total_messages($question);
             construct_full_bar($categories, $question, null, $total, 'Erreur');
         }
+    }
+
+    /*
+     * Change le texte de la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question 
+     * \param $texte : string, nouveau texte de la question
+     */
+    function change_name($question, $texte){
+        $args = array(
+                    'clause_set'=>array('texte'=>$texte),
+                    'clause_where'=>array('ID'=>$question)
+                );
+        
+        execute_sql("UPDATE", "questions", $args);
+    }
+
+    /*
+     * Change le numero de la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question 
+     * \param $num : int, nouveau numero de la question
+     */
+    function change_numero($question, $num){
+        $args = array(
+                    'clause_set'=>array('num_question'=>$num),
+                    'clause_where'=>array('ID'=>$question)
+                );
+        
+        execute_sql("UPDATE", "questions", $args);
+    }
+
+    /*
+     * Efface la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question 
+     */
+    function delete_question($question){
+        $args = array(
+                    'clause_where'=>array('ID'=>$question)
+                );
+        
+        execute_sql("DELETE", "questions", $args);
     }
 
     /*

@@ -1,5 +1,6 @@
 <?php
-    require_once('../php/redirect.php');
+    require_once('../php/connexion.php');
+    require_once('../php/fonctions.php');
 
     if(!isset($_GET['nb']) || trim($_GET['nb'])==""){
         $_GET['nb']=6;   

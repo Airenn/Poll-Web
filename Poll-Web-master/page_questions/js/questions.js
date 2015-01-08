@@ -1,9 +1,10 @@
 //------------------------------------------------------- Execution -------------------------------------------------------
 
-var $question_button, $robot_masse, $ferme_question, $suppression_question, $resultats, $multi_question, $new_num, $messages_categ, $tri_button, $robot_unitaire, $num_tel, $texte, 
+var $question_button, $robot_masse, $ferme_question, $suppression_question, $resultats, $multi_question, $new_num, $messages_categ, $tri_button, $robot_unitaire, $num_tel, $texte,
+    $changement_nom,
     $ajax_bar, $ajax_table, $ajax_pagination, $ajax_dropdown, $ajax_modif_nom, $ajax_suppr_quest, $ajax_modif_num, $ajax_multi_quest, $ajax_num_btn,
-    $bot_refresh, $bar_refresh, $table_refresh, $pagination_refresh, $dropdown_refresh, $delete_refresh, $name_refresh, $num_input_refresh, $num_btn_refresh, $close_refresh, $multi_refresh,
-    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats, question_fermee, operation_courante, multi_rep, num_question_courante;
+    $bot_refresh, $bar_refresh, $table_refresh, $pagination_refresh, $dropdown_refresh,
+    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats, question_fermee, operation_courante, multi_rep, num_question_courante, texte_courant;
 
 init_page();
 
@@ -17,6 +18,30 @@ $ferme_question.on('click', function () {
     update_dropdown();
 });
 
+$changement_nom.on('click', function () {
+    update_question_name();
+});
+
+$('#valid_effacer_question').on('click', function () {
+    var op = operation_courante;
+    suppr_question();
+    init_page();
+    operation_courante = op;
+});
+
+$('#conservation_nom').on('click', function () {
+     document.getElementById('question_texte').value = texte_courant;
+});
+
+$('#valid_change_num_question').on('click', function () {
+    update_question_num();
+    document.getElementById('input_num_question').value = num_question_courante;
+});
+
+$('#conservation_num').on('click', function () {
+    document.getElementById('input_num_question').value = num_question_courante;
+});
+
 $multi_question.on('click', function () {
     multi_rep_quest();
     update_dropdown();
@@ -24,6 +49,7 @@ $multi_question.on('click', function () {
 
 $suppression_question.on('click', function () {
     suppr();
+    update_modif();
 });
 
 $robot_unitaire.on('click', function () {
@@ -50,9 +76,12 @@ $tri_button.on('click', function () {
 function init_page(){
     init_var();
     update_question_texte("");
+    update_question_button("");
     update_multi_bot_button();
     update_suppr_button();
-    refresh_modif_quest();
+    update_modif();
+    document.getElementById('input_num_question').value = '';
+    $resultats.css("visibility", "hidden");
 }
 
 function init_var(){
@@ -75,9 +104,10 @@ function init_var(){
     $suppression_question = $('#suppression_question');
     $num_tel = $('#num_tel');
     $texte = $('#texte');
-    $resultats = $('#accordion_resultats');
+    $resultats = $('#panel_resultats');
     $multi_question = $('#input_multi_question');
     $new_num = $('#input_num_question');
+    $changement_nom =$('#changement_nom');
     
     //Variables interval
     $bot_refresh = "";
@@ -85,12 +115,6 @@ function init_var(){
     $table_refresh = "";
     $pagination_refresh = "";
     $dropdown_refresh = "";
-    $delete_refresh = "";
-    $name_refresh = "";
-    $num_input_refresh = "";
-    $num_btn_refresh = "";
-    $close_refresh = "";
-    $multi_refresh = "";
     
     //Variables classiques
     bot_actif = 0;
@@ -103,6 +127,7 @@ function init_var(){
     operation_courante = "";
     multi_rep = "";
     num_question_courante = "";
+    texte_courant = "";
 }
 
 function affichage_question(operation, fermee, multi, ID, num_question, texte){
@@ -113,6 +138,7 @@ function affichage_question(operation, fermee, multi, ID, num_question, texte){
     question_courante = Number(ID);
     question_fermee = Number(fermee);
     multi_rep = Number(multi);
+    texte_courant = texte;
     num_question_courante = Number(num_question);
     categorie_courante = "Tout";
     tri_courant = "DESC";
@@ -128,10 +154,10 @@ function activer_affichage(){
     update_dropdown();
     update_bar();
     update_table();
+    update_modif();
     refresh_dropdown();
     refresh_bar();
     refresh_table();
-    start_modif_refresh();
 }
 
 function update_question_button(num_question){
@@ -141,58 +167,85 @@ function update_question_button(num_question){
     $question_button.html(new_button);
 }
 
+function update_question_name(){
+    texte_courant = document.getElementById('question_texte').value;
+    
+    $.post(get_url_quest_name(), function(data){ });
+}
+
+function update_question_num(){
+    new_num = Number(document.getElementById('input_num_question').value);
+    
+    if(new_num>0){
+        num_question_courante = new_num;
+    }
+    
+    $.post(get_url_quest_num(), function(data){ });
+}
+
 function update_question_texte(texte){
     document.getElementById('question_texte').value = texte;
 }
 
 function update_delete_quest_button(){
-    (question_courante === "")
-    ? document.getElementById("effacer_question").setAttribute("disabled", "disabled")
-    : document.getElementById("effacer_question").removeAttribute("disabled");
-    
-    $.post(get_url_delete_quest_button(), function(data){
-        $ajax_suppr_quest.html(data);
-    });
+    if(question_courante === ""){
+        document.getElementById("effacer_question").setAttribute("disabled", "disabled")
+    }
+    else{
+        document.getElementById("effacer_question").removeAttribute("disabled");
+
+        $.post(get_url_delete_quest_button(), function(data){
+            $ajax_suppr_quest.html(data);
+        });
+    }
 }
 
 function update_modify_quest_button(){
-    (question_courante === "")
-    ? document.getElementById("validation_modification").setAttribute("disabled", "disabled")
-    : document.getElementById("validation_modification").removeAttribute("disabled");
+    if(question_courante === ""){
+        document.getElementById("validation_modification").setAttribute("disabled", "disabled");
+    }
+    else{
+        document.getElementById("validation_modification").removeAttribute("disabled");
     
-    $.post(get_url_modify_quest_button(), function(data){
-        $ajax_modif_nom.html(data);
-    });
+        $.post(get_url_modify_quest_button(), function(data){
+            $ajax_modif_nom.html(data);
+        });
+    }
 }
 
 function update_num_quest_input(){
-    (question_courante === "")
-    ? document.getElementById("input_num_question").setAttribute("disabled", "disabled")
-    : document.getElementById("input_num_question").removeAttribute("disabled");
-    
-    $.post(get_url_num_quest_input(), function(data){
-        $ajax_modif_num.html(data);
-    });
-    
-    (question_courante !== "")
-    ? document.getElementById('input_num_question').value = num_question_courante
-    : document.getElementById('input_num_question').value = '';
+    if(question_courante === ""){
+        document.getElementById("input_num_question").setAttribute("disabled", "disabled");
+    }
+    else{
+        document.getElementById("input_num_question").removeAttribute("disabled");
+
+        $.post(get_url_num_quest_input(), function(data){
+            $ajax_modif_num.html(data);
+        });
+    }
 }
 
 function update_num_quest_btn(){
-    (question_courante === "")
-    ? document.getElementById("validation_numero").setAttribute("disabled", "disabled")
-    : document.getElementById("validation_numero").removeAttribute("disabled");
-    
-    $.post(get_url_num_quest_btn(), function(data){
-        $ajax_num_btn.html(data);
-    });
+    if(question_courante === ""){
+        document.getElementById("validation_numero").setAttribute("disabled", "disabled");
+    }
+    else{
+        document.getElementById("validation_numero").removeAttribute("disabled");
+
+        $.post(get_url_num_quest_btn(), function(data){
+            $ajax_num_btn.html(data);
+        });
+    }
 }
 
 function update_close_quest_input(){
-    (question_courante === "")
-    ? document.getElementById("input_close_question").setAttribute("disabled", "disabled")
-    : document.getElementById("input_close_question").removeAttribute("disabled");
+    if(question_courante === ""){
+        document.getElementById("input_close_question").setAttribute("disabled", "disabled");
+    }
+    else{
+        document.getElementById("input_close_question").removeAttribute("disabled");
+    }
     
     (question_fermee)
     ? $ferme_question.prop("checked", 1)
@@ -200,13 +253,16 @@ function update_close_quest_input(){
 }
 
 function update_multi_quest_input(){
-    (question_courante === "")
-    ? document.getElementById("input_multi_question").setAttribute("disabled", "disabled")
-    : document.getElementById("input_multi_question").removeAttribute("disabled");
+    if(question_courante === ""){
+        document.getElementById("input_multi_question").setAttribute("disabled", "disabled");
+    }
+    else{
+        document.getElementById("input_multi_question").removeAttribute("disabled");
     
-    $.post(get_url_multi_quest(), function(data){
-        $ajax_multi_quest.html(data);
-    });
+        $.post(get_url_multi_quest(), function(data){
+            $ajax_multi_quest.html(data);
+        });
+    }
     
     (multi_rep)
     ? $multi_question.prop("checked", 1)
@@ -298,85 +354,13 @@ function refresh_table(){
     }
 }
 
-function start_modif_refresh(){
-    delete_refresh();
-    name_refresh();
-    num_input_refresh();
-    num_btn_refresh();
-    close_refresh();
-    multi_refresh();
-}
-
-function delete_refresh(){
-    try {
-        clearInterval($delete_refresh);
-    }
-    finally{
-        $delete_refresh = setInterval(
-        function(){
-            update_delete_quest_button();
-        }, 1000);
-    }
-}
-
-function name_refresh(){
-    try {
-        clearInterval($name_refresh);
-    }
-    finally{
-        $name_refresh = setInterval(
-        function(){
-            update_modify_quest_button();
-        }, 1000);
-    }
-}
-
-function num_input_refresh(){
-    try {
-        clearInterval($num_input_refresh);
-    }
-    finally{
-        $num_input_refresh = setInterval(
-        function(){
-            update_num_quest_input();
-        }, 1000);
-    }
-}
-
-function num_btn_refresh(){
-    try {
-        clearInterval($num_btn_refresh);
-    }
-    finally{
-        $num_btn_refresh = setInterval(
-        function(){
-            update_num_quest_btn();
-        }, 1000);
-    }
-}
-
-function close_refresh(){
-    try {
-        clearInterval($close_refresh);
-    }
-    finally{
-        $close_refresh = setInterval(
-        function(){
-            update_close_quest_input();
-        }, 1000);
-    }
-}
-
-function multi_refresh(){
-    try {
-        clearInterval($multi_refresh);
-    }
-    finally{
-        $multi_refresh = setInterval(
-        function(){
-            update_multi_quest_input();
-        }, 1000);
-    }
+function update_modif(){
+    update_delete_quest_button();
+    update_modify_quest_button();
+    update_num_quest_btn();
+    update_num_quest_input();
+    update_close_quest_input();
+    update_multi_quest_input();
 }
 
 function launch_multi_bot(){
@@ -432,15 +416,15 @@ function multi_rep_quest(){
     $.post(get_url_multi_rep(), function(data){ });
 }
 
+function suppr_question(){
+    $.post(get_url_suppr_quest(), function(data){ });
+}
+
 //------------------------------------------------------- Fonctions url -------------------------------------------------------
 
 function get_url_dropdown(){
     var url_dropdown = 'ajax/ajax_dropdown.php?operation=';
         url_dropdown = url_dropdown.concat(operation_courante);
-        url_dropdown = url_dropdown.concat('&question=');
-        url_dropdown = url_dropdown.concat(question_courante);
-        url_dropdown = url_dropdown.concat('&fermee=');
-        url_dropdown = url_dropdown.concat(question_fermee);
     
     return url_dropdown;
 }
@@ -500,7 +484,7 @@ function get_url_table(){
 }
 
 function get_url_pagination(){
-     var url_pagination = 'ajax/ajax_pagination.php?question=';
+    var url_pagination = 'ajax/ajax_pagination.php?question=';
         url_pagination = url_pagination.concat(question_courante);
         url_pagination = url_pagination.concat('&page=');
         url_pagination = url_pagination.concat(page_courante);
@@ -534,8 +518,6 @@ function get_url_modify_quest_button(){
 function get_url_num_quest_input(){
     var url_num_quest_input = 'ajax/ajax_modify_quest.php?type=input&id=input_num_question&question='.concat(question_courante);
     
-    console.log(url_num_quest_input);
-    
     return url_num_quest_input;
 }
 
@@ -549,4 +531,28 @@ function get_url_multi_quest(){
     var url_multi_quest = 'ajax/ajax_modify_quest.php?type=input&id=input_multi_question&question='.concat(question_courante);
     
     return url_multi_quest;
+}
+
+function get_url_quest_name(){
+    var url_quest_name = 'ajax/ajax_new_name.php?question=';
+        url_quest_name = url_quest_name.concat(question_courante);
+        url_quest_name = url_quest_name.concat('&texte=');
+        url_quest_name = url_quest_name.concat(texte_courant);
+    
+    return url_quest_name;
+}
+
+function get_url_quest_num(){
+    var url_quest_num = 'ajax/ajax_new_num.php?question=';
+        url_quest_num = url_quest_num.concat(question_courante);
+        url_quest_num = url_quest_num.concat('&num_question=');
+        url_quest_num = url_quest_num.concat(num_question_courante);
+    
+    return url_quest_num;
+}
+
+function get_url_suppr_quest(){
+    var url_suppr_quest = 'ajax/ajax_suppr_quest.php?question='.concat(question_courante);
+    
+    return url_suppr_quest;
 }

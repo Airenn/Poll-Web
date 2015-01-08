@@ -1,5 +1,4 @@
 <?php
-    $_GET['operation'] = 2;
     require_once('php/redirect.php');
 ?>
 
@@ -86,7 +85,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success" id="changement_nom" data-dismiss="modal">Oui</button>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                            <button type="button" class="btn btn-danger" id="conservation_nom" data-dismiss="modal">Non</button>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +142,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success" id="valid_change_num_question" data-dismiss="modal">Oui</button>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                            <button type="button" class="btn btn-danger" id="conservation_num" data-dismiss="modal">Non</button>
                                         </div>
                                     </div>
                                 </div>
@@ -200,52 +199,46 @@
                         </div>
                     </div>
 
-                    <div class="panel-group" id="accordion_resultats" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default" id="panel_resultats">
-                            <div class="panel-heading" role="tab" id="heading_resultats">
-                                <h3 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion_resultats" href="#collapse_resultats" aria-expanded="true" aria-controls="collapse_resultats">
-                                        Résultats
-                                    </a>
-                                </h3>
+                    <div class="panel panel-default" id="panel_resultats">
+                        <div class="panel-heading" role="tab" id="heading_resultats">
+                            <h3 class="panel-title">
+                                Résultats
+                            </h3>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="panel panel-default" id="panel_bar">
+                                <div class="panel-body" id="ajax_bar">
+
+                                </div>
                             </div>
-                            <div id="collapse_resultats" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_resultats">
+
+                            <div class="panel panel-default" id="panel_table">
                                 <div class="panel-body">
-
-                                    <div class="panel panel-default" id="panel_bar">
-                                        <div class="panel-body" id="ajax_bar">
-
-                                        </div>
+                                    <div class="btn-group" role="group" aria-label="...">
+                                        <button type="button" class="btn btn-default messages_categ" id="Tout">Tout</button>
+                                        <button type="button" class="btn btn-success messages_categ" id="Valide">Valide</button>
+                                        <button type="button" class="btn btn-primary messages_categ" id="Doublon">Doublon</button>
+                                        <button type="button" class="btn btn-danger messages_categ" id="Erreur">Erreur</button>
+                                        <button type="button" class="btn btn-warning messages_categ" id="Retard">Retard</button>
                                     </div>
+                                    <br/><br/>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Téléphone</button></th>
+                                                <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Message</button></th>
+                                                <th style="text-align:center;"><button type="button" class="btn btn-default" id="btn_reception">Réception</button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ajax_table">
 
-                                    <div class="panel panel-default" id="panel_table">
-                                        <div class="panel-body">
-                                            <div class="btn-group" role="group" aria-label="...">
-                                                <button type="button" class="btn btn-default messages_categ" id="Tout">Tout</button>
-                                                <button type="button" class="btn btn-success messages_categ" id="Valide">Valide</button>
-                                                <button type="button" class="btn btn-primary messages_categ" id="Doublon">Doublon</button>
-                                                <button type="button" class="btn btn-danger messages_categ" id="Erreur">Erreur</button>
-                                                <button type="button" class="btn btn-warning messages_categ" id="Retard">Retard</button>
-                                            </div>
-                                            <br/><br/>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Téléphone</button></th>
-                                                        <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Message</button></th>
-                                                        <th style="text-align:center;"><button type="button" class="btn btn-default" id="btn_reception">Réception</button></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="ajax_table">
+                                        </tbody>
+                                    </table>
+                                    <div id="ajax_pagination">
 
-                                                </tbody>
-                                            </table>
-                                            <div id="ajax_pagination">
-
-                                            </div>
-                                        </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
