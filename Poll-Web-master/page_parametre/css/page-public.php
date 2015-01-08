@@ -1,6 +1,6 @@
 <?php
-    require('../php/fonctions.php');
     session_start();
+    require('../php/fonctions.php');
     header('content-type: text/css');
 ?>
 
@@ -52,7 +52,7 @@ header
     border : solid black 1px;
     border-radius : 5px;
     float : left;
-    <?php text_format_css('question');?>
+    <?php text_format_css('question','form_question');?>
 }
 
 #nbmsg
@@ -61,7 +61,7 @@ header
     if(isset($_SESSION['nbmess']['checkbox']) and trim($_SESSION['nbmess']['checkbox'])=="")
              echo 'display : none;';
     else{
-        text_format('nbmess');
+        text_format('nbmess','form_nbmess');
 ?>
     padding : .5em;
     padding-bottom : .3em;
@@ -77,6 +77,7 @@ header
 {
     text-align : center;
     margin-bottom : 0;
+    <?php text_format_css('reponse','form_nbmess');?>
 }
 
 
@@ -92,7 +93,7 @@ header
 .rep
 {
     margin-bottom : 4em;
-    <?php text_format_css('reponse');?>
+    <?php text_format_css('reponse','form_reponse');?>
 }
 
 .rep:last-child
@@ -122,5 +123,5 @@ footer
 }
 
 footer p{
-        <?php text_format_css('paragraphe');?>
+        <?php text_format_css('paragraphe','form_paragraphe');?>
 }

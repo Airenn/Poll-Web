@@ -1,13 +1,13 @@
 <?php
             /*********************//**FORMATAGE-DE-TEXTE**//*********************/
             if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='question')
-                text_format('question');
+                text_format('question','form_question');
             elseif(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='reponse')
-                text_format('reponse');
+                text_format('reponse','form_reponse');
             elseif(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='nbmess')
-                text_format('nbmess');
+                text_format('nbmess','form_nbmess');
             else
-                text_format('paragraphe');
+                text_format('paragraphe','form_paragraphe');
             unset($_SESSION['nbmess']['checkbox']);
             if(isset($_POST['checkbox'])){
                 $_SESSION['nbmess']['checkbox']=$_POST['checkbox'];

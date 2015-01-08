@@ -1,21 +1,21 @@
 <?php
 
-function text_format($key){
-                if(isset($_POST['color']) and isset($_POST['police'])){
-                    $_SESSION[$key]['color']=$_POST['color'];
-                    $_SESSION[$key]['police']=$_POST['police'];
+function text_format($key, $choix_section){
+                if(isset($_POST["color-$choix_section"]) and isset($_POST["police-$choix_section"])){
+                    $_SESSION[$key]["color-$choix_section"]=$_POST["color-$choix_section"];
+                    $_SESSION[$key]["police-$choix_section"]=$_POST["police-$choix_section"];
                 }
-                if(isset($_POST['taille-police']) and is_numeric($_POST['taille-police']))
-                    $_SESSION[$key]['taille-police']=$_POST['taille-police'];              
-                elseif(isset($_POST['taille-police']) and trim($_POST['taille-police'])!="")
+                if(isset($_POST["taille-police-$choix_section"]) and is_numeric($_POST["taille-police-$choix_section"]))
+                    $_SESSION[$key]["taille-police-$choix_section"]=$_POST["taille-police-$choix_section"];              
+                elseif(isset($_POST["taille-police-$choix_section"]) and trim($_POST["taille-police-$choix_section"])!="")
                                 echo "la taille de police saisie n'est pas valide";
 }
 
-function text_format_css($key){
-    if(isset($_SESSION[$key]['color']) and isset($_SESSION[$key]['taille-police']) and isset($_SESSION[$key]['police'])){
-        echo 'color : '.$_SESSION[$key]['color'].';';
-        echo 'font-size : '.$_SESSION[$key]['taille-police'].'px;';
-        echo 'font-family : '.$_SESSION[$key]['police'].'px;';
+function text_format_css($key, $choix_section){
+    if(isset($_SESSION[$key]["color-$choix_section"]) and isset($_SESSION[$key]["taille-police-$choix_section"]) and isset($_SESSION[$key]["police-$choix_section"])){
+        echo "color : ".$_SESSION[$key]["color-$choix_section"].";";
+        echo "font-size : ".$_SESSION[$key]["taille-police-$choix_section"]."px;";
+        echo "font-family : ".$_SESSION[$key]["police-$choix_section"]."px;";
     }
 }
 function progress_bars($question,$categorie){
@@ -102,32 +102,25 @@ function create_title(){
     echo '<p id="question">'.$texte.'</p>';
 }
 
-
 function formulaire_couleur($choix_section){
     echo "
-    <div id='div-mess' style='display:none;'>
-            <label>Afficher le nombre de message : <input id='nbmessages' type='checkbox' name='checkbox' onchange="."hide_checkbox('#nbmessages','#div-format');"." checked='on'/></label><br/>
-    </div>
-    <div id='div-format'>
-        <label>Couleur de la police : <input type='color' name='color-.$choix_section'/></label><br/>
-        <label>Taille de la police  : <input type='text' name='taille-police-.$choix_section'/></label><br/>
-        <label>Choix de la police d'écriture :
-            <select name='police' value='button-police-.$choix_section'>
-                <option value='Arial'>Arial</option>
-                <option value='Arial Black'>Arial Black</option>
-                <option value='Comic Sans MS'>Comic Sans MS</option>
-                <option value='Courier New'>Courier New</option>
-                <option value='Georgia'>Georgia</option>
-                <option value='Impact'>Impact</option>
-                <option value='Times New Roman'>Times New Roman</option>
-                <option value='Trebuchet MS'>Trebuchet MS</option>
-                <option value='Verdana'>Verdana</option>
-            </select>
-        </label><br/>
-    </div>
-    <div id='div-phone' style='display:none;'>
-        <label>Numéro de téléphone : <input id='numtel' type='text' name='tel'/></label><br/>
-    </div>
+        <div id='div-format'>
+            <label>Couleur de la police : <input type='color' name='color-$choix_section'/></label><br/>
+            <label>Taille de la police  : <input type='text' name='taille-police-$choix_section'/></label><br/>
+            <label>Choix de la police d'écriture :
+                <select name='police-$choix_section' value='button-police'>
+                    <option value='Arial'>Arial</option>
+                    <option value='Arial Black'>Arial Black</option>
+                    <option value='Comic Sans MS'>Comic Sans MS</option>
+                    <option value='Courier New'>Courier New</option>
+                    <option value='Georgia'>Georgia</option>
+                    <option value='Impact'>Impact</option>
+                    <option value='Times New Roman'>Times New Roman</option>
+                    <option value='Trebuchet MS'>Trebuchet MS</option>
+                    <option value='Verdana'>Verdana</option>
+                </select>
+            </label><br/>
+        </div>
     ";
 }
 ?>
