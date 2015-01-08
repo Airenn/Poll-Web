@@ -39,7 +39,6 @@ function update_title(){
 function refresh_bar(){
     try {
         clearInterval($bar_refresh);
-        
     }
     finally{
         $bar_refresh = setInterval(
@@ -68,7 +67,7 @@ function get_url_bar(){
 function show_div_mess(){
     $('#div-mess').css('display','inline');
     $('#div-phone').css('display','none');
-    $('nbmessages').change(hide_checkbox('#nbmessages','#div-format'));
+    $('#nbmessages').change(hide_checkbox('#nbmessages','#form_m'));
 }
 
 function hide_and_seek(hide,seek){

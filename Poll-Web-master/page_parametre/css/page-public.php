@@ -57,27 +57,25 @@ header
 
 #nbmsg
 {
-<?php 
-    if(isset($_SESSION['nbmess']['checkbox']) and trim($_SESSION['nbmess']['checkbox'])=="")
-             echo 'display : none;';
-    else{
+<?php
+    if(isset($_SESSION['nbmess']['checkbox']) and trim($_SESSION['nbmess']['checkbox']!=""))
         text_format('nbmess','form_nbmess');
+    else{
+        echo "display:none;";
+    }
 ?>
     padding : .5em;
     padding-bottom : .3em;
     border : solid black 1px;
     border-radius : 5px;
     float : right;
- <?php
-    }
-?>
 }
 
 #nbmsg #nbrecus
 {
     text-align : center;
     margin-bottom : 0;
-    <?php text_format_css('reponse','form_nbmess');?>
+    <?php text_format_css('nbmess','form_nbmess');?>
 }
 
 

@@ -24,27 +24,34 @@
             gen_menu('parametre');
         ?>
         </nav>
+        
         <section class="pair" id="couleur">
             <h1>Formatage de texte</h1>
             <form method="post">
                 
                 <div class="btn-group-justified" role="group" data-toggle="buttons" style="">
                     <label class="btn btn-primary active">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone,#form_r,#form_m,#form_p','#div-format,#form_q');" checked="on"/> Question
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone,#form_r,#form_m,#form_p' ,'#form_q');" checked="on"/> Question
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess,#div-phone,#form_q,#form_m,#form_p','#div-format,#form_r');"/> Réponses
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess,#div-phone,#form_q,#form_m,#form_p','#form_r');"/> Réponses
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess,#form_q,#form_m,#form_r','#div-format,#div-phone,#form_p');"/> Paragraphe
+                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess,#form_q,#form_m,#form_r','#div-phone,#form_p');"/> Paragraphe
                     </label>
                     <label class="btn btn-primary">
                         <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess(); hide_and_seek('#form_q,#form_r,#form_p','#form_m');"/> Nombre de messages
                     </label>
-                </div>
+                </div><br/>
                 
                 <div id="div-mess" style="display:none;">
-                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#div-format');" checked="on"/></label><br/>
+                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#form_m');" checked="on"/></label><br/>
+                </div>
+                
+                
+                
+                <div id="div-phone" style="display:none;">
+                    <label>Numéro de téléphone : <input id='numtel' type='text' name='tel'/></label><br/>
                 </div>
                 
                 
@@ -57,12 +64,10 @@
                     <span id="form_p" style="display:none;"> <?php formulaire_couleur("form_paragraphe") ?> </span>
                 
                 
-                <div id='div-phone' style='display:none;'>
-                    <label>Numéro de téléphone : <input id='numtel' type='text' name='tel'/></label><br/>
-                </div>
                 
                 <input type='submit' name='save' value='Sauvegarder'/>
             </form>
+            
             
             <div id="remote">
                 <button type="button" class="btn btn-default btn-lg" id="bouton-left">
@@ -85,7 +90,7 @@
             <form method="post" enctype="multipart/form-data">
                 <div class="btn-group-justified" role="group" data-toggle="buttons">
                     <label class="btn btn-primary active">
-                        <input type="radio" name="radio-a-b" autocomplete="off" value="arriere-plan" onchange="hide_and_seek('#barre-progressive','#arriere-plan');"/>    Arrière-Plan
+                        <input type="radio" name="radio-a-b" autocomplete="off" value="arriere-plan" onchange="hide_and_seek('#barre-progressive','#arriere-plan');" checked="on"/>    Arrière-Plan
                     </label>
                     <label class="btn btn-primary">
                         <input type="radio" name="radio-a-b" autocomplete="off" value="barre-progressive" onchange="hide_and_seek('#arriere-plan','#barre-progressive');"/>       Barres progressives

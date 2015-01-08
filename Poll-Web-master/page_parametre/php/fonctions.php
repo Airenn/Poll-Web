@@ -1,10 +1,10 @@
 <?php
 
 function text_format($key, $choix_section){
-                if(isset($_POST["color-$choix_section"]) and isset($_POST["police-$choix_section"])){
+                if(isset($_POST["color-$choix_section"]))
                     $_SESSION[$key]["color-$choix_section"]=$_POST["color-$choix_section"];
+                if(isset($_POST["police-$choix_section"]))
                     $_SESSION[$key]["police-$choix_section"]=$_POST["police-$choix_section"];
-                }
                 if(isset($_POST["taille-police-$choix_section"]) and is_numeric($_POST["taille-police-$choix_section"]))
                     $_SESSION[$key]["taille-police-$choix_section"]=$_POST["taille-police-$choix_section"];              
                 elseif(isset($_POST["taille-police-$choix_section"]) and trim($_POST["taille-police-$choix_section"])!="")
@@ -12,7 +12,7 @@ function text_format($key, $choix_section){
 }
 
 function text_format_css($key, $choix_section){
-    if(isset($_SESSION[$key]["color-$choix_section"]) and isset($_SESSION[$key]["taille-police-$choix_section"]) and isset($_SESSION[$key]["police-$choix_section"])){
+    if(isset($_SESSION[$key]["color-$choix_section"]) and isset($_SESSION[$key]["police-$choix_section"]) or isset($_SESSION[$key]["taille-police-$choix_section"])){
         echo "color : ".$_SESSION[$key]["color-$choix_section"].";";
         echo "font-size : ".$_SESSION[$key]["taille-police-$choix_section"]."px;";
         echo "font-family : ".$_SESSION[$key]["police-$choix_section"]."px;";
@@ -103,12 +103,13 @@ function create_title(){
 }
 
 function formulaire_couleur($choix_section){
-    echo "
+
+?>
         <div id='div-format'>
-            <label>Couleur de la police : <input type='color' name='color-$choix_section'/></label><br/>
-            <label>Taille de la police  : <input type='text' name='taille-police-$choix_section'/></label><br/>
+            <label>Couleur de la police : <input type='color' <?php echo "name='color-$choix_section'"; ?> /></label><br/>
+            <label>Taille de la police  : <input type='text' <?php echo "name='taille-police-$choix_section'"; ?> /></label><br/>
             <label>Choix de la police d'écriture :
-                <select name='police-$choix_section' value='button-police'>
+                <select <?php echo "name='police-$choix_section'"; ?> value='button-police'>
                     <option value='Arial'>Arial</option>
                     <option value='Arial Black'>Arial Black</option>
                     <option value='Comic Sans MS'>Comic Sans MS</option>
@@ -121,6 +122,6 @@ function formulaire_couleur($choix_section){
                 </select>
             </label><br/>
         </div>
-    ";
+<?php
 }
 ?>
