@@ -1,6 +1,14 @@
 <?php
+
+require_once('../page_questions/php/fonctions.php');
 function AfficheQuestionnaires()
  {
+    
+    $args = array(
+                    'clause_where'=>array('ID!'=>1)
+                );
+        
+    $req = execute_sql("SELECT", "operations", $args);
         global $db;
   $req = $db->prepare("SELECT * FROM operations WHERE ID!=1");
   $req->execute();

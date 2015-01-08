@@ -3,8 +3,8 @@
 var $question_button, $robot_masse, $ferme_question, $suppression_question, $resultats, $multi_question, $new_num, $messages_categ, $tri_button, $robot_unitaire, $num_tel, $texte,
     $changement_nom,
     $ajax_bar, $ajax_table, $ajax_pagination, $ajax_dropdown, $ajax_modif_nom, $ajax_suppr_quest, $ajax_modif_num, $ajax_multi_quest, $ajax_num_btn,
-    $bot_refresh, $bar_refresh, $table_refresh, $pagination_refresh, $dropdown_refresh,
-    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats, question_fermee, operation_courante, multi_rep, num_question_courante, texte_courant;
+    $bot_refresh, $bar_refresh, $table_refresh, $pagination_refresh, $dropdown_refresh, $nb_sms_refresh,
+    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats, question_fermee, operation_courante, multi_rep, num_question_courante, texte_courant, modif_enabled;
 
 init_page();
 
@@ -115,6 +115,7 @@ function init_var(){
     $table_refresh = "";
     $pagination_refresh = "";
     $dropdown_refresh = "";
+    $nb_sms_refresh = "";
     
     //Variables classiques
     bot_actif = 0;
@@ -128,6 +129,7 @@ function init_var(){
     multi_rep = "";
     num_question_courante = "";
     texte_courant = "";
+    modif_enabled = 1;
 }
 
 function affichage_question(operation, fermee, multi, ID, num_question, texte){
@@ -158,6 +160,7 @@ function activer_affichage(){
     refresh_dropdown();
     refresh_bar();
     refresh_table();
+    refresh_nb_sms();
 }
 
 function update_question_button(num_question){
@@ -352,6 +355,31 @@ function refresh_table(){
             update_table();
         }, 1000);
     }
+}
+
+function refresh_nb_sms(){
+    try {
+        clearInterval($nb_sms_refresh);
+    }
+    finally{
+        $nb_sms_refresh = setInterval(
+        function(){
+            update_nb_sms();
+        }, 300);
+    }
+}
+
+function update_nb_sms(){
+    $.post(get_url_nb_sms(), function(data){
+        if(Number(data)>0 && modif_enabled==1){
+            modif_enabled=0;
+            update_modif();
+        }
+        else if(Number(data)==0 && modif_enabled==0){
+            modif_enabled=1;
+            update_modif();
+        }
+    }); 
 }
 
 function update_modif(){
@@ -555,4 +583,10 @@ function get_url_suppr_quest(){
     var url_suppr_quest = 'ajax/ajax_suppr_quest.php?question='.concat(question_courante);
     
     return url_suppr_quest;
+}
+
+function get_url_nb_sms(){
+    var url_nb_sms = 'ajax/ajax_nb_sms.php?question='.concat(question_courante);
+    
+    return url_nb_sms;
 }

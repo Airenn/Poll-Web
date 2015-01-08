@@ -1192,7 +1192,13 @@
                 foreach($args_operation['clause_where'] as $colonne=>$valeur){
                     $i--;
                     if($colonne!=""){
-                        $where .= "$colonne=:where_$colonne";
+                        if(substr($colonne, -1) == '!'){
+                            $colonne = substr($colonne, 0, -1);
+                            $where .= "$colonne!=:where_$colonne";
+                        }
+                        else{
+                            $where .= "$colonne=:where_$colonne";
+                        }
             
                         if($i>0){
                             $where .= " AND ";   
@@ -1296,11 +1302,15 @@
 
             try{
                 lock_sql($table_cible, $type_operation['verrou']);
+                
                 $req = $db->prepare($req);
                 
                 if($type_operation['operation'] == "SELECT" || $type_operation['operation'] == "UPDATE" || $type_operation['operation'] == "DELETE"){
                     if($where != ""){
                         foreach($args_operation['clause_where'] as $colonne=>$valeur){
+                            if(substr($colonne, -1) == '!'){
+                                $colonne = substr($colonne, 0, -1);
+                            }
                             $req->bindvalue(":where_$colonne", $valeur);
                         }
                     }
