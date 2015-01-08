@@ -1,4 +1,5 @@
 <?php
+    $_GET['operation'] = 2;
     require_once('php/redirect.php');
 ?>
 
@@ -28,13 +29,29 @@
                         <div class="btn-group" role="group" aria-label="...">
                           <button type="button" class="btn btn-default" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
                         </div>
-                        
-                        <div class="btn-group" role="group" aria-label="...">
-                            <button type="button" class="btn btn-default" id="ferme_question">Clôturer la question<br><em>Votes entrants en retard</em></button>
-                        </div>
 
                         <div class="btn-group" role="group" aria-label="...">
-                            <button type="button" class="btn btn-default" id="suppression_question">Réinitialiser la question<br><em>Supprime les messages</em></button>
+                            <button type="button" class="btn btn-default" data-toggle="modal" id="reinit_quest" data-target="#modal_suppr_messages">Réinitialiser la question<br><em>Supprime les messages</em></button>
+                            
+                            <div class="modal fade" id="modal_suppr_messages">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title">Réinitialisation de la question</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Supprimer tous les messages pour cette question ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="suppression_question" data-dismiss="modal">Oui</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="input-group">
@@ -51,30 +68,95 @@
                         <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" name="question_texte" id="question_texte" value="">
                         
                         <span class="input-group-addon" id="modification_texte_question">
-                            <div class="btn-group" role="group" aria-label="..." title="Valider les modifications">
-                                <button type="button" class="btn btn-default" id="validation_modification"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                            <div class="btn-group" role="group" aria-label="..." title="Valider le changement de nom" id="ajax_modif_nom">
+                                <?php create_input("button", "validation_modification", "modal_nom_question"); ?>
                             </div>
                             
-                            <div class="btn-group" role="group" aria-label="..." title="Supprimer la question">
-                                <button type="button" class="btn btn-default" id="suppression_question"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <div class="modal fade" id="modal_nom_question">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title">Changement de nom</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Changer le nom de la question ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="changement_nom" data-dismiss="modal">Oui</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="btn-group" role="group" aria-label="..." title="Supprimer la question" id="ajax_suppr_quest">
+                                <?php create_input("button", "effacer_question", "modal_suppr_question"); ?>
+                            </div>
+                            
+                            <div class="modal fade" id="modal_suppr_question">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title">Supprimer la question</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Supprimer la question ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="valid_effacer_question" data-dismiss="modal">Oui</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </span>
                     </div>
                     
-                    <div class="input-group">
-                        <span class="input-group-addon informations_question">
+                    <div class="input-group" id="info_question">
+                        <span class="input-group-addon informations_question"> 
                             Numéro
-                            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" name="num_quest" id="input_num_question" value="">
+                            <span id="ajax_modif_num">
+                                <?php create_input("input", "input_num_question"); ?>
+                            </span>
+
+                            <div class="btn-group" role="group" aria-label="..." title="Valider le changement de numero" id="ajax_num_btn">
+                                <?php create_input("button", "validation_numero", "modal_num_question"); ?>
+                            </div>
+                            
+                            <div class="modal fade" id="modal_num_question">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title">Modification du numéro de la question</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Changer le numéro de la question ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="valid_change_num_question" data-dismiss="modal">Oui</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </span>
                 
                         <span class="input-group-addon informations_question">
                             Question fermée<br><br>
-                            <input type="checkbox" aria-label="...">
+                            <input type="checkbox" aria-label="..." id="input_close_question">
                         </span>
                         
-                        <span class="input-group-addon informations_question">
-                            Réponses multiples<br><br>
-                            <input type="checkbox" aria-label="...">
+                        <span class="input-group-addon informations_question" id="ajax_multi_quest">
+                            <?php create_input("input", "input_multi_question"); ?>
                         </span>
                     </div>
                     
@@ -87,65 +169,85 @@
                     </div>
 
                     <br/><br/>
-                    <div class="panel panel-default" id="panel_envoi">
-                        <div class="panel-heading"><h3 class="panel-title">Envoi d'un message</h3></div>
-                        <div class="panel-body">
+                    <div class="panel-group" id="accordion_envoi" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default" id="panel_envoi">
+                            <div class="panel-heading" role="tab" id="heading_envoi">
+                                <h3 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion_envoi" href="#collapse_envoi" aria-expanded="true" aria-controls="collapse_envoi">
+                                        Envoi d'un message
+                                    </a>
+                                </h3>
+                            </div>
+                            <div id="collapse_envoi" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_envoi">
+                                <div class="panel-body">
 
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="input_telephone">Téléphone</span>
-                                    <input type="text" class="form-control" placeholder="+33612345678" aria-describedby="basic-addon1" name="num_tel" id="num_tel" value="">
-                                </div>
-                                <br/>
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="input_texte_sms">Texte SMS</span>
-                                    <input type="text" class="form-control" placeholder="1A" aria-describedby="basic-addon1" name="texte" id="texte" value="">
-                                </div>
-                                <br/>
-                                <div class="btn-group" role="group" aria-label="...">
-                                  <button type="button" class="btn btn-default" id="robot_unitaire">Envoyer</button>
-                                </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="input_telephone">Téléphone</span>
+                                            <input type="text" class="form-control" placeholder="+33612345678" aria-describedby="basic-addon1" name="num_tel" id="num_tel" value="">
+                                        </div>
+                                        <br/>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="input_texte_sms">Texte SMS</span>
+                                            <input type="text" class="form-control" placeholder="1A" aria-describedby="basic-addon1" name="texte" id="texte" value="">
+                                        </div>
+                                        <br/>
+                                        <div class="btn-group" role="group" aria-label="...">
+                                          <button type="button" class="btn btn-default" id="robot_unitaire">Envoyer</button>
+                                        </div>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="panel panel-default" id="panel_resultats">
-                        <div class="panel-heading"><h3 class="panel-title">Résultats</h3></div>
-                        <div class="panel-body">
-
-                            <div class="panel panel-default" id="panel_bar">
-                                <div class="panel-body" id="ajax_bar">
-
-                                </div>
+                    <div class="panel-group" id="accordion_resultats" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default" id="panel_resultats">
+                            <div class="panel-heading" role="tab" id="heading_resultats">
+                                <h3 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion_resultats" href="#collapse_resultats" aria-expanded="true" aria-controls="collapse_resultats">
+                                        Résultats
+                                    </a>
+                                </h3>
                             </div>
-
-                            <div class="panel panel-default" id="panel_table">
+                            <div id="collapse_resultats" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_resultats">
                                 <div class="panel-body">
-                                    <div class="btn-group" role="group" aria-label="...">
-                                        <button type="button" class="btn btn-default messages_categ" id="Tout">Tout</button>
-                                        <button type="button" class="btn btn-success messages_categ" id="Valide">Valide</button>
-                                        <button type="button" class="btn btn-primary messages_categ" id="Doublon">Doublon</button>
-                                        <button type="button" class="btn btn-danger messages_categ" id="Erreur">Erreur</button>
-                                        <button type="button" class="btn btn-warning messages_categ" id="Retard">Retard</button>
-                                    </div>
-                                    <br/><br/>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Téléphone</button></th>
-                                                <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Message</button></th>
-                                                <th style="text-align:center;"><button type="button" class="btn btn-default" id="btn_reception">Réception</button></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ajax_table">
 
-                                        </tbody>
-                                    </table>
-                                    <div id="ajax_pagination">
-                                        
+                                    <div class="panel panel-default" id="panel_bar">
+                                        <div class="panel-body" id="ajax_bar">
+
+                                        </div>
                                     </div>
+
+                                    <div class="panel panel-default" id="panel_table">
+                                        <div class="panel-body">
+                                            <div class="btn-group" role="group" aria-label="...">
+                                                <button type="button" class="btn btn-default messages_categ" id="Tout">Tout</button>
+                                                <button type="button" class="btn btn-success messages_categ" id="Valide">Valide</button>
+                                                <button type="button" class="btn btn-primary messages_categ" id="Doublon">Doublon</button>
+                                                <button type="button" class="btn btn-danger messages_categ" id="Erreur">Erreur</button>
+                                                <button type="button" class="btn btn-warning messages_categ" id="Retard">Retard</button>
+                                            </div>
+                                            <br/><br/>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Téléphone</button></th>
+                                                        <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Message</button></th>
+                                                        <th style="text-align:center;"><button type="button" class="btn btn-default" id="btn_reception">Réception</button></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="ajax_table">
+
+                                                </tbody>
+                                            </table>
+                                            <div id="ajax_pagination">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

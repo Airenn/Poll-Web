@@ -30,24 +30,25 @@
     border-bottom-right-radius: 0;
 }
 
+#input_num_question
+{
+    width: 30%;
+    margin-left: 30%;
+}
+
+#ajax_num_btn
+{
+    display:inline;
+}
+
 .informations_question
 {
     border-radius: 0;
 }
 
-#btn-ajouter-question
-{
-
-}
-
 #question_texte
 {
     height : 50px;
-}
-
-#panel_resultats
-{
-    visibility: hidden;
 }
 
 #panel_bar, #panel_table
@@ -81,6 +82,11 @@
     text-align: center;
 }
 
+#accordion_resultats
+{
+    visibility: hidden;
+}
+
 .valide_message
 {
     background-color: #CEF6D8;
@@ -105,4 +111,9 @@
 {
     margin-left : 5px;
     margin-right : 5px; 
+}
+
+.panel-group .panel-heading a:hover, .panel-group .panel-heading a:focus
+{
+    text-decoration: none;
 }

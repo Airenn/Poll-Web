@@ -1,9 +1,9 @@
 //------------------------------------------------------- Execution -------------------------------------------------------
 
-var $question_button, $robot_masse, $ferme_question, $suppression_question,
-    $robot_unitaire, $num_tel, $texte, $resultats, $ajax_bar, $ajax_table, $ajax_pagination, $ajax_dropdown, $messages_categ, $tri_button,
-    $bot_refresh, $bar_refresh, $table_refresh, $pagination_refresh, $dropdown_refresh,
-    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats, question_fermee, operation_courante;
+var $question_button, $robot_masse, $ferme_question, $suppression_question, $resultats, $multi_question, $new_num, $messages_categ, $tri_button, $robot_unitaire, $num_tel, $texte, 
+    $ajax_bar, $ajax_table, $ajax_pagination, $ajax_dropdown, $ajax_modif_nom, $ajax_suppr_quest, $ajax_modif_num, $ajax_multi_quest, $ajax_num_btn,
+    $bot_refresh, $bar_refresh, $table_refresh, $pagination_refresh, $dropdown_refresh, $delete_refresh, $name_refresh, $num_input_refresh, $num_btn_refresh, $close_refresh, $multi_refresh,
+    bot_actif, question_courante, categorie_courante, tri_courant, page_courante, nb_resultats, question_fermee, operation_courante, multi_rep, num_question_courante;
 
 init_page();
 
@@ -14,7 +14,11 @@ $robot_masse.on('click', function () {
 
 $ferme_question.on('click', function () {
     open_close_question();
-    update_open_close_text();
+    update_dropdown();
+});
+
+$multi_question.on('click', function () {
+    multi_rep_quest();
     update_dropdown();
 });
 
@@ -47,26 +51,33 @@ function init_page(){
     init_var();
     update_question_texte("");
     update_multi_bot_button();
-    update_open_close_button();
     update_suppr_button();
+    refresh_modif_quest();
 }
 
 function init_var(){
     //Variables jS
     $question_button = $('#btn-question');
     $messages_categ = $('.messages_categ');
-    $resultats = $('#panel_resultats');
     $ajax_bar = $('#ajax_bar');
     $ajax_table = $('#ajax_table');
     $ajax_pagination = $('#ajax_pagination');
     $ajax_dropdown = $('#ajax_dropdown');
+    $ajax_modif_nom = $('#ajax_modif_nom');
+    $ajax_suppr_quest = $('#ajax_suppr_quest');
+    $ajax_modif_num = $('#ajax_modif_num');
+    $ajax_num_btn = $('#ajax_num_btn');
+    $ajax_multi_quest = $('#ajax_multi_quest');
     $robot_masse = $('#robot_masse');
     $robot_unitaire = $('#robot_unitaire');
     $tri_button = $('#btn_reception');
-    $ferme_question = $('#ferme_question');
+    $ferme_question = $('#input_close_question');
     $suppression_question = $('#suppression_question');
     $num_tel = $('#num_tel');
     $texte = $('#texte');
+    $resultats = $('#accordion_resultats');
+    $multi_question = $('#input_multi_question');
+    $new_num = $('#input_num_question');
     
     //Variables interval
     $bot_refresh = "";
@@ -74,6 +85,12 @@ function init_var(){
     $table_refresh = "";
     $pagination_refresh = "";
     $dropdown_refresh = "";
+    $delete_refresh = "";
+    $name_refresh = "";
+    $num_input_refresh = "";
+    $num_btn_refresh = "";
+    $close_refresh = "";
+    $multi_refresh = "";
     
     //Variables classiques
     bot_actif = 0;
@@ -84,6 +101,8 @@ function init_var(){
     nb_resultats = 6;
     question_fermee = "";
     operation_courante = "";
+    multi_rep = "";
+    num_question_courante = "";
 }
 
 function affichage_question(operation, fermee, multi, ID, num_question, texte){
@@ -93,6 +112,8 @@ function affichage_question(operation, fermee, multi, ID, num_question, texte){
     operation_courante = Number(operation);
     question_courante = Number(ID);
     question_fermee = Number(fermee);
+    multi_rep = Number(multi);
+    num_question_courante = Number(num_question);
     categorie_courante = "Tout";
     tri_courant = "DESC";
     page_courante = 0;
@@ -103,7 +124,6 @@ function affichage_question(operation, fermee, multi, ID, num_question, texte){
 function activer_affichage(){
     $resultats.css("visibility", "visible");
     update_multi_bot_button();
-    update_open_close_button();
     update_suppr_button();
     update_dropdown();
     update_bar();
@@ -111,6 +131,7 @@ function activer_affichage(){
     refresh_dropdown();
     refresh_bar();
     refresh_table();
+    start_modif_refresh();
 }
 
 function update_question_button(num_question){
@@ -124,6 +145,74 @@ function update_question_texte(texte){
     document.getElementById('question_texte').value = texte;
 }
 
+function update_delete_quest_button(){
+    (question_courante === "")
+    ? document.getElementById("effacer_question").setAttribute("disabled", "disabled")
+    : document.getElementById("effacer_question").removeAttribute("disabled");
+    
+    $.post(get_url_delete_quest_button(), function(data){
+        $ajax_suppr_quest.html(data);
+    });
+}
+
+function update_modify_quest_button(){
+    (question_courante === "")
+    ? document.getElementById("validation_modification").setAttribute("disabled", "disabled")
+    : document.getElementById("validation_modification").removeAttribute("disabled");
+    
+    $.post(get_url_modify_quest_button(), function(data){
+        $ajax_modif_nom.html(data);
+    });
+}
+
+function update_num_quest_input(){
+    (question_courante === "")
+    ? document.getElementById("input_num_question").setAttribute("disabled", "disabled")
+    : document.getElementById("input_num_question").removeAttribute("disabled");
+    
+    $.post(get_url_num_quest_input(), function(data){
+        $ajax_modif_num.html(data);
+    });
+    
+    (question_courante !== "")
+    ? document.getElementById('input_num_question').value = num_question_courante
+    : document.getElementById('input_num_question').value = '';
+}
+
+function update_num_quest_btn(){
+    (question_courante === "")
+    ? document.getElementById("validation_numero").setAttribute("disabled", "disabled")
+    : document.getElementById("validation_numero").removeAttribute("disabled");
+    
+    $.post(get_url_num_quest_btn(), function(data){
+        $ajax_num_btn.html(data);
+    });
+}
+
+function update_close_quest_input(){
+    (question_courante === "")
+    ? document.getElementById("input_close_question").setAttribute("disabled", "disabled")
+    : document.getElementById("input_close_question").removeAttribute("disabled");
+    
+    (question_fermee)
+    ? $ferme_question.prop("checked", 1)
+    : $ferme_question.prop("checked", 0);
+}
+
+function update_multi_quest_input(){
+    (question_courante === "")
+    ? document.getElementById("input_multi_question").setAttribute("disabled", "disabled")
+    : document.getElementById("input_multi_question").removeAttribute("disabled");
+    
+    $.post(get_url_multi_quest(), function(data){
+        $ajax_multi_quest.html(data);
+    });
+    
+    (multi_rep)
+    ? $multi_question.prop("checked", 1)
+    : $multi_question.prop("checked", 0);
+}
+
 function update_multi_bot_button(){
     (question_courante === "")
     ? document.getElementById("robot_masse").setAttribute("disabled", "disabled")
@@ -134,16 +223,8 @@ function update_multi_bot_button(){
 
 function update_suppr_button(){
     (question_courante == "")
-    ? document.getElementById("suppression_question").setAttribute("disabled", "disabled")
-    : document.getElementById("suppression_question").removeAttribute("disabled");
-}
-
-function update_open_close_button(){
-    (question_fermee === "")
-    ? document.getElementById("ferme_question").setAttribute("disabled", "disabled")
-    : document.getElementById("ferme_question").removeAttribute("disabled");
-    
-    update_open_close_text();
+    ? document.getElementById("reinit_quest").setAttribute("disabled", "disabled")
+    : document.getElementById("reinit_quest").removeAttribute("disabled");
 }
 
 function update_multi_bot_text(){
@@ -154,18 +235,6 @@ function update_multi_bot_text(){
     (bot_actif)
     ? $robot_masse.html(actif)
     : $robot_masse.html(inactif);
-}
-
-function update_open_close_text(){
-    var info = '<br><em>Votes entrants ',
-        retard = 'en retard</em>',
-        accepte = 'acceptés</em>',
-        a_ouvrir = 'Ouvrir la question'.concat(info.concat(accepte)),
-        a_fermer = 'Clôturer la question'.concat(info.concat(retard));
-    
-    (question_fermee === 1)
-    ? $ferme_question.html(a_ouvrir)
-    : $ferme_question.html(a_fermer);
 }
 
 function update_dropdown(){
@@ -229,6 +298,87 @@ function refresh_table(){
     }
 }
 
+function start_modif_refresh(){
+    delete_refresh();
+    name_refresh();
+    num_input_refresh();
+    num_btn_refresh();
+    close_refresh();
+    multi_refresh();
+}
+
+function delete_refresh(){
+    try {
+        clearInterval($delete_refresh);
+    }
+    finally{
+        $delete_refresh = setInterval(
+        function(){
+            update_delete_quest_button();
+        }, 1000);
+    }
+}
+
+function name_refresh(){
+    try {
+        clearInterval($name_refresh);
+    }
+    finally{
+        $name_refresh = setInterval(
+        function(){
+            update_modify_quest_button();
+        }, 1000);
+    }
+}
+
+function num_input_refresh(){
+    try {
+        clearInterval($num_input_refresh);
+    }
+    finally{
+        $num_input_refresh = setInterval(
+        function(){
+            update_num_quest_input();
+        }, 1000);
+    }
+}
+
+function num_btn_refresh(){
+    try {
+        clearInterval($num_btn_refresh);
+    }
+    finally{
+        $num_btn_refresh = setInterval(
+        function(){
+            update_num_quest_btn();
+        }, 1000);
+    }
+}
+
+function close_refresh(){
+    try {
+        clearInterval($close_refresh);
+    }
+    finally{
+        $close_refresh = setInterval(
+        function(){
+            update_close_quest_input();
+        }, 1000);
+    }
+}
+
+function multi_refresh(){
+    try {
+        clearInterval($multi_refresh);
+    }
+    finally{
+        $multi_refresh = setInterval(
+        function(){
+            update_multi_quest_input();
+        }, 1000);
+    }
+}
+
 function launch_multi_bot(){
     (bot_actif)
     ? bot_actif = 0
@@ -272,6 +422,14 @@ function open_close_question(){
     : question_fermee = 1;
     
     $.post(get_url_open_close(), function(data){ });
+}
+
+function multi_rep_quest(){
+    (multi_rep)
+    ? multi_rep = 0
+    : multi_rep = 1;
+    
+    $.post(get_url_multi_rep(), function(data){ });
 }
 
 //------------------------------------------------------- Fonctions url -------------------------------------------------------
@@ -352,4 +510,43 @@ function get_url_pagination(){
         url_pagination = url_pagination.concat(categorie_courante);
     
     return url_pagination;
+}
+
+function get_url_multi_rep(){
+    var url_multi_rep = 'ajax/ajax_multi_rep.php?question=';
+        url_multi_rep = url_multi_rep.concat(question_courante);
+    
+    return url_multi_rep;
+}
+
+function get_url_delete_quest_button(){
+    var url_delete_quest_button = 'ajax/ajax_modify_quest.php?type=button&id=effacer_question&modal_id=modal_suppr_question&question='.concat(question_courante);
+    
+    return url_delete_quest_button;
+}
+
+function get_url_modify_quest_button(){
+    var url_modify_quest_button = 'ajax/ajax_modify_quest.php?type=button&id=validation_modification&modal_id=modal_nom_question&question='.concat(question_courante);
+    
+    return url_modify_quest_button;
+}
+
+function get_url_num_quest_input(){
+    var url_num_quest_input = 'ajax/ajax_modify_quest.php?type=input&id=input_num_question&question='.concat(question_courante);
+    
+    console.log(url_num_quest_input);
+    
+    return url_num_quest_input;
+}
+
+function get_url_num_quest_btn(){
+    var url_num_quest_btn = 'ajax/ajax_modify_quest.php?type=button&id=validation_numero&modal_id=modal_num_question&question='.concat(question_courante);
+    
+    return url_num_quest_btn;
+}
+
+function get_url_multi_quest(){
+    var url_multi_quest = 'ajax/ajax_modify_quest.php?type=input&id=input_multi_question&question='.concat(question_courante);
+    
+    return url_multi_quest;
 }

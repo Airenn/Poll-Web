@@ -258,6 +258,39 @@
         }
     }
 
+    function create_input($type, $id, $modal_id="", $question=""){
+        $total = "";
+        if($question != ""){
+            $total = total_messages($question);
+        }
+        $question = get_question($question);
+        $question = $question['num_question'];
+        $enabled = "";
+        
+        if($total > 0){
+            $enabled = "disabled";
+        }
+        
+        $icons = array('validation_modification' => 'ok',
+                       'effacer_question' => 'remove',
+                       'validation_numero' => 'ok'
+                );
+        
+        if($type == "button"){
+            echo'<button type="button" class="btn btn-default" id="'.$id.'" '.$enabled.' data-toggle="modal" data-target="#'.$modal_id.'">
+                    <span class="glyphicon glyphicon-'.$icons[$id].'" aria-hidden="true"></span>
+                </button>';
+        }
+        else if($type == "input"){
+            if($id == "input_num_question"){
+                echo'<input type="text" '.$enabled.' class="form-control" placeholder="" aria-describedby="basic-addon1" name="num_quest" id="'.$id.'" value="'.$question.'">';
+            }
+            else if($id == "input_multi_question"){
+                echo'Réponses multiples<br><br><input type="checkbox" '.$enabled.' aria-label="..." id="'.$id.'">';
+            }
+        }
+    }
+
     /*!
      * Creer les barres de progression pour chaque reponse de la question recue en parametre
      *
@@ -816,6 +849,27 @@
     }
 
     /*
+     * Change le statut de reponses multiples de la question recue en parametre
+     *
+     * \param $question : int, identifiant de la question
+     */
+    function multi_rep_quest($question){
+        $multi = get_question($question);
+        $multi = (int)$multi['multi_rep'];
+        
+        ($multi==1)
+        ? $multi = 0
+        : $multi = 1;
+        
+        $args = array(
+                    'clause_set'=>array('multi_rep'=>$multi), 
+                    'clause_where'=>array('ID'=>$question)
+                );
+        
+        execute_sql("UPDATE", "questions", $args);
+    }
+
+    /*
      * Pose un verrou sur les tables recues en parametre avec le type recu
      *
      * \param $tables : string ou array, liste des tables sur lesquelles poser le verrou
@@ -1228,4 +1282,5 @@
         
         return $req;
     }
+
 ?>
