@@ -990,6 +990,8 @@
      *                              # Une cle "clause_where" pour un array listant les conditions du WHERE (s'il y en a un)
      *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
      *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *                                  ~ Ajouter un point d'exclamation pour faire WHERE NOM_COLONNE != VALEUR : 
+     *                                      ¤ "clause_where" => array('NOM_COLONNE!' => VALEUR)
      *                                  ~ Si non definie, la cle "clause_where" sera telle que "clause_where" => ""
      *
      *                              # Une cle "clause_order_by" pour un array listant les deux conditions du ORDER BY (s'il y en a un)
@@ -1032,6 +1034,8 @@
      *                              # Une cle "clause_where" pour un array listant les conditions du WHERE
      *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
      *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *                                  ~ Ajouter un point d'exclamation pour faire WHERE NOM_COLONNE != VALEUR : 
+     *                                      ¤ "clause_where" => array('NOM_COLONNE!' => VALEUR)
      *                                  ~ Si non definie, la cle "clause_set" sera telle que "clause_set" => ""
      *
      *                              # Forme de la requete
@@ -1043,6 +1047,8 @@
      *                              # Une cle "clause_where" pour un array listant les conditions du WHERE
      *                                  ~ "clause_where" => array(string => type_de_la_colonne, string => type_de_la_colonne, ...)
      *                                  ~ "clause_where" => array(NOM_COLONNE_1 => VALEUR_1, NOM_COLONNE_2 => VALEUR_2, ...)
+     *                                  ~ Ajouter un point d'exclamation pour faire WHERE NOM_COLONNE != VALEUR : 
+     *                                      ¤ "clause_where" => array('NOM_COLONNE!' => VALEUR)
      *                                  ~ Si non definie, la cle "clause_where" sera telle que "clause_where" => ""
      *
      *                              # Forme de la requete
