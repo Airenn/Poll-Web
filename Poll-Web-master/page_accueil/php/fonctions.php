@@ -1,11 +1,12 @@
 <?php
 
 require_once('../page_questions/php/fonctions.php');
+			require_once('php/connexion.php');
 function AfficheQuestionnaires()
  {
-  global $db;
-  $req = $db->prepare("SELECT * FROM operations WHERE ID!=1");
-  $req->execute();
+    $args = array('clause_where'=>array('ID!'=>1));
+        
+$req = execute_sql("SELECT", "operations", $args);
   echo '<table id="tableau" class="table table-striped table-hover" >';
   while($val = $req->fetch(PDO::FETCH_ASSOC))
   {

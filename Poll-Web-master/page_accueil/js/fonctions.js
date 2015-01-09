@@ -1,6 +1,4 @@
 
-
-
 $(function() {
 	$('a[data-confirm]').click(function(ev) {
 		var href = $(this).attr('href');
@@ -17,7 +15,7 @@ $(function() {
         $('#dataConfirmOK').click(function(){
             $.ajax({
             type: 'GET',
-            url: 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/suprimme.php?ID=' + href,
+            url: 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/supprimer.php?ID=' + href,
             timeout: 3000,
             error: function() {
               alert('La requête n\'a pas abouti'); }
@@ -30,7 +28,7 @@ $(function() {
 
 $(function() {
 	$('#create').click(function(ev) {
-        $('body').append(bootbox.dialog({
+        bootbox.dialog({
                 title: "Création d'un questionnaire",
                 message: '<div class="row">  ' +
                     '<div class="col-md-12"> ' +
@@ -44,7 +42,8 @@ $(function() {
                     '<div class="form-group"> ' +
                     '<label class="col-md-5 control-label" for="awesomeness">Choisissez la date prevu </label> ' +
                     '<div class="col-md-5">' +
-                    '<input id="date" name="date" type="text" placeholder="Date du quetionnaire" class="form-control input-md"> ' +
+                    '<input id="date" name="date" type="text" placeholder="Date du questionnaire" class="form-control input-md"> ' +
+                    '<span class="help-block">Entrée la date sous la forme aaaa-mm-jj</span>'+
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',
@@ -52,13 +51,25 @@ $(function() {
                         success: {
                         label: "Sauvegarder",
                         className: "btn-success",
-                        callback: function () {
+                        callback: function (){
                             var name = $('#name').val();
-                            Example.show("Le questionnaire" + name + "a bien été créé</b>");
+                            var date = $('#date').val();
+                            alert(date);
+                            alert(name);
+                            $.ajax({
+                                type: 'GET',
+                                url: 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/nouveau.php?nom='+name+'&date='+date,
+                                timeout: 5000,
+                                error: function() {
+                                    alert('La requête n\'a pas abouti') },
+                                succes: function() {
+                                    alert('poulet'); }
+                                }); 
+                                
                         }
                     }
                 }
-            }));
+            });
     return false;
 	});
 });
