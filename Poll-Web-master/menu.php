@@ -7,19 +7,19 @@
         $plus="";
 
         if($page == 'accueil'){
-            $accueil = '"#" id="current"';
+            $accueil = '"#" class="current"';
             $questions = '"../page_questions/questions.php"';
             $parametre = '"../page_parametre/parametre.php"';
         }
         else if($page == 'questions'){
             $accueil = '"../page_accueil/accueil.php"';
-            $questions = '"#" id="current"';
+            $questions = '"#" class="current"';
             $parametre = '"../page_parametre/parametre.php"';
         }
         else{
             $accueil = '"../page_accueil/accueil.php"';
             $questions = '"../page_questions/questions.php"';
-            $parametre = '"#" id="current"';
+            $parametre = '"#" class="current"';
             $plus='<ul id="liste-entete">
                 <li>
                     <a class="lien-entete" href="#couleur">Formatage de texte</a>
