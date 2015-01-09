@@ -54,8 +54,8 @@ $(function() {
                         callback: function (){
                             var name = $('#name').val();
                             var date = $('#date').val();
-                            alert(date);
-                            alert(name);
+                            //alert(date);
+                            //alert(name);
                             $.ajax({
                                 type: 'GET',
                                 url: 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/nouveau.php?nom='+name+'&date='+date,
