@@ -32,11 +32,11 @@
 						</div>						
 						<div id="liste">
 							<div id="titre" ><span>Nom</span><span>Date prevu</span><span>Options</span></div>
-
+                                <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >
 								<?php
 									AfficheQuestionnaires();
 								?>
-								
+								</table>
 						</div>
 					</div>
 				</div>

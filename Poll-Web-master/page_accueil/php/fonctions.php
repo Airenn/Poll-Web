@@ -1,13 +1,12 @@
 <?php
 
 require_once('../page_questions/php/fonctions.php');
-			require_once('php/connexion.php');
+require_once('php/connexion.php');
 function AfficheQuestionnaires()
  {
     $args = array('clause_where'=>array('ID!'=>1));
         
 $req = execute_sql("SELECT", "operations", $args);
-  echo '<table id="tableau" class="table table-striped table-hover" >';
   while($val = $req->fetch(PDO::FETCH_ASSOC))
   {
    echo'
@@ -29,7 +28,6 @@ $req = execute_sql("SELECT", "operations", $args);
         <td class="hiddenRow"><div class="accordian-body collapse  '.$val['ID'].' ">Questionnaire '.ouverture_questionnaire($val['ID']).'</div></td>
    </tr>';        
   }
-  echo '</table>';
     }
 
 function total_questions($ID_operation){

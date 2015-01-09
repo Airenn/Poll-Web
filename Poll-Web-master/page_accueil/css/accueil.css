@@ -36,16 +36,16 @@
 
 }
 
-#tableau {
+#ajax_tableau_questionnaire {
     border: center;
     text-align: center;
     border-collapse: collapse;
 }
 
-#tableau th {
+#ajax_tableau_questionnaire th {
 
 }
-#tableau td {
+#ajax_tableau_questionnaire td {
     border-bottom: 1px solid #fff;
     color: #669;
     border-top: 1px solid #fff;
@@ -57,16 +57,16 @@
 	width : 40%;
 }*/
 
-#tableau tfoot tr td {
+#ajax_tableau_questionnaire tfoot tr td {
     background: #e8edff;
     font-size: 16px;
     color: #99c;
 }
-#tableau tbody tr:hover td {
+#ajax_tableau_questionnaire tbody tr:hover td {
     background: #d0dafd repeat-x;
     color: #339;
 }
-#tableau a:hover {
+#ajax_tableau_questionnaire a:hover {
     text-decoration:underline;
 }
 

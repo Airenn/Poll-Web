@@ -13,48 +13,26 @@ $(function() {
 		$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
 		$('#dataConfirmModal').modal({show:true});
         $('#dataConfirmOK').click(function(){
-            $.ajax({
-            type: 'GET',
-            url: 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/supprimer.php?ID=' + href,
-            timeout: 3000,
-            error: function() {
-              alert('La requête n\'a pas abouti'); }
-          }); 
-             $("#dataConfirmModal").modal('hide');
+        $.post(get_url_delete(href), function(data){ }).done(update_table());
+        $("#dataConfirmModal").modal('hide');
         });
 		return false;
 	});
 });
 
+function get_url_delete($texte){
+    var sup = 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/supprimer.php?ID=';
+        sup = sup.concat($texte);
+    return sup;
+}
 
-$(function() {
-	$('a[data-confirm]').click(function(ev) {
-        
-		var href = $(this).attr('href');
-		
-		if (!$('#dataConfirmModal').length) {
-			$('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
-                             '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
-                             '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                             '<div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>'+
-                             '<a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
-		}
-		$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
-		$('#dataConfirmModal').modal({show:true});
-        $('#dataConfirmOK').click(function(){
-            $.ajax({
-            type: 'GET',
-            url: 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/supprimer.php?ID=' + href,
-            timeout: 3000,
-            error: function() {
-              alert('La requête n\'a pas abouti'); }
-          }); 
-             $("#dataConfirmModal").modal('hide');
-        });
-		return false;
-	});
-});
-
+function get_url_nouveau($nom,$date){
+    var sup = 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/nouveau.php?nom=';
+        sup = sup.concat($nom);
+        sup = sup.concat('&date=');
+        sup = sup.concat($date);
+    return sup;
+}
 
 $(function() {
 	$('#create').click(function(ev) {
@@ -84,18 +62,9 @@ $(function() {
                         callback: function (){
                             var name = $('#name').val();
                             var date = $('#date').val();
-                            //alert(date);
-                            //alert(name);
-                            $.ajax({
-                                type: 'GET',
-                                url: 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/nouveau.php?nom='+name+'&date='+date,
-                                timeout: 5000,
-                                error: function() {
-                                    alert('La requête n\'a pas abouti') },
-                                succes: function() {
-                                    alert('poulet'); }
-                                }); 
-                                
+                            $.post(get_url_nouveau(name,date), function(data){
+                            $().html( data );
+                            });             
                         }
                     }
                 }
@@ -104,3 +73,14 @@ $(function() {
 	});
 });
 
+$ajax_table = $('#ajax_tableau_questionnaire');
+
+function update_table(){
+    $.post(get_url_table(), function(data){
+        $ajax_table.html(data);
+    }); 
+}
+
+function get_url_table(){
+    return "ajax/ajax_table.php";
+}
