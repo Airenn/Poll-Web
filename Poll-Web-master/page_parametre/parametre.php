@@ -49,7 +49,6 @@
                 </div>
                 
                 
-                
                 <div id="div-phone" style="display:none;">
                     <label>Numéro de téléphone : <input id='numtel' type='text' name='tel'/></label><br/>
                 </div>
@@ -62,8 +61,7 @@
                     <span id="form_m" style="display:none;"> <?php formulaire_couleur("form_nbmess") ?> </span>
 
                     <span id="form_p" style="display:none;"> <?php formulaire_couleur("form_paragraphe") ?> </span>
-                
-                
+            
                 
                 <input type='submit' name='save' value='Sauvegarder'/>
             </form>

@@ -103,7 +103,6 @@ function create_title(){
 }
 
 function formulaire_couleur($choix_section){
-
 ?>
         <div id='div-format'>
             <label>Couleur de la police : <input type='color' <?php echo "name='color-$choix_section'"; ?> /></label><br/>
