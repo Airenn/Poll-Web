@@ -6,7 +6,7 @@ function AfficheQuestionnaires()
  {
     $args = array('clause_where'=>array('ID!'=>1));
         
-$req = execute_sql("SELECT", "operations", $args);
+    $req = execute_sql("SELECT", "operations", $args);
   while($val = $req->fetch(PDO::FETCH_ASSOC))
   {
    echo'

@@ -13,9 +13,8 @@
 	
 		<?php
 			require_once('php/connexion.php');
-			require_once('php/fonctions.php');
-            require('../menu.php'); 
-            require_once('../page_questions/php/fonctions.php'); 
+			require_once('../php/fonctions.php');
+            require('../menu.php');
             gen_menu('accueil');
         ?>
         

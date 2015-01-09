@@ -21,16 +21,17 @@ $(function() {
 });
 
 function get_url_delete($texte){
-    var sup = 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/supprimer.php?ID=';
+    var sup = 'php/supprimer.php?ID=';
         sup = sup.concat($texte);
     return sup;
 }
 
 function get_url_nouveau($nom,$date){
-    var sup = 'http://localhost/Poll-Web/Poll-Web-master/page_accueil/php/nouveau.php?nom=';
+    var sup = 'php/nouveau.php?nom=';
         sup = sup.concat($nom);
         sup = sup.concat('&date=');
         sup = sup.concat($date);
+    
     return sup;
 }
 
@@ -62,9 +63,7 @@ $(function() {
                         callback: function (){
                             var name = $('#name').val();
                             var date = $('#date').val();
-                            $.post(get_url_nouveau(name,date), function(data){
-                            $().html( data );
-                            });             
+                            $.post(get_url_nouveau(name,date), function(data){ });             
                         }
                     }
                 }
