@@ -31,7 +31,7 @@
 							<span id="id_questionnaire_selected">aucun</span>
 						</div>						
 						<div id="liste">
-							<div id="titre" ><span>Questionnaires</span><span>Options</span></div>
+							<div id="titre" ><span>Nom</span><span>Date prevu</span><span>Options</span></div>
 
 								<?php
 									AfficheQuestionnaires();

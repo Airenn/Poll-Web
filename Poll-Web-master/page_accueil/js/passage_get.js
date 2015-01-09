@@ -2,7 +2,7 @@ jQuery(document).ready(function()
 {
 	$('.titre').click(function()
 	{
-		var $selected_id = $(this).siblings('td').html();
+		var $selected_id = $(this).html();
 		var $id = '../page_questions/questions.php?operation=' + $(this).parent('tr').attr('id');
 		//alert($id);
 		//alert($selected_id);
