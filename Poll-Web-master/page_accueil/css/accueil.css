@@ -7,8 +7,8 @@
 #liste{
     margin-top : 15px;
     margin-bottom : 15px;
-    margin-left : 15%;
-    margin-right : 15%;
+    /*margin-left : 15%;*/
+    /*margin-right : 15%;*/
 }
 #liste #titre {
     font-weight: normal;
@@ -31,7 +31,7 @@
     border-bottom-right-radius:0px; 
 }
 #liste #titre span {
-    margin-left : 35%;
+    margin-left : 28%;
     margin-right : 5%;
 
 }
@@ -50,8 +50,13 @@
     color: #669;
     border-top: 1px solid #fff;
     background: #e8edff  repeat-x;
-    width: 30%;
+    width: 33%;
 }
+
+/*#tableau td :last-child{
+	width : 40%;
+}*/
+
 #tableau tfoot tr td {
     background: #e8edff;
     font-size: 16px;
@@ -71,11 +76,16 @@
     width: 1000px;
 }
 
+#center_panel {
+    margin: 15px 15%;
+}
+
 #selected_question
 {
 	border : solid #CCC 1px;
 	border-radius : 4px;
 	padding: 6px 12px;
 	text-align: center;
-	width : 35%;
+	width : 40%;
+	margin-top : 15px;
 }

@@ -19,21 +19,29 @@
             gen_menu('accueil');
         ?>
         
-		<div id="background">
-			<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
-			<input id="import" type="button" class="btn btn-default" value="Importer Questionnaire" />
-            <div id="liste">
-			     <div id="titre" ><span>Questionnaires</span><span>Options</span></div>
+		<div id="background_panel">
+            <div class="panel panel-default" id="center_panel">
+                <div class="panel-heading"><h3 class="panel-title">Liste des questionnaires</h3></div>
+				<div class="panel-body">
+					<div id="background">
+						<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
+						<input id="import" type="button" class="btn btn-default" value="Importer Questionnaire" />
+						<div id="selected_question">
+							<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
+							<span id="id_questionnaire_selected">aucun</span>
+						</div>						
+						<div id="liste">
+							<div id="titre" ><span>Questionnaires</span><span>Options</span></div>
 
-            <?php
-                AfficheQuestionnaires();
-            ?>
-			<div id="selected_question">
-				<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
-				<span id="id_questionnaire_selected">aucun</span>
+								<?php
+									AfficheQuestionnaires();
+								?>
+								
+						</div>
+					</div>
+				</div>
 			</div>
-                </div>
-          </div>
+		</div>
 		  
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
 		<script src="../bootstrap/dist/js/jquery.min.js"></script>
