@@ -323,7 +323,7 @@
         }
         
         while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
-            construct_full_bar($categories, $question, $rep['ID'], $total, $rep['texte']);
+            construct_full_bar($categories, $question, $rep['ID'], $total, $rep['lettre_reponse'].' : '.$rep['texte']);
         }
         
         if($categorie == 'Tout' || $categorie == 'Erreur'){

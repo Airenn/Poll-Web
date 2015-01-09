@@ -119,7 +119,7 @@
                     
                     <div class="input-group" id="info_question">
                         <span class="input-group-addon informations_question"> 
-                            Numéro
+                            <br><div>Numéro</div><br>
                             <span id="ajax_modif_num">
                                 <?php create_input("input", "input_num_question"); ?>
                             </span>
