@@ -130,7 +130,7 @@
      * \param $question : int, identifiant de la question dont on doit compter les reponses
      */
     function total_reponses($question){
-         $args = array(
+        $args = array(
                     'champs_cibles'=>array('count(*) as nb'), 
                     'clause_where'=>array('ID_question'=>$question)
                 );
@@ -307,6 +307,7 @@
     function create_progress_bars($question, $categorie='Tout'){
         $reponses = get_reponses($question);
         $total = nb_messages_quest($question, $categorie);
+        $pourcentage_total = 0;
         $categories = array();
         
         if($categorie == 'Valide'){
@@ -323,13 +324,13 @@
         }
         
         while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
-            construct_full_bar($categories, $question, $rep['ID'], $total, $rep['lettre_reponse'].' : '.$rep['texte']);
+            $pourcentage_total += construct_full_bar($categories, $question, $rep['ID'], $total, $rep['lettre_reponse'].' : '.$rep['texte'], $pourcentage_total);
         }
         
         if($categorie == 'Tout' || $categorie == 'Erreur'){
             $categories = array("danger"=>"Erreur");
             $total = total_messages($question);
-            construct_full_bar($categories, $question, null, $total, 'Erreur');
+            construct_full_bar($categories, $question, null, $total, 'Erreur', 0);
         }
     }
 
@@ -385,18 +386,50 @@
      * \param $total : int, total de messages a prendre en compte
      */
     function get_pourcentage($question, $reponse, $categorie, $total){
+        $reponses = get_reponses($question);
+        $pourcent_non_erreur = 100;
+        
         if($total>0){
+            while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
+                $pourcent_non_erreur -= round((100/$total)*(nb_messages_rep($rep['ID'], 'Valide') + nb_messages_rep($rep['ID'], 'Doublon') + nb_messages_rep($rep['ID'], 'Retard')));
+            }
+            
             ($categorie!='Erreur')
             ? $pourcentage = 100*(nb_messages_rep($reponse, $categorie)/$total)
-            : $pourcentage = 100*(nb_erreur_quest($question)/$total);
+            : $pourcentage = $pourcent_non_erreur;
         }
         else{
             $pourcentage = 0;
         }
-
+        
         $pourcentage = round($pourcentage);
         
         return $pourcentage;
+    }
+
+    /*
+     * Renvoie l'entier correspondant au pourcentage de barre pour toutes les categories recues
+     *
+     * \param $question : int, identifiant de la question
+     * \param $reponse : int, identifiant de la reponse concernee
+     * \param $categorie : string, categorie de message dont on veut le pourcentage
+     * \param $total : int, total de messages a prendre en compte
+     * \param $limit : int, pourcentage de la categorie deja calcule
+     */
+    function get_pourcentage_total($question, $reponse, $categorie, $total, $limit){
+        $pourcentage_total = 0;
+        
+        if($total>0){
+            foreach($categorie as $key=>$categ){
+                $pourcentage_total += get_pourcentage($question, $reponse, $categ, $total);
+            }
+            
+            if($pourcentage_total+$limit > 100.0){
+                $pourcentage_total = 100-$limit;
+            }
+        }
+        
+        return $pourcentage_total;
     }
 
     /*
@@ -423,16 +456,12 @@
      * \param $reponse : int, identifiant de la reponse concernee
      * \param $total : int, total de messages a prendre en compte
      * \param $texte : string, texte a inclure dans le titre de la barre
+     * \param $limit : int, pourcentage de la categorie deja calcule
      */
-    function construct_full_bar($categories, $question, $reponse, $total, $texte){
+    function construct_full_bar($categories, $question, $reponse, $total, $texte, $limit){
         $pourcentage_total = 0;
         $pourcentage = 0;
-        
-        if($total>0){
-            foreach($categories as $key=>$categ){
-                $pourcentage_total += get_pourcentage($question, $reponse, $categ, $total);
-            }
-        }
+        $pourcentage_total = get_pourcentage_total($question, $reponse, $categories, $total, $limit);
 
         echo '<h4>'.$texte;
 
@@ -447,6 +476,8 @@
             construct_part_bar($pourcentage, $reponse, $key, $categ, $total);
         }
         echo '</div>';
+        
+        return $pourcentage_total;
     }
 
     /*!
@@ -459,7 +490,7 @@
         
         if($message = $req->fetch(PDO::FETCH_ASSOC)){
             do{
-                $classe = "valide_message";
+                $classe = "table_messages valide_message";
                 
                 if($message['erreur']){
                     $classe = "erreur_message";
@@ -499,7 +530,7 @@
         global $db;
         $num_tel = (string) $message['num_tel'];
         $texte = strtoupper(trim($message['texte']));
-        $regex = '#^([1-9])(\-|\)|\]|\}|\:)?([A-Z])+$#';
+        $regex = '#^([1-9])(\-|\)|\]|\}|\:)?([A-Z]+)$#';
         $resultats;
         $num_question;
         $lettre;
@@ -555,11 +586,10 @@
                         else{
                             $erreur = true;   
                         }
-
+                        
                         $texte = (string) ($num_question.$lettre);
                         insert_message($num_tel, $texte, $erreur, $ID_reponse, $ID_question);
                         $insertion = true;
-
                     }while((--$nb_reponses)!=0);
                 }
                 else{
@@ -768,7 +798,7 @@
             $letters = get_lettres_reponses($question['ID']);
 
             ($question['multi_rep'])
-            ? $texte .= get_random_letters($letters, $total_reponses)
+            ? $texte .= get_random_letters($letters, mt_rand(1,$total_reponses))
             : $texte .= get_random_letters($letters);
         }
         else{

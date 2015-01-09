@@ -53,8 +53,9 @@
 
 #panel_bar, #panel_table
 {
+    border: 0px solid black;
+    box-shadow: none;
     width : 49%;
-    max-height: 450px;
 }
 
 #panel_bar
@@ -116,4 +117,9 @@
 .panel-group .panel-heading a:hover, .panel-group .panel-heading a:focus
 {
     text-decoration: none;
+}
+
+#input_multi_question_hidden
+{
+    visibility: hidden;
 }

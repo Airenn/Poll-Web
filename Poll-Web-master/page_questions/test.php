@@ -2,5 +2,5 @@
     require_once('php/connexion.php');
     require_once('php/fonctions.php');
 
-    echo total_messages(2);
+    echo message_bot(2);
 ?>

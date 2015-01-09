@@ -155,7 +155,9 @@
                         </span>
                         
                         <span class="input-group-addon informations_question" id="ajax_multi_quest">
-                            <?php create_input("input", "input_multi_question"); ?>
+                            Réponses multiples<br><br>
+                            <input type="checkbox" aria-label="..." id="input_multi_question">
+                            <input type="checkbox" aria-label="..." disabled id="input_multi_question_hidden">
                         </span>
                     </div>
                     

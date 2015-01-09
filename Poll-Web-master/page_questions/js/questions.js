@@ -18,6 +18,12 @@ $ferme_question.on('click', function () {
     update_dropdown();
 });
 
+$multi_question.on('click', function () {
+    multi_rep_quest();
+    update_multi_quest_input();
+    update_dropdown();
+});
+
 $changement_nom.on('click', function () {
     update_question_name();
 });
@@ -35,16 +41,12 @@ $('#conservation_nom').on('click', function () {
 
 $('#valid_change_num_question').on('click', function () {
     update_question_num();
+    update_question_button(num_question_courante);
     document.getElementById('input_num_question').value = num_question_courante;
 });
 
 $('#conservation_num').on('click', function () {
     document.getElementById('input_num_question').value = num_question_courante;
-});
-
-$multi_question.on('click', function () {
-    multi_rep_quest();
-    update_dropdown();
 });
 
 $suppression_question.on('click', function () {
@@ -101,11 +103,11 @@ function init_var(){
     $robot_unitaire = $('#robot_unitaire');
     $tri_button = $('#btn_reception');
     $ferme_question = $('#input_close_question');
+    $multi_question = $('#input_multi_question');
     $suppression_question = $('#suppression_question');
     $num_tel = $('#num_tel');
     $texte = $('#texte');
     $resultats = $('#panel_resultats');
-    $multi_question = $('#input_multi_question');
     $new_num = $('#input_num_question');
     $changement_nom =$('#changement_nom');
     
@@ -256,20 +258,27 @@ function update_close_quest_input(){
 }
 
 function update_multi_quest_input(){
-    if(question_courante === ""){
-        document.getElementById("input_multi_question").setAttribute("disabled", "disabled");
+    (question_courante === "")
+    ? document.getElementById("input_multi_question").setAttribute("disabled", "disabled")
+    : document.getElementById("input_multi_question").removeAttribute("disabled");
+    
+    if(modif_enabled){
+        $multi_question.css("visibility", "visible");
+        $('#input_multi_question_hidden').css("visibility", "hidden");
     }
     else{
-        document.getElementById("input_multi_question").removeAttribute("disabled");
-    
-        $.post(get_url_multi_quest(), function(data){
-            $ajax_multi_quest.html(data);
-        });
+        $multi_question.css("visibility", "hidden");
+        $('#input_multi_question_hidden').css("visibility", "visible");
     }
     
-    (multi_rep)
-    ? $multi_question.prop("checked", 1)
-    : $multi_question.prop("checked", 0);
+    if(multi_rep){
+        $multi_question.prop("checked", 1);
+        $('#input_multi_question_hidden').prop("checked", 1);
+    }
+    else{
+        $multi_question.prop("checked", 0);
+        $('#input_multi_question_hidden').prop("checked", 0);
+    }
 }
 
 function update_multi_bot_button(){
