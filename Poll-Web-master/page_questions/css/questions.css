@@ -105,13 +105,12 @@
 
 .retard_message
 {
-    background-color: #F5F6CE;
+    background-color: #FFFCB7;
 }
 
 .messages_categ
 {
-    margin-left : 5px;
-    margin-right : 5px; 
+    width: 16%;
 }
 
 .panel-group .panel-heading a:hover, .panel-group .panel-heading a:focus
@@ -122,4 +121,38 @@
 #input_multi_question_hidden
 {
     visibility: hidden;
+}
+
+#categories_messages_boutons
+{
+    width: 100%;
+}
+
+#Tout
+{
+    border-radius: 4px;
+}
+
+#Valide
+{
+    margin-left: 5%;
+    border-radius: 4px;
+}
+
+#Erreur
+{
+    margin-left: 5%;
+    border-radius: 4px;
+}
+
+#Doublon
+{
+    margin-left: 5%;
+    border-radius: 4px;
+}
+
+#Retard
+{
+    margin-left: 5%;
+    border-radius: 4px;
 }

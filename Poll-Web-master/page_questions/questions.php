@@ -14,7 +14,6 @@
     </head>
     
     <body>
-        
         <?php 
             require('../menu.php'); 
             gen_menu('questions');
@@ -169,7 +168,7 @@
                         </span>
                     </div>
 
-                    <br/><br/>
+                    <br/>
                     <div class="panel-group" id="accordion_envoi" role="tablist" aria-multiselectable="true">
                         <div class="panel panel-default" id="panel_envoi">
                             <div class="panel-heading" role="tab" id="heading_envoi">
@@ -218,7 +217,7 @@
 
                             <div class="panel panel-default" id="panel_table">
                                 <div class="panel-body">
-                                    <div class="btn-group" role="group" aria-label="...">
+                                    <div class="btn-group" role="group" aria-label="..." id="categories_messages_boutons">
                                         <button type="button" class="btn btn-default messages_categ" id="Tout">Tout</button>
                                         <button type="button" class="btn btn-success messages_categ" id="Valide">Valide</button>
                                         <button type="button" class="btn btn-primary messages_categ" id="Doublon">Doublon</button>
@@ -251,6 +250,7 @@
     
         <script src="../bootstrap/dist/js/jquery.min.js"></script>
         <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bootbox/bootbox.min.js"></script>
         <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
         <script src="js/questions.js"></script>
     </body>

@@ -49,6 +49,10 @@ $('#conservation_num').on('click', function () {
     document.getElementById('input_num_question').value = num_question_courante;
 });
 
+$('#btn-ajouter-question').on('click', function () {
+    add_question();
+});
+
 $suppression_question.on('click', function () {
     suppr();
     update_modif();
@@ -60,6 +64,7 @@ $robot_unitaire.on('click', function () {
 
 $messages_categ.on('click', function () {
     categorie_courante = $(this).text();
+    update_categ_color();
     page_courante = 0;
     update_bar();
     update_table();
@@ -153,6 +158,7 @@ function affichage_question(operation, fermee, multi, ID, num_question, texte){
 
 function activer_affichage(){
     $resultats.css("visibility", "visible");
+    update_categ_color()
     update_multi_bot_button();
     update_suppr_button();
     update_dropdown();
@@ -455,6 +461,139 @@ function multi_rep_quest(){
 
 function suppr_question(){
     $.post(get_url_suppr_quest(), function(data){ });
+}
+
+function update_categ_color(){
+    var valide_focus = "#5CB85C",
+        erreur_focus = "#D9534F",
+        doublon_focus = "#337AB7",
+        retard_focus = "#F0AD4E",
+        tout_focus = "#333",
+        ecriture_focus = "#FFF",
+        ecriture_no_focus = "#333",
+        tout_no_focus = "#F2F2F2",
+        valide_no_focus = "#CEF6D8",
+        erreur_no_focus = "#F6CECE",
+        doublon_no_focus = "#CED8F6",
+        retard_no_focus = "#FFFCB7",
+        tout_categ = "Tout",
+        valide_categ = "Valide",
+        erreur_categ = "Erreur",
+        doublon_categ = "Doublon",
+        retard_categ = "Retard",
+        $tout = $('#Tout'),
+        $valide = $('#Valide'),
+        $erreur = $('#Erreur'),
+        $doublon = $('#Doublon'),
+        $retard = $('#Retard');
+    
+    $tout.css("background-color", tout_no_focus);
+    $tout.css("border-color", tout_no_focus);
+    $tout.css("color", ecriture_no_focus);
+    $tout.css("box-shadow", "none");
+    
+    $valide.css("background-color", valide_no_focus);
+    $valide.css("border-color", valide_no_focus);
+    $valide.css("color", ecriture_no_focus);
+    $valide.css("box-shadow", "none");
+    
+    $erreur.css("background-color", erreur_no_focus);
+    $erreur.css("border-color", erreur_no_focus);
+    $erreur.css("color", ecriture_no_focus);
+    $erreur.css("box-shadow", "none");
+    
+    $doublon.css("background-color", doublon_no_focus);
+    $doublon.css("border-color", doublon_no_focus);
+    $doublon.css("color", ecriture_no_focus);
+    $doublon.css("box-shadow", "none");
+    
+    $retard.css("background-color", retard_no_focus);
+    $retard.css("border-color", retard_no_focus);
+    $retard.css("color", ecriture_no_focus);
+    $retard.css("box-shadow", "none");
+    
+    if(categorie_courante == valide_categ){
+        $valide.css("background-color", valide_focus);
+        $valide.css("border-color", valide_focus);
+        $valide.css("color", ecriture_focus);
+        $valide.css("box-shadow", "0 0 0 5px "+valide_no_focus);
+    }
+    else if(categorie_courante == erreur_categ){
+        $erreur.css("background-color", erreur_focus);
+        $erreur.css("border-color", erreur_focus);
+        $erreur.css("color", ecriture_focus);
+        $erreur.css("box-shadow", "0 0 0 5px "+erreur_no_focus);
+    }
+    else if(categorie_courante == doublon_categ){
+        $doublon.css("background-color", doublon_focus);
+        $doublon.css("border-color", doublon_focus);
+        $doublon.css("color", ecriture_focus);
+        $doublon.css("box-shadow", "0 0 0 5px "+doublon_no_focus);
+    }
+    else if(categorie_courante == retard_categ){
+        $retard.css("background-color", retard_focus);
+        $retard.css("border-color", retard_focus);
+        $retard.css("color", ecriture_focus);
+        $retard.css("box-shadow", "0 0 0 5px "+retard_no_focus);
+    }
+    else if(categorie_courante == tout_categ){
+        $tout.css("background-color", tout_focus);
+        $tout.css("border-color", tout_focus);
+        $tout.css("color", ecriture_focus);
+        $tout.css("box-shadow", "0 0 0 5px "+tout_no_focus);
+    }     
+}
+
+function add_question(){
+    var champs_question =   '<div class="row">  ' +
+                                '<div class="col-md-12"> ' +
+                                    '<form class="form-horizontal"> ' +
+        
+                                        '<div class="form-group"> ' +
+                                            '<label class="col-md-5 control-label" for="new_numero">Numéro de la question</label> ' +
+                                            '<div class="col-md-5"> ' +
+                                                '<input id="new_numero" name="new_numero" type="text" placeholder="1" class="form-control input-md"> ' +
+                                            '</div> ' +
+                                        '</div> ' +
+        
+                                        '<div class="form-group"> ' +
+                                            '<label class="col-md-5 control-label" for="new_texte">Texte de la question</label> ' +
+                                            '<div class="col-md-5">' +
+                                                '<input id="new_texte" name="new_texte" type="text" placeholder="Où est Charlie?" class="form-control input-md"> ' +
+                                            '</div> ' +
+                                        '</div>' +
+        
+                                        '<div class="checkbox" style="text-align: center;">' +
+                                            '<label>' +
+                                                '<input type="checkbox" id="new_multi"> Question à choix multiples?' +
+                                            '</label>' +
+                                        '</div>' +
+        
+                                    '</form>' + 
+                                '</div>' +
+                            '</div>';
+
+    bootbox.dialog({
+                title: "Ajout d'une question",
+                message: champs_question,
+                buttons: {
+                    success: {
+                        label: "Ajouter",
+                        className: "btn-success",
+                        callback: function (){
+                            var url_add_quest = 'ajax/ajax_add_quest.php?num_question='
+                                                +$('#new_numero').val()
+                                                +'&texte='
+                                                +$('#new_texte').val()
+                                                +'&multi_rep='
+                                                +Number($('#new_multi').prop("checked"))
+                                                +'&ID_operation='
+                                                +operation_courante;
+                            $.post(url_add_quest, function(data){ });
+                        }
+                    }
+                }
+    });
 }
 
 //------------------------------------------------------- Fonctions url -------------------------------------------------------

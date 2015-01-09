@@ -34,17 +34,19 @@
         }
         
         echo'
-            <div id="title_logo">
-                <img src="../poll.png" width="10%" height="10%" id="logo"/>
-                '.$plus.'
-            </div>
-            <div id="menu">
-                <ul>
-                    <a id="questionnaires" href='.$accueil.' title="Liste de tous les questionnaires"><li>Questionnaires</li></a>
-                    <a id="questions" href='.$questions.' title="Afficher/modifier les questions de votre questionnaire"><li>Questions</li></a>
-                    <a id="parametres" href='.$parametre.' title="Paramétrer vos questionnaires"><li>Paramètres</li></a>
-                </ul>
-            </div>
+            <nav id="menu_bar">
+                <div id="title_logo">
+                    <img src="../poll.png" width="10%" height="10%" id="logo"/>
+                    '.$plus.'
+                </div>
+                <div id="menu">
+                    <ul>
+                        <a id="questionnaires" href='.$accueil.' title="Liste de tous les questionnaires"><li>Questionnaires</li></a>
+                        <a id="questions" href='.$questions.' title="Afficher/modifier les questions de votre questionnaire"><li>Questions</li></a>
+                        <a id="parametres" href='.$parametre.' title="Paramétrer vos questionnaires"><li>Paramètres</li></a>
+                    </ul>
+                </div>
+            </nav>
             ';
     }
 

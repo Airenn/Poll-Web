@@ -234,6 +234,31 @@
         return $total['nb'];
     }
 
+    /*
+     * Insere une nouvelle question avec les parametres recus
+     *
+     * \param $num_question : int, numero de la nouvelle question
+     * \param $texte : string, texte de la nouvelle question
+     * \param $multi_rep : int, 0 ou 1 selon le statut de reponse multiple de la nouvelle question
+     * \param $ID_operation : int, identifiant de l'operation rattachee a la question
+     */
+    function add_question($num_question, $texte, $multi_rep, $ID_operation){
+        $args = array(
+                    'champs_cibles'=>array('num_question', 
+                                           'texte', 
+                                           'multi_rep', 
+                                           'ID_operation'
+                                    ), 
+                    'clause_values'=>array('num_question'=>$num_question, 
+                                           'texte'=>$texte, 
+                                           'multi_rep'=>$multi_rep, 
+                                           'ID_operation'=>$ID_operation
+                                    )
+                );
+        
+        execute_sql("INSERT", "questions", $args);
+    }
+
     /*!
      * Creer le menu deroulant contenant les questions recues en parametre
      *
@@ -530,7 +555,7 @@
         global $db;
         $num_tel = (string) $message['num_tel'];
         $texte = strtoupper(trim($message['texte']));
-        $regex = '#^([1-9])(\-|\)|\]|\}|\:)?([A-Z]+)$#';
+        $regex = '#^([1-9])(\-|\)|\]|\}|\:| *)?([A-Z]+)$#';
         $resultats;
         $num_question;
         $lettre;
@@ -630,8 +655,10 @@
         if(isset($current_question['ID'])){
             $current_question = $current_question['ID'];
             $reponse = get_reponses($current_question);
-            $reponse = $reponse->fetch(PDO::FETCH_ASSOC);
-            $reponse = $reponse['ID'];
+            
+            ($reponse = $reponse->fetch(PDO::FETCH_ASSOC))
+            ? $reponse = $reponse['ID']
+            : $reponse = 1;
         }
         else{
             $current_question = 1;
@@ -762,6 +789,7 @@
         $message = array();
         $message['num_tel'] = gen_num_tel();
         $message['texte'] = gen_texte(mt_rand(0,1), $question);
+        print_r($message);
         sort_message($message);
     }
 
@@ -791,10 +819,10 @@
     function gen_texte($valide, $question){
         $texte = "";
         $question = get_question($question);
+        $total_reponses = total_reponses($question['ID']);
         
-        if($valide){ 
+        if($valide && $total_reponses>0){ 
             $texte = $question['num_question'];
-            $total_reponses = total_reponses($question['ID']);
             $letters = get_lettres_reponses($question['ID']);
 
             ($question['multi_rep'])
