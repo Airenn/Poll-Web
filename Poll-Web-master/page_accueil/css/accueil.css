@@ -5,12 +5,33 @@
 
 }
 #liste{
-    margin-top : 15px;
-    margin-bottom : 15px;
+    /*margin-top : 15px;
+    margin-bottom : 15px;*/
     /*margin-left : 15%;*/
     /*margin-right : 15%;*/
+	/*border-top: 2px solid #d3ddff;*/
+    border-bottom: 1px solid #fff;
+	-moz-border-radius-topleft: 35px;
+    -moz-border-radius-topright:35px;
+    -moz-border-radius-bottomleft:0px;
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-top-left-radius:35px;
+    -webkit-border-top-right-radius:35px;
+    -webkit-border-bottom-left-radius:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-top-left-radius:35px;
+    border-top-right-radius:35px;
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+	overflow : hidden;
 }
-#liste #titre {
+/*#liste #titre*/
+ajax_tableau_questionnaire
+{
+	width : 100.3%
+}
+thead
+{
     font-weight: normal;
     padding: 8px;
     background: #b9c9fe  repeat-x;
@@ -28,13 +49,19 @@
     border-top-left-radius:75px;
     border-top-right-radius:75px;
     border-bottom-left-radius:0px;
-    border-bottom-right-radius:0px; 
+    border-bottom-right-radius:0px;
 }
-#liste #titre span {
+
+thead th
+{
+	text-align : center;
+}
+
+/*#liste #titre span {
     margin-left : 15%;
     margin-right : 14.5%;
 
-}
+}*/
 
 #ajax_tableau_questionnaire {
     border: center;
@@ -86,6 +113,7 @@
 	border-radius : 4px;
 	padding: 6px 12px;
 	text-align: center;
-	width : 40%;
+	width : 49.9%;
 	margin-top : 15px;
+	margin-bottom : 15px;
 }
