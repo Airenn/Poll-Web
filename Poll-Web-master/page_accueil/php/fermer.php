@@ -7,9 +7,7 @@
     $table_cible='operations';
     $args_operation= array(
                     'clauses_set'=>array('fermee'=>0),
-                    'clause_where'=>array('ID'=> $id_operation)
-                );
+                'clause_where'=>array('ID'=> $id_operation)
+);
     execute_sql($type_operation, $table_cible, $args_operation);
-
-         
 ?>     

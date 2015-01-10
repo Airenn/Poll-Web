@@ -29,7 +29,7 @@ function modal_close(id, texte){
     $('#dataConfirmModal').find('.modal-body').text(texte);
     $('#dataConfirmModal').modal({show:true});
     $('#dataConfirmOK').click(function(){
-        $.post(close_quest(href), function(data){ }).done(update_table()).done(update_table()).done(update_table()).done(update_table());
+        $.post(close_quest(href), function(data){update_table()});
         $("#dataConfirmModal").modal('hide');
     });
 }
@@ -47,7 +47,7 @@ function modal_open(id, texte){
     $('#dataConfirmModal').find('.modal-body').text(texte);
     $('#dataConfirmModal').modal({show:true});
     $('#dataConfirmOK').click(function(){
-        $.post(open_quest(href), function(data){ }).done(update_table()).done(update_table()).done(update_table()).done(update_table());
+        $.post(open_quest(href), function(data){ update_table() });
         $("#dataConfirmModal").modal('hide');
     });
 }

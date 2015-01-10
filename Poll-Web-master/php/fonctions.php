@@ -1481,12 +1481,12 @@ function ouverture_questionnaire($ID_operation)
                 );
         
     $total = execute_sql("SELECT", "operations", $args);
-    $total = $total->fetch(PDO::FETCH_ASSOC);
-	
-    if($total==1)    
-		return "ouvert";
-    else 
-		return "fermé";
+    while($fermer = $total->fetch(PDO::FETCH_ASSOC)){
+         if($fermer['fermee']==1)
+             return 'ouvert';
+            else 
+                return 'fermée';
+       }
 }
 
 ?>
