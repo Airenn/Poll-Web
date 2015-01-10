@@ -18,30 +18,12 @@ function text_format_css($key, $choix_section){
         echo "font-family : ".$_SESSION[$key]["police-$choix_section"]."px;";
     }
 }
-function progress_bars($question,$categorie){
-        $reponses = get_reponses($question);
-        $total = nb_messages_quest($question,$categorie);
-        $categories = array("success"=>"Valide", "default"=>"Doublon", "warning"=>"Retard");
-        $pourcentage;
-        
-        while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
-            echo '<p>'.$rep['texte'].'</p><div class="progress">';
-            
-            foreach($categories as $key=>$categ){
-                ($total>0) 
-                ? $pourcentage = 100*(nb_messages_rep($rep['ID'], $categ)/$total)
-                : $pourcentage = 0;
-                echo
-                    '<div class="progress-bar progress-bar-'.$key.' progress-bar-striped" style="width: '.(int)$pourcentage.'%">
-                        <span class="sr-only">'.(int)$pourcentage.'% Complete</span>
-                    </div>';
-            }
-            
-            echo '</div>';
-        }
+function progress_bars($categorie){
+        $question = get_current_question()['ID'];
+create_progress_bars($question,$categorie);
     }
 
-function open_question($question,$open_close){
+function open_question($question){
     global $db;
     $val;
     try{
@@ -55,10 +37,6 @@ function open_question($question,$open_close){
         $req2->execute();
         if(empty($req2->fetchAll())){
             reset_bdd_question('2');
-            $req2->$db->prepare('SELECT * FROM questions WHERE ID_operation=:operation');
-            $req2->bindvalue(':operation',$operation);
-            $req2->execute();
-            $rep=$req2->fetch(PDO::FETCH_ASSOC);
         }
         else{
             while($rep=$req1->fetch(PDO::FETCH_ASSOC) and $test==false){
@@ -90,7 +68,26 @@ function reset_bdd_question($question){
     die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
     }
 }
+function afficher_reponse($question){
+    $req=execute_sql("SELECT","reponses",array('clause_where'=>array("ID_question"=>$question)));
+    while($rep=$req->fetch(PDO::FETCH_ASSOC)){
+        if($rep['points']>0)
+        construct_full_bar(array("success"=>"Valide"), $question, $rep['ID'], $total, $rep['texte']);
+        else
+            construct_full_bar(array("danger"=>"Valide"), $question, $rep['ID'], $total, $rep['texte']);
+    }
+}
 
+function changer_question_reponse($question,$sens){
+    global $db;
+    $operation = get_current_operation()['ID'];
+    if($sens)
+        $req=execute_sql("SELECT","questions",array("clause_where"=>array("ID_operation"=>$operation)));
+    else
+        $req=execute_sql("SELECT","questions",array("clause_where"=>array("ID_operation"=>$operation), "clause_order_by"=>array("colonne_tri"=>"ID","ordre_tri"=>"DESC")));
+    $rep=$req->fetch(PDO::FETCH_ASSOC);
+    echo $rep['ID'];
+}
 function create_pb(){
     $question = get_current_question()['ID'];
     $texte= get_current_question()['texte'];

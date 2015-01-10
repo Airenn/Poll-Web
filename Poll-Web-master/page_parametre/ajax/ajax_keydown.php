@@ -3,5 +3,5 @@
     require("../../page_questions/php/fonctions.php");
     require("../php/fonctions.php");
 
-    open_question($_GET['question'],$_GET['openclose']);
+    open_question($_GET['question']);
 ?>

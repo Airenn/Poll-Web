@@ -86,10 +86,13 @@
             
             
             <div id="remote">
-                <button type="button" class="btn btn-default btn-lg" id="bouton-left">
+                <button type="button" class="btn btn-default disabled" id="bouton-reponse" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    Afficher réponses
+                </button>
+                <button type="button" class="btn btn-default btn-lg disabled" id="bouton-left">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="btn btn-default btn-lg" id="bouton-result">
+                <button type="button " class="btn btn-default btn-lg disabled" id="bouton-result">
                     <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="btn btn-default btn-lg" id="bouton-right">

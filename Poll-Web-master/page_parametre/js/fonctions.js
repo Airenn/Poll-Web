@@ -51,16 +51,13 @@ function refresh_bar(){
 function get_url_keydown(){
     var url_bar = 'ajax/ajax_keydown.php?question='; 
     url_bar = url_bar.concat(question_courante);
-    url_bar = url_bar.concat('&openclose=true');
     return url_bar;
 }
 
 function get_url_bar(){
-    var url_bar = 'ajax/ajax_bar.php?question='; 
-    url_bar = url_bar.concat(question_courante);
+    var url_bar = 'ajax/ajax_bar.php?';
     url_bar = url_bar.concat('&categorie=');
     url_bar = url_bar.concat('Valide');
-    
     return url_bar;
 }
 
