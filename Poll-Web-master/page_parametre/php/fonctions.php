@@ -104,23 +104,37 @@ function create_title(){
 
 function formulaire_couleur($choix_section){
 ?>
-        <div id='div-format'>
-            <label>Couleur de la police : <input type='color' <?php echo "name='color-$choix_section'"; ?> /></label><br/>
-            <label>Taille de la police  : <input type='text' <?php echo "name='taille-police-$choix_section'"; ?> /></label><br/>
-            <label>Choix de la police d'écriture :
-                <select <?php echo "name='police-$choix_section'"; ?> value='button-police'>
-                    <option value='Arial'>Arial</option>
-                    <option value='Arial Black'>Arial Black</option>
-                    <option value='Comic Sans MS'>Comic Sans MS</option>
-                    <option value='Courier New'>Courier New</option>
-                    <option value='Georgia'>Georgia</option>
-                    <option value='Impact'>Impact</option>
-                    <option value='Times New Roman'>Times New Roman</option>
-                    <option value='Trebuchet MS'>Trebuchet MS</option>
-                    <option value='Verdana'>Verdana</option>
-                </select>
-            </label><br/>
-        </div>
+        <div <?php echo "id=formatage-texte-$choix_section"; ?> >
+
+                <span class="input-group-addon" style="border-top-left-radius:0;border-bottom-left-radius:0;"> 
+                    Couleur<br/><br/>
+                    <input type="color" class="form-control" aria-describedby="basic-addon1" <?php echo "name='color-$choix_section'"; ?> >
+                </span>
+
+                <span class="input-group-addon">
+                    Police<br/><br/>
+                    <div>
+                        <select style="width:436px;height:2.4em;margin-left:-4px;border:solid #cccccc 1px;position:relative;top:0.09em;border-top-right-radius:2px;border-bottom-right-radius:2px;text-align:center;" <?php echo "name='police-$choix_section'"; ?> value='button-police'>
+                            <option value='Arial'>Arial</option>
+                            <option value='Arial Black'>Arial Black</option>
+                            <option value='Comic Sans MS'>Comic Sans MS</option>
+                            <option value='Courier New'>Courier New</option>
+                            <option value='Georgia'>Georgia</option>
+                            <option value='Impact'>Impact</option>
+                            <option value='Times New Roman'>Times New Roman</option>
+                            <option value='Trebuchet MS'>Trebuchet MS</option>
+                            <option value='Verdana'>Verdana</option>
+                        </select>
+                    </div>
+                </span>
+
+                <span class="input-group-addon"style="border-top-right-radius:0;border-bottom-right-radius:0;">
+                    Taille<br/><br/>
+                    <input style="text-align:center;" type="text" class="form-control" placeholder="en px" aria-describedby="basic-addon1" <?php echo "name='taille-police-$choix_section'"; ?> >
+                </span>
+
+       </div> 
+
 <?php
 }
 ?>

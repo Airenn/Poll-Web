@@ -32,7 +32,11 @@
                 </section>
             <footer>
                 <p>
-                    Envoyez votre réponse (exemple: <strong>2A</strong>, ou <strong>2B</strong>) par SMS au <strong><?php echo $_SESSION['paragraphe']['tel']; ?></strong><br/>
+                    Envoyez votre réponse (exemple: <strong>2A</strong>, ou <strong>2B</strong>) par SMS au <strong>
+                    <?php   if(isset($_SESSION['paragraphe']['tel']) and trim($_SESSION['paragraphe']['tel']!=""))
+                                echo $_SESSION['paragraphe']['tel'];
+                            else
+                                echo '06 xx xx xx xx'; ?></strong><br/>
                     Pour donner plusieurs réponses, envoyez par exemple <strong>2AB</strong>
                 </p>
             </footer>

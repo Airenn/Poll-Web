@@ -9,7 +9,6 @@
         <link href="../menu.css" rel="stylesheet">
         <script src="js/fonctions.js"></script>
 
-</head>
         <title>Paramètre (Provisoire)</title>
     </head>
 
@@ -19,6 +18,7 @@
             require('php/fonctions.php');
             require('../menu.php'); 
         ?>
+<div id="container">
         <nav>
         <?php
             gen_menu('parametre');
@@ -29,41 +29,59 @@
             <h1>Formatage de texte</h1>
             <form method="post">
                 
-                <div class="btn-group-justified" role="group" data-toggle="buttons" style="">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone,#form_r,#form_m,#form_p' ,'#form_q');" checked="on"/> Question
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess,#div-phone,#form_q,#form_m,#form_p','#form_r');"/> Réponses
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess,#form_q,#form_m,#form_r','#div-phone,#form_p');"/> Paragraphe
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess(); hide_and_seek('#form_q,#form_r,#form_p','#form_m');"/> Nombre de messages
-                    </label>
-                </div><br/>
-                
-                <div id="div-mess" style="display:none;">
-                    <label>Afficher le nombre de message : <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#form_m');" checked="on"/></label><br/>
-                </div>
-                
-                
-                <div id="div-phone" style="display:none;">
-                    <label>Numéro de téléphone : <input id='numtel' type='text' name='tel'/></label><br/>
-                </div>
-                
-                
-                    <span id="form_q"> <?php formulaire_couleur("form_question") ?> </span>
+           <div class="btn-group btn-group-justified" role="group" data-toggle="buttons">
+                <label class="btn btn-primary active" style="border-bottom-left-radius:0;">
+                    <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone,#form_r,#form_m,#form_p' ,'#form_q');" checked="on"/> Question
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess,#div-phone,#form_q,#form_m,#form_p','#form_r');"/> Réponses
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess,#form_q,#form_m,#form_r','#div-phone,#form_p');"/> Paragraphe
+                </label>
+                <label class="btn btn-primary" style="border-bottom-right-radius:0;">
+                    <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess(); hide_and_seek('#form_q,#form_r,#form_p','#form_m');"/> Nombre de messages
+                </label>
+            </div>
                     
+                
+                <div id="tout-formulaire">
+
+                     <div id="div-mess" style="display:none;" class="input-group">
+                        <span class="input-group-addon"> 
+                            Afficher le nombre de messages<br/><br/>
+                            <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#form_m');" checked="on">
+                        </span>
+                    </div>
+
+
+                    <div id="div-phone" style="display:none;width:1100px;" class="input-group">
+                        <span class="input-group-addon"> 
+                            Numéro de téléphone<br/><br/>
+                            <input id='numtel' type='text' name='tel'>
+                        </span>
+                    </div>
+
+
+
+
+                    <span id="form_q"> <?php formulaire_couleur("form_question") ?> </span>
+
                     <span id="form_r" style="display:none;"> <?php formulaire_couleur("form_reponse") ?> </span>
 
                     <span id="form_m" style="display:none;"> <?php formulaire_couleur("form_nbmess") ?> </span>
 
                     <span id="form_p" style="display:none;"> <?php formulaire_couleur("form_paragraphe") ?> </span>
-            
+
+
+                    <span class="input-group-addon" style="border-bottom-left-radius:4px;border-top-right-radius:0;">
+                        <div class="span6" style="text-align:center;">
+                            <button type="submit" class="btn btn-default">Sauvegarder</button>
+                        </div>
+                    </span>
+                    
+                </div>
                 
-                <input type='submit' name='save' value='Sauvegarder'/>
             </form>
             
             
@@ -115,7 +133,7 @@
         <?php
             require('php/parametre.php');
         ?>
-        
+</div>        
          <script src="../bootstrap/dist/js/jquery.min.js"></script>
         <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
