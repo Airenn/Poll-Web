@@ -329,8 +329,13 @@
                        'validation_numero' => 'ok'
                 );
         
+        $categ = array('validation_modification' => 'success',
+                       'effacer_question' => 'danger',
+                       'validation_numero' => 'success'
+                );
+        
         if($type == "button"){
-            echo'<button type="button" class="btn btn-default" id="'.$id.'" '.$enabled.' data-toggle="modal" data-target="#'.$modal_id.'">
+            echo'<button type="button" class="btn btn-'.$categ[$id].'" id="'.$id.'" '.$enabled.' data-toggle="modal" data-target="#'.$modal_id.'">
                     <span class="glyphicon glyphicon-'.$icons[$id].'" aria-hidden="true"></span>
                 </button>';
         }

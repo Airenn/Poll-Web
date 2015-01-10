@@ -25,35 +25,32 @@
 
                     <?php if (total_questions($_GET['operation'])!=0) {?>
                     <div id="btn-centre">
-                        <div class="btn-group" role="group" aria-label="...">
-                          <button type="button" class="btn btn-default" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
-                        </div>
+                        <button type="button" class="btn btn-warning" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
 
-                        <div class="btn-group" role="group" aria-label="...">
-                            <button type="button" class="btn btn-default" data-toggle="modal" id="reinit_quest" data-target="#modal_suppr_messages">Réinitialiser la question<br><em>Supprime les messages</em></button>
-                            
-                            <div class="modal fade" id="modal_suppr_messages">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            <h4 class="modal-title">Réinitialisation de la question</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Supprimer tous les messages pour cette question ?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" id="suppression_question" data-dismiss="modal">Oui</button>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
-                                        </div>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" id="reinit_quest" data-target="#modal_suppr_messages">Réinitialiser la question<br><em>Supprime les messages</em></button>
+                        
+                        <div class="modal fade" id="modal_suppr_messages">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title">Réinitialisation de la question</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Supprimer tous les messages pour cette question ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" id="suppression_question" data-dismiss="modal">Oui</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="input-group">
+                    <div class="input-group" id="name_question_and_dropdown">
                         <span class="input-group-addon" id="input_texte_question">
                             Question
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
@@ -164,7 +161,7 @@
                     <div class="input-group">
                         <span class="input-group-addon" id="ajouter-question">
                             <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-default" id="btn-ajouter-question">Ajouter une question</button>
+                                <button type="button" class="btn btn-info" id="btn-ajouter-question">Ajouter une question</button>
                             </div>
                         </span>
                     </div>
@@ -193,7 +190,7 @@
                                         </div>
                                         <br/>
                                         <div class="btn-group" role="group" aria-label="...">
-                                          <button type="button" class="btn btn-default" id="robot_unitaire">Envoyer</button>
+                                          <button type="button" class="btn btn-info" id="robot_unitaire">Envoyer</button>
                                         </div>
 
                                 </div>
