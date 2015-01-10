@@ -1,4 +1,4 @@
-var question_courante, $bar_refresh;
+var question_courante, question_texte_courante, $bar_refresh, $keydown_refresh;
 
 question_courante = $('.bar').attr("value");
 question_texte_courante = $('#question').attr("value");
