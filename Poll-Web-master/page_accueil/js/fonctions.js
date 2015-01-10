@@ -69,7 +69,7 @@ function get_url_nouveau($nom,$date){
 
 function close_quest($id){
     var sup = 'php/fermer.php?ID=';
-        sup = sup.concat($id);
+		sup = sup.concat($id);
     return sup;
 }
 
@@ -114,6 +114,42 @@ $(function() {
                 }
             });
     return false;
+	});
+});
+
+$(function()
+{
+	$('#import_btn').click(function()
+	{
+        bootbox.dialog(
+		{
+            title: "Importer un questionnaire",
+            message: '<div class="row">  ' +
+                '<div class="col-md-12"> ' +
+                '<form class="form-horizontal"> ' +
+                '<div class="form-group"> ' +
+                '<label class="col-md-5 control-label" for="awesomeness">Choisissez le questionnaire voulu</label> ' +
+                '<div class="col-md-5">' +
+                '<input id="import_field" name="import" type="file" /*placeholder="Fichier a importer" class="form-control input-md"*/> ' +
+                '<span class="help-block">Questionnaire a importer</span>'+
+                '</div> ' +
+                '</div> </div>' +
+                '</form> </div>  </div>',
+				buttons:
+				{
+                    success:
+					{
+						label: "Ajouter",
+						className: "btn-success",
+						/*callback: function ()
+						{
+							var name = $('#name').val();
+							$.post(get_url_nouveau(name,date), function(data){ update_table(); });             
+						}*/
+					}
+				}
+		});
+		return false;
 	});
 });
 

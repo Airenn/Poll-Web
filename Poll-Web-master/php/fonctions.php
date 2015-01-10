@@ -1445,10 +1445,10 @@ function AfficheQuestionnaires()
 	
     while($val = $req->fetch(PDO::FETCH_ASSOC))
     {
-          $click = 'onclick="questionnaire_selected('.$val['ID'].', \''.$val['nom'].'\');"';
-          $click_suppr = 'onclick="modal_suppr('.$val['ID'].', \'Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?\');"';
-          $click_close = 'onclick="modal_close('.$val['ID'].', \'Etes-vous certain de vouloir fermer le questionnaire '.$val['nom'].' ?\');"';
-          $click_open = 'onclick="modal_open('.$val['ID'].', \'Etes-vous certain de vouloir ouvrir le questionnaire '.$val['nom'].' ?\');"';
+        $click = 'onclick="questionnaire_selected('.$val['ID'].', \''.$val['nom'].'\');"';
+        $click_suppr = 'onclick="modal_suppr('.$val['ID'].', \'Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?\');"';
+        $click_close = 'onclick="modal_close('.$val['ID'].', \'Etes-vous certain de vouloir fermer le questionnaire '.$val['nom'].' ?\');"';
+        $click_open = 'onclick="modal_open('.$val['ID'].', \'Etes-vous certain de vouloir ouvrir le questionnaire '.$val['nom'].' ?\');"';
 		echo'
 		<tr id="'.$val['ID'].'" data-toggle="collapse" data-target=".'.$val['ID'].'" class="accordion-toggle" '.$click.'>
             <td class="titre">'.$val['nom'].'</td>
@@ -1481,12 +1481,13 @@ function ouverture_questionnaire($ID_operation)
                 );
         
     $total = execute_sql("SELECT", "operations", $args);
-    while($fermer = $total->fetch(PDO::FETCH_ASSOC)){
-         if($fermer['fermee']==1)
-             return 'ouvert';
-            else 
-                return 'fermée';
-       }
+    while($fermer = $total->fetch(PDO::FETCH_ASSOC))
+	{
+        if($fermer['fermee']==1)
+            return 'ouvert';
+        else 
+            return 'fermée';
+    }
 }
 
 ?>

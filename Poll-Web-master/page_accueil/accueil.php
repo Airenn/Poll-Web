@@ -24,7 +24,7 @@
 				<div class="panel-body">
 					<div id="background">
 						<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
-						<input id="import" type="button" class="btn btn-default" value="Importer Questionnaire" />
+						<input id="import_btn" type="button" class="btn btn-default" value="Importer Questionnaire" />
 						<div id="selected_question">
 							<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
 							<span id="id_questionnaire_selected">aucun</span>
@@ -42,6 +42,12 @@
 				</div>
 			</div>
 		</div>
+		<form action="" method="post" id="js-upload-form">
+                <input type="file" name="files[]" >
+
+              <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+
+        </form>
 		  
 		<script src="../bootstrap/dist/js/jquery.min.js"></script>
         <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
