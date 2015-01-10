@@ -225,7 +225,7 @@
                                         <button type="button" class="btn btn-warning messages_categ" id="Retard">Retard</button>
                                     </div>
                                     <br/><br/>
-                                    <table class="table">
+                                    <table class="table" id="table_messages">
                                         <thead>
                                             <tr>
                                                 <th style="text-align:center;"><button type="button" disabled="disabled" class="btn btn-default">Téléphone</button></th>

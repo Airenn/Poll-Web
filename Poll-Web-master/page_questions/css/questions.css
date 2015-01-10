@@ -1,13 +1,13 @@
 #background_panel
 {
-    padding-top : 15px;
-    padding-bottom : 15px;
+    padding-top : 1%;
+    padding-bottom : 1%;
 }
 
 #center_panel
 {
-    margin-top : 15px;
-    margin-bottom : 15px;
+    margin-top : 2%;
+    margin-bottom : 2%;
     margin-left : 15%;
     margin-right : 15%;
 }
@@ -15,7 +15,7 @@
 #btn-centre
 {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 1%;
 }
 
 #ajouter-question
@@ -111,6 +111,7 @@
 .messages_categ
 {
     width: 16%;
+    text-align: center;
 }
 
 .panel-group .panel-heading a:hover, .panel-group .panel-heading a:focus
@@ -155,4 +156,9 @@
 {
     margin-left: 5%;
     border-radius: 4px;
+}
+
+#table_messages
+{
+    max-width: 100%;
 }
