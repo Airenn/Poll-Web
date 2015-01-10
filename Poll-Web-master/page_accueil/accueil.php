@@ -12,7 +12,7 @@
 	<body>
 	
 		<?php
-			require_once('php/connexion.php');
+			require_once('../php/connexion.php');
 			require_once('../php/fonctions.php');
             require('../menu.php');
             gen_menu('accueil');
@@ -42,7 +42,6 @@
 			</div>
 		</div>
 		  
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
 		<script src="../bootstrap/dist/js/jquery.min.js"></script>
         <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>

@@ -1,6 +1,6 @@
 <?php
-    require_once('../../page_questions/php/fonctions.php');
-    require_once('connexion.php');
+    require_once('../../php/fonctions.php');
+    require_once('../../php/connexion.php');
     global $db;
     $nom_operation = $_GET['nom'];
     $date_operation = $_GET['date'];
