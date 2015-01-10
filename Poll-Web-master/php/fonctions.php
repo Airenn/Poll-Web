@@ -1435,39 +1435,42 @@ function AfficheQuestionnaires(){
             <!--</div>-->
        </td></tr>
        <tr><td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de questions : '.total_questions($val['ID']).'</div></td>
-            <td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de SMS recu : '.total_messages($val['ID']).'</div></td>
+            <td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de SMS reçus : '.total_messages($val['ID']).'</div></td>
             <td class="hiddenRow"><div class="accordian-body collapse  '.$val['ID'].' ">Questionnaire '.ouverture_questionnaire($val['ID']).'</div></td>
        </tr>';        
       }
 }
 
-function total_questions($ID_operation){
-        global $db;
-        $total = 0;
+function total_questions($ID_operation)
+{
+    global $db;
+    $total = 0;
     $args = array(
                     'champs_cibles'=>array('count(*) as nb'), 
                     'clause_where'=>array('ID_question'=>$ID_operation)
                 );
         
-        $total = execute_sql("SELECT", "reponses", $args);
-        $total = $total->fetch(PDO::FETCH_ASSOC);
-        return $total['nb'];
-    }
+    $total = execute_sql("SELECT", "reponses", $args);
+    $total = $total->fetch(PDO::FETCH_ASSOC);
+    return $total['nb'];
+}
 
-function ouverture_questionnaire($ID_operation){
-        global $db;
-        $total = 0;
+function ouverture_questionnaire($ID_operation)
+{
+    global $db;
+    $total = 0;
     $args = array(
                     'champs_cibles'=>array('fermee'), 
                     'clause_where'=>array('ID'=>$ID_operation)
                 );
         
-        $total = execute_sql("SELECT", "operations", $args);
-        $total = $total->fetch(PDO::FETCH_ASSOC);
+    $total = execute_sql("SELECT", "operations", $args);
+    $total = $total->fetch(PDO::FETCH_ASSOC);
+	
     if($total==1)    
-    return "ouvert";
+		return "ouvert";
     else 
-    return "fermée";
-    }
+		return "fermé";
+}
 
 ?>
