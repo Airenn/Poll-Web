@@ -32,13 +32,7 @@
 						<div id="liste">
 							<!--<div id="titre" ><span>Nom</span><span>Date prevu</span><span>Options</span></div>-->
                                 <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >
-								<thead>
-									<tr>
-										<th>Nom</th>
-										<th>Date prévue</th>
-										<th>Option</th>
-									</tr>
-								</thead>
+								
 								<?php
 									AfficheQuestionnaires();
 								?>
