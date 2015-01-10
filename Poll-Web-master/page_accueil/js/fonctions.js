@@ -130,7 +130,7 @@ $(function()
                 '<div class="form-group"> ' +
                 '<label class="col-md-5 control-label" for="awesomeness">Choisissez le questionnaire voulu</label> ' +
                 '<div class="col-md-5">' +
-                '<input id="import_field" name="import" type="file" /*placeholder="Fichier a importer" class="form-control input-md"*/> ' +
+                '<input id="import_field" name="import" type="file" > ' +
                 '<span class="help-block">Questionnaire a importer</span>'+
                 '</div> ' +
                 '</div> </div>' +
