@@ -1424,7 +1424,7 @@ function AfficheQuestionnaires()
 										<th>Date prévue</th>
 										<th>Option</th>
 									</tr>
-								</thead>'
+								</thead>';
 	
     while($val = $req->fetch(PDO::FETCH_ASSOC))
     {
