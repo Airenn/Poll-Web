@@ -1427,6 +1427,35 @@
 
 //Fonctions accueil
 
+function Affichepage(){
+if(total_quest()!=0){
+echo'<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
+<input id="import_btn" type="button" class="btn btn-default" value="Importer Questionnaire" />
+<div id="selected_question">
+<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
+<span id="id_questionnaire_selected">aucun</span>
+</div>						
+<div id="liste">
+<table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >';
+AfficheQuestionnaires();
+echo'</table>
+</div>
+</div>';
+}
+else{
+echo'                    <div class="container" id="jumbo_no_question">
+                        <div class="jumbotron">
+                            <h1>Aucun Questionnaire !</h1>
+                            <p>Vous n \'avez aucun questionnaire pour l\'instant, commencez par créer ou importer un questionnaire.</p>
+                            <br>
+                            <br>
+                            <p><a class="btn btn-info btn-lg"  href="#" role="button"onclick="creation_quest();">Créer un formulaire</a> <a class="btn btn-info btn-lg" href="#" role="button" onclick="">Importer un formulaire</a></p>
+                        </div>
+                    </div>';
+                     }
+
+}
+
 function AfficheQuestionnaires()
 {
     $args = array('clause_where'=>array('ID!'=>1));

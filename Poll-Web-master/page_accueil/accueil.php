@@ -22,32 +22,9 @@
             <div class="panel panel-default" id="center_panel">
                 <div class="panel-heading"><h3 class="panel-title">Liste des questionnaires</h3></div>
 				<div class="panel-body">
-					<div id="background">
-						<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
-						<input id="import_btn" type="button" class="btn btn-default" value="Importer Questionnaire" />
-						  <?php if(total_quest()!=0) {?>
-                        <div id="selected_question">
-							<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
-							<span id="id_questionnaire_selected">aucun</span>
-						</div>						
-						<div id="liste">
-							<!--<div id="titre" ><span>Nom</span><span>Date prevu</span><span>Options</span></div>-->
-                                <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >
-								
-								<?php
-									AfficheQuestionnaires();
-								?>
-								</table>
-						</div>
-                        <?php } else{ ?>
-                    <div class="container" id="jumbo_no_question">
-                        <div class="jumbotron">
-                            <h1>Aucun Questionnaire !</h1>
-                            <p>Vous n'avez aucun questionnaire pour l'instant, commencez par créer ou importer un questionnaire.</p>
-                        </div>
+                    <div id="ajax_page_questionnaire">
+                    <?php Affichepage(); ?>
                     </div>
-                    <?php }?>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -11,7 +11,7 @@ function modal_suppr(id, texte){
     $('#dataConfirmModal').find('.modal-body').text(texte);
     $('#dataConfirmModal').modal({show:true});
     $('#dataConfirmOK').click(function(){
-        $.post(get_url_delete(href), function(data){ update_table() });
+        $.post(get_url_delete(href), function(data){ update_page() });
         $('#id_questionnaire_selected').text('aucun');
         $("#dataConfirmModal").modal('hide');
     });
@@ -80,6 +80,41 @@ function open_quest($id){
 }
 
 
+function creation_quest(){
+        bootbox.dialog({
+                title: "Création d'un questionnaire",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-5 control-label" for="name">Nom</label> ' +
+                    '<div class="col-md-5"> ' +
+                    '<input id="name" name="name" type="text" placeholder="Nom du questionnaire" class="form-control input-md"> ' +
+                    '</div> ' +
+                    '</div> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-5 control-label" for="awesomeness">Choisissez la date prévue </label> ' +
+                    '<div class="col-md-5">' +
+                    '<input id="date" name="date" type="text" placeholder="Date du questionnaire" class="form-control input-md"> ' +
+                    '<span class="help-block">Entrez la date sous la forme aaaa-mm-jj</span>'+
+                    '</div> ' +
+                    '</div> </div>' +
+                    '</form> </div>  </div>',
+                    buttons: {
+                        success: {
+                        label: "Sauvegarder",
+                        className: "btn-success",
+                        callback: function (){
+                            var name = $('#name').val();
+                            var date = $('#date').val();
+                            $.post(get_url_nouveau(name,date), function(data){ update_page(); });             
+                        }
+                    }
+                }
+            });
+    return false;
+}
+
 $(function() {
 	$('#create').click(function(ev) {
         bootbox.dialog({
@@ -116,7 +151,6 @@ $(function() {
     return false;
 	});
 });
-
 $(function()
 {
 	$('#import_btn').click(function()
@@ -154,11 +188,21 @@ $(function()
 });
 
 $ajax_table = $('#ajax_tableau_questionnaire');
+$ajax_page = $('#ajax_page_questionnaire');
 
 function update_table(){
     $.post(get_url_table(), function(data){
         $ajax_table.html(data);
     }); 
+}
+function update_page(){
+    $.post(get_url_page(), function(data){
+        $ajax_page.html(data);
+    }); 
+}
+
+function get_url_page(){
+    return "ajax/ajax_page.php";
 }
 
 function get_url_table(){
