@@ -1489,5 +1489,16 @@ function ouverture_questionnaire($ID_operation)
             return 'fermée';
     }
 }
+function total_quest()
+{
+    $args = array(
+                    'champs_cibles'=>array('count(*) as nb'), 
+                    'clause_where'=>array('ID!'=>1)
+                );
+    $total = execute_sql("SELECT", "operations", $args);
+    $total = $total->fetch(PDO::FETCH_ASSOC);
+    return $total['nb'];
+    
+}
 
 ?>

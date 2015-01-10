@@ -25,7 +25,7 @@
 					<div id="background">
 						<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
 						<input id="import_btn" type="button" class="btn btn-default" value="Importer Questionnaire" />
-						  <?php if(false) {?>
+						  <?php if(total_quest()!=0) {?>
                         <div id="selected_question">
 							<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
 							<span id="id_questionnaire_selected">aucun</span>
