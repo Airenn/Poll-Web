@@ -25,7 +25,8 @@
 					<div id="background">
 						<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
 						<input id="import_btn" type="button" class="btn btn-default" value="Importer Questionnaire" />
-						<div id="selected_question">
+						  <?php if(false) {?>
+                        <div id="selected_question">
 							<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
 							<span id="id_questionnaire_selected">aucun</span>
 						</div>						
@@ -38,6 +39,14 @@
 								?>
 								</table>
 						</div>
+                        <?php } else{ ?>
+                    <div class="container" id="jumbo_no_question">
+                        <div class="jumbotron">
+                            <h1>Aucun Questionnaire !</h1>
+                            <p>Vous n'avez aucun questionnaire pour l'instant, commencez par créer ou importer un questionnaire.</p>
+                        </div>
+                    </div>
+                    <?php }?>
 					</div>
 				</div>
 			</div>
