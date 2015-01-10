@@ -11,7 +11,7 @@ function modal_suppr(id, texte){
     $('#dataConfirmModal').find('.modal-body').text(texte);
     $('#dataConfirmModal').modal({show:true});
     $('#dataConfirmOK').click(function(){
-        $.post(get_url_delete(href), function(data){ }).done(update_table());
+        $.post(get_url_delete(href), function(data){ }).done(update_table()).done(update_table()).done(update_table()).done(update_table());
         $("#dataConfirmModal").modal('hide');
     });
 }
@@ -59,7 +59,7 @@ $(function() {
                         callback: function (){
                             var name = $('#name').val();
                             var date = $('#date').val();
-                            $.post(get_url_nouveau(name,date), function(data){ });             
+                            $.post(get_url_nouveau(name,date), function(data){ }).done(update_table()).done(update_table()).done(update_table()).done(update_table());             
                         }
                     }
                 }
