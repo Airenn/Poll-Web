@@ -42,12 +42,6 @@
 				</div>
 			</div>
 		</div>
-		<form action="" method="post" id="js-upload-form">
-                <input type="file" name="files[]" >
-
-              <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
-
-        </form>
 		  
 		<script src="../bootstrap/dist/js/jquery.min.js"></script>
         <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
