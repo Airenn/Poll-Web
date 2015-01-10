@@ -16,6 +16,41 @@ function modal_suppr(id, texte){
         $("#dataConfirmModal").modal('hide');
     });
 }
+function modal_close(id, texte){
+    var href = id;
+		
+    if (!$('#dataConfirmModal').length) {
+        $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+                         '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
+                         '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>'+
+                         '<a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+    }
+    $('#dataConfirmModal').find('.modal-body').text(texte);
+    $('#dataConfirmModal').modal({show:true});
+    $('#dataConfirmOK').click(function(){
+        $.post(close_quest(href), function(data){ }).done(update_table()).done(update_table()).done(update_table()).done(update_table());
+        $("#dataConfirmModal").modal('hide');
+    });
+}
+
+function modal_open(id, texte){
+    var href = id;
+		
+    if (!$('#dataConfirmModal').length) {
+        $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+                         '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
+                         '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>'+
+                         '<a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+    }
+    $('#dataConfirmModal').find('.modal-body').text(texte);
+    $('#dataConfirmModal').modal({show:true});
+    $('#dataConfirmOK').click(function(){
+        $.post(open_quest(href), function(data){ }).done(update_table()).done(update_table()).done(update_table()).done(update_table());
+        $("#dataConfirmModal").modal('hide');
+    });
+}
 
 function get_url_delete($texte){
     var sup = 'php/supprimer.php?ID=';
@@ -31,6 +66,19 @@ function get_url_nouveau($nom,$date){
     
     return sup;
 }
+
+function close_quest($id){
+    var sup = 'php/fermer.php?ID=';
+        sup = sup.concat($id);
+    return sup;
+}
+
+function open_quest($id){
+    var sup = 'php/ouvrir.php?ID=';
+        sup = sup.concat($id);
+    return sup;
+}
+
 
 $(function() {
 	$('#create').click(function(ev) {

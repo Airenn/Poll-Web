@@ -1430,7 +1430,8 @@ function AfficheQuestionnaires()
     {
           $click = 'onclick="questionnaire_selected('.$val['ID'].', \''.$val['nom'].'\');"';
           $click_suppr = 'onclick="modal_suppr('.$val['ID'].', \'Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?\');"';
-
+          $click_close = 'onclick="modal_close('.$val['ID'].', \'Etes-vous certain de vouloir fermer le questionnaire '.$val['nom'].' ?\');"';
+          $click_open = 'onclick="modal_open('.$val['ID'].', \'Etes-vous certain de vouloir ouvrir le questionnaire '.$val['nom'].' ?\');"';
 		echo'
 		<tr id="'.$val['ID'].'" data-toggle="collapse" data-target=".'.$val['ID'].'" class="accordion-toggle" '.$click.'>
             <td class="titre">'.$val['nom'].'</td>
@@ -1438,7 +1439,8 @@ function AfficheQuestionnaires()
             <td class="option">
             <!--<div class="options_part_1">-->
             <a href="../page_questions/questions.php?operation='.$val['ID'].'" title="Modifier les questions de ce questionnaire"><img class="edit_button" src="images/editer.png" alt="" /></a>
-            <img class="close_button" src="images/cloturer.png" alt="" />
+             <a href="#" '.$click_open.'><img class="open_button" src="images/ouvrir.png" alt="" /></a>
+            <a href="#" '.$click_close.'><img class="close_button" src="images/cloturer.png" alt="" /></a>
             <!--</div>-->
             <!--<div class="options_part_2">-->
             <img class="export_button" src="images/exporter.png" alt="" />
