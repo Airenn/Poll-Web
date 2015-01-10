@@ -23,6 +23,7 @@
                 <div class="panel-heading"><h3 class="panel-title" id="operation_id" id_op="<?php echo get_operation($_GET['operation'])['ID']; ?>">Questionnaire : <?php echo get_operation($_GET['operation'])['nom']; ?> </h3></div>
                 <div class="panel-body">
 
+                    <?php if (total_questions($_GET['operation'])!=0) {?>
                     <div id="btn-centre">
                         <div class="btn-group" role="group" aria-label="...">
                           <button type="button" class="btn btn-default" id="robot_masse">Activation du robot<br><em>Génération automatique</em></button>
@@ -244,6 +245,16 @@
                             </div>
                         </div>
                     </div>
+                    <?php } else{ ?>
+                    <div class="container" id="jumbo_no_question">
+                        <div class="jumbotron">
+                            <h1>Aucune question!</h1>
+                            <p>Votre questionnaire est vide pour l'instant, commencez par créer une question.</p>
+                            <br><br>
+                            <p><a class="btn btn-info btn-lg" href="#" role="button" onclick="add_question();">Ajouter une question</a></p>
+                        </div>
+                    </div>
+                    <?php }?>
                 </div>
             </div>
         </div>

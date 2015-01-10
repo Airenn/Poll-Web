@@ -460,7 +460,7 @@ function multi_rep_quest(){
 }
 
 function suppr_question(){
-    $.post(get_url_suppr_quest(), function(data){ });
+    $.post(get_url_suppr_quest(), function(data){ location.reload(); });
 }
 
 function update_categ_color(){
@@ -589,11 +589,15 @@ function add_question(){
                                                 +Number($('#new_multi').prop("checked"))
                                                 +'&ID_operation='
                                                 +operation_courante;
-                            $.post(url_add_quest, function(data){ });
+                            
+                            if($('#new_numero').val()>0 && $('#new_texte').val()!=""){
+                                $.post(url_add_quest, function(data){ location.reload(); });
+                            }
                         }
                     }
                 }
     });
+
 }
 
 //------------------------------------------------------- Fonctions url -------------------------------------------------------

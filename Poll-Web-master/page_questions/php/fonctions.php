@@ -144,6 +144,23 @@
     }
 
     /*!
+     * Renvoie le nombre de questions pour l'operation recue en parametre
+     *
+     * \param $question : int, identifiant de l'operation dont on doit compter les questions
+     */
+    function total_questions($operation){
+        $args = array(
+                    'champs_cibles'=>array('count(*) as nb'), 
+                    'clause_where'=>array('ID_operation'=>$operation)
+                );
+        
+        $total = execute_sql("SELECT", "questions", $args);
+        $total = $total->fetch(PDO::FETCH_ASSOC);
+
+        return $total['nb'];
+    }
+
+    /*!
      * Renvoie le nombre de messages recus pour la question recue en parametre
      *
      * \param $question : int, identifiant de la question dont on doit compter les messages
