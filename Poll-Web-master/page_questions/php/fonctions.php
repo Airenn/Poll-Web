@@ -19,9 +19,10 @@
      *
      * \param $operation : int, identifiant de l'operation dont on doit recuperer les questions
      */
-    function get_questions($operation){
+    function get_questions($operation, $order_by=array('colonne_tri'=>"", 'ordre_tri'=>"")){
         $args = array(
-                    'clause_where'=>array('ID_operation'=>$operation)
+                    'clause_where'=>array('ID_operation'=>$operation),
+                    'clause_order_by'=>array('colonne_tri'=>$order_by['colonne_tri'], 'ordre_tri'=>$order_by['ordre_tri']),
                 );
         
         $req = execute_sql("SELECT", "questions", $args);
@@ -265,7 +266,8 @@
      * \param $operation : int, identifiant de l'operation dont on veut les questions dans le dropdown
      */
     function create_dropdown($operation){
-        $questions =  get_questions($operation);
+        $order_by = array('colonne_tri'=>'num_question', 'ordre_tri'=>"ASC");
+        $questions =  get_questions($operation, $order_by);
         $texte = "";
         
         while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){

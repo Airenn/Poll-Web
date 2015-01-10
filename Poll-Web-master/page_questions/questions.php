@@ -20,7 +20,7 @@
         ?>
         <div id="background_panel">
             <div class="panel panel-default" id="center_panel">
-                <div class="panel-heading"><h3 class="panel-title">Questionnaire : <?php echo get_operation($_GET['operation'])['nom']; ?> </h3></div>
+                <div class="panel-heading"><h3 class="panel-title" id="operation_id" id_op="<?php echo get_operation($_GET['operation'])['ID']; ?>">Questionnaire : <?php echo get_operation($_GET['operation'])['nom']; ?> </h3></div>
                 <div class="panel-body">
 
                     <div id="btn-centre">

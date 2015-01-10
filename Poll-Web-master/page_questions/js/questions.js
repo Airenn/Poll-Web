@@ -87,6 +87,7 @@ function init_page(){
     update_multi_bot_button();
     update_suppr_button();
     update_modif();
+    refresh_dropdown();
     document.getElementById('input_num_question').value = '';
     $resultats.css("visibility", "hidden");
 }
@@ -132,7 +133,7 @@ function init_var(){
     page_courante = 0;
     nb_resultats = 6;
     question_fermee = "";
-    operation_courante = "";
+    operation_courante = document.getElementById('operation_id').getAttribute('id_op');
     multi_rep = "";
     num_question_courante = "";
     texte_courant = "";
@@ -165,7 +166,6 @@ function activer_affichage(){
     update_bar();
     update_table();
     update_modif();
-    refresh_dropdown();
     refresh_bar();
     refresh_table();
     refresh_nb_sms();
