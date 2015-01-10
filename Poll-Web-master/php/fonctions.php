@@ -1418,6 +1418,7 @@ function AfficheQuestionnaires(){
       while($val = $req->fetch(PDO::FETCH_ASSOC))
       {
           $click = 'onclick="questionnaire_selected('.$val['ID'].', \''.$val['nom'].'\');"';
+          $click_suppr = 'onclick="modal_suppr('.$val['ID'].', \'Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?\');"';
 
        echo'
        <tr id="'.$val['ID'].'" data-toggle="collapse" data-target=".'.$val['ID'].'" class="accordion-toggle" '.$click.'>
@@ -1430,7 +1431,7 @@ function AfficheQuestionnaires(){
             </div>
             <div class="options_part_2">
             <img class="export_button" src="images/exporter.png" alt="" />
-            <a href="'.$val['ID'].'" data-confirm="Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?"><img class="delete_button" src="images/supprimer.png" alt="" /></a>
+            <a href="#" '.$click_suppr.'><img class="delete_button" src="images/supprimer.png" alt="" /></a>
             </div>
        </td></tr>
        <tr><td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de questions : '.total_questions($val['ID']).'</div></td>
