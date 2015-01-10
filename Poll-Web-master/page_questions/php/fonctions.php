@@ -18,11 +18,12 @@
      * Renvoie l'objet PDO correspondant aux questions pour l'operation recue en parametre
      *
      * \param $operation : int, identifiant de l'operation dont on doit recuperer les questions
+     * \param $order_by : array, clause ORDER BY éventuelle au format necessaire pour execute_sql(...);
      */
-    function get_questions($operation, $order_by=array('colonne_tri'=>"", 'ordre_tri'=>"")){
+    function get_questions($operation, $order_by=""){
         $args = array(
                     'clause_where'=>array('ID_operation'=>$operation),
-                    'clause_order_by'=>array('colonne_tri'=>$order_by['colonne_tri'], 'ordre_tri'=>$order_by['ordre_tri']),
+                    'clause_order_by'=>$order_by,
                 );
         
         $req = execute_sql("SELECT", "questions", $args);
@@ -1365,7 +1366,7 @@
                     $req .= "$composantes ";
                 }
             }
-
+                
             try{
                 lock_sql($table_cible, $type_operation['verrou']);
                 
