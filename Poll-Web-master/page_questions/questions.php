@@ -19,7 +19,7 @@
             require('../menu.php'); 
             gen_menu('questions');
 
-            if(isset($_GET['operation']) && trim($_GET['operation'])!=""){
+            if(isset($_GET['operation']) && trim($_GET['operation'])!="" && get_operation($_GET['operation'])!=null){
         ?>
         <div id="background_panel">
             <div class="panel panel-primary" id="center_panel">
