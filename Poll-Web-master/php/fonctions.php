@@ -1490,7 +1490,7 @@ function AfficheQuestionnaires()
 				<a href="#" '.$click_close.' title="Fermer ce questionnaire au vote"><img class="close_button" src="images/cloturer.png" alt="" /></a>
             <!--</div>-->
             <!--<div class="options_part_2">-->
-				<a href="#" '.$click_export.' title="Supprimer ce questionnaire de la liste"><img class="export_button" src="images/exporter.png" alt="" /></a>
+				<a href="#" '.$click_export.' title="Exporter ce questionnaire"><img class="export_button" src="images/exporter.png" alt="" /></a>
 				<a href="#" '.$click_suppr.' title="Supprimer ce questionnaire de la liste"><img class="delete_button" src="images/supprimer.png" alt="" /></a>
             <!--</div>-->
 			</td>
