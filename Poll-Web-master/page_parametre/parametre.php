@@ -7,7 +7,6 @@
         <link href="../bootstrap-table/dist/css/bootstrap-table.min.css" rel="stylesheet" >
        
         <link href="../menu.css" rel="stylesheet">
-        <script src="js/fonctions.js"></script>
 
         <title>Paramètre (Provisoire)</title>
     </head>
