@@ -176,6 +176,22 @@
     }
 
     /*!
+     * Renvoie le nombre de messages recus pour l'operation recue en parametre
+     *
+     * \param $operation : int, identifiant de l'operation dont on doit compter les messages
+     */
+    function total_messages_operation($operation){
+        $questions = get_questions($operation);
+        $total = 0;
+        
+        while($quest = $questions->fetch(PDO::FETCH_ASSOC)){
+            $total += total_messages($quest['ID']);
+        }
+        
+        return $total;
+    }
+
+    /*!
      * Renvoie le nombre de messages errones recus pour la question recue en parametre
      *
      * \param $question : int, identifiant de la question
@@ -1500,7 +1516,7 @@ function AfficheQuestionnaires()
 		</tr>
 		<tr>
 			<td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de questions : '.total_questions($val['ID']).'</div></td>
-            <td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de SMS reçus : '.total_messages($val['ID']).'</div></td>
+            <td class="hiddenRow"><div class="accordian-body collapse '.$val['ID'].' ">Nombre de SMS reçus : '.total_messages_operation($val['ID']).'</div></td>
             <td class="hiddenRow"><div class="accordian-body collapse  '.$val['ID'].' ">Questionnaire '.ouverture_questionnaire($val['ID']).'</div></td>
 		</tr>';        
     }
