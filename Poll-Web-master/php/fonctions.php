@@ -1428,31 +1428,32 @@
 //Fonctions accueil
 
 function Affichepage(){
-if(total_quest()!=0){
-echo'<input id="create" type="button" class="btn btn-default" value="Créer Questionnaires" />
-<input id="import_btn" type="button" class="btn btn-default" value="Importer Questionnaire" />
-<div id="selected_question">
-<span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
-<span id="id_questionnaire_selected">aucun</span>
-</div>						
-<div id="liste">
-<table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >';
-AfficheQuestionnaires();
-echo'</table>
-</div>
-</div>';
-}
-else{
-echo'                    <div class="container" id="jumbo_no_operation">
+        if(total_quest()!=0){
+            echo'<input id="create" type="button" class="btn btn-default" onclick="creation_quest();" value="Créer Questionnaires" />
+                 <input id="import_btn" type="button" class="btn btn-default" value="Importer Questionnaire" />
+                     <div id="selected_question">
+                          <span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
+                           <span id="id_questionnaire_selected">aucun</span>
+                     </div>						
+                <div id="liste">
+                            <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >';
+            AfficheQuestionnaires();
+            echo'</table>
+                </div>
+            </div>';
+        }
+        else{
+            echo'<div class="container" id="jumbo_no_operation">
                         <div class="jumbotron">
                             <h1>Aucun Questionnaire !</h1>
                             <p>Vous n\'avez aucun questionnaire pour l\'instant, commencez par en créer ou en importer un.</p>
                             <br>
                             <br>
-                            <p><a class="btn btn-info btn-lg"  href="#" role="button"onclick="creation_quest();">Créer un questionnaire</a> <a class="btn btn-info btn-lg" href="#" role="button" onclick="">Importer un questionnaire</a></p>
+                            <p><a class="btn btn-info btn-lg"  href="#" role="button"onclick="creation_quest();">Créer un questionnaire</a> 
+                            <a class="btn btn-info btn-lg" href="#" role="button" onclick="">Importer un questionnaire</a></p>
                         </div>
-                    </div>';
-                     }
+                </div>';
+        }
 
 }
 
@@ -1515,7 +1516,7 @@ function ouverture_questionnaire($ID_operation)
     $total = execute_sql("SELECT", "operations", $args);
     while($fermer = $total->fetch(PDO::FETCH_ASSOC))
 	{
-        if($fermer['fermee']==1)
+        if($fermer['fermee']==0)
             return 'ouvert';
         else 
             return 'fermé';

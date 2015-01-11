@@ -1,8 +1,13 @@
 <?php
-    require('../../php/connexion.php');
+    require_once('../../php/fonctions.php');
+    require_once('../../php/connexion.php');
 
-        global  $db;
-        $id_operation = $_GET['ID'];
-        $rep= $db->prepare('UPDATE operations SET fermee=1 WHERE ID ='.$id_operation);
-        $rep->execute();
+    $id_operation = $_GET['ID'];
+    $type_operation='UPDATE';
+    $table_cible='operations';
+    $args_operation= array(
+                    'clause_set'=>array('fermee'=>0),
+                'clause_where'=>array('ID'=> $id_operation)
+);
+    execute_sql($type_operation, $table_cible, $args_operation);
 ?>     

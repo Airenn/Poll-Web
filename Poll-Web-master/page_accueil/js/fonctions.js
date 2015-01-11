@@ -136,42 +136,6 @@ function creation_quest(){
     return false;
 }
 
-$(function() {
-	$('#create').click(function(ev) {
-        bootbox.dialog({
-                title: "Création d'un questionnaire",
-                message: '<div class="row">  ' +
-                    '<div class="col-md-12"> ' +
-                    '<form class="form-horizontal"> ' +
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-5 control-label" for="name">Nom</label> ' +
-                    '<div class="col-md-5"> ' +
-                    '<input id="name" name="name" type="text" placeholder="Nom du questionnaire" class="form-control input-md"> ' +
-                    '</div> ' +
-                    '</div> ' +
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-5 control-label" for="awesomeness">Choisissez la date prévue </label> ' +
-                    '<div class="col-md-5">' +
-                    '<input id="date" name="date" type="text" placeholder="Date du questionnaire" class="form-control input-md"> ' +
-                    '<span class="help-block">Entrez la date sous la forme aaaa-mm-jj</span>'+
-                    '</div> ' +
-                    '</div> </div>' +
-                    '</form> </div>  </div>',
-                    buttons: {
-                        success: {
-                        label: "Sauvegarder",
-                        className: "btn-success",
-                        callback: function (){
-                            var name = $('#name').val();
-                            var date = $('#date').val();
-                            $.post(get_url_nouveau(name,date), function(data){ update_table(); });             
-                        }
-                    }
-                }
-            });
-    return false;
-	});
-});
 $(function()
 {
 	$('#import_btn').click(function()
