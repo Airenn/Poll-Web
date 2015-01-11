@@ -5,9 +5,10 @@
 
     $nom_fichier ='../../operations_exportees/'.$_GET['nom'];
     echo $nom_fichier;
-    $fh = fopen($nom_fichier,'r'); 													// Ouverture d'un fichier en lecture/écriture, en le créant s'il n'existe pas.
-    while (!feof($fp)) { //on parcourt toutes les lignes
-    $page .= fgets($fp, 4096); // lecture du contenu de la ligne
+    $fh = fopen($nom_fichier,'r'); 	
+	// Ouverture d'un fichier en lecture/écriture, en le créant s'il n'existe pas.
+    while (!feof($fh)) { //on parcourt toutes les lignes
+		$page .= fgets($fh, 4096); // lecture du contenu de la ligne
     }   
     $import_questionnaire = unserialize($page);
     echo $import_questionnaire;// On écrit.
