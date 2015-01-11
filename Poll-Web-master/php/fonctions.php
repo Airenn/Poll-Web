@@ -1435,8 +1435,8 @@ function Affichepage(){
                           <span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
                            <span id="id_questionnaire_selected">aucun</span>
                      </div>						
-                <div id="liste">
-                            <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >';
+                <div id="liste" class="panel-body">
+                    <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >';
             AfficheQuestionnaires();
             echo'</table>
                 </div>
