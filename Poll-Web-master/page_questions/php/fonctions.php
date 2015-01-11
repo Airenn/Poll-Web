@@ -264,7 +264,7 @@
         $existing_nums = get_num_questions($ID_operation);
         $max = get_next_question_num($ID_operation);
         
-        if(in_array($num_question, $existing_nums) || $num_question==0 || $num_question>($max+1)){
+        if(in_array($num_question, $existing_nums) || $num_question==0 || $num_question>$max){
             $num_question = $max; 
         }
         
@@ -435,11 +435,15 @@
         $question = get_question($question);
         $max = get_next_question_num($question['ID_operation']);
         $existing_nums = get_num_questions($question['ID_operation']);
-        $question = $question['ID'];
         
-        if($num<=0 || $num>$max){
+        if(($num<=0 || $num>$max) && $max!=($question['num_question']+1)){
             $num = $max;
         }
+        else if($num>=$max && $max==($question['num_question']+1)){
+            $num = $question['num_question'];
+        }
+        
+        $question = $question['ID'];
         
         if(!in_array($num, $existing_nums)){
             echo $num;
