@@ -41,8 +41,6 @@ $('#conservation_nom').on('click', function () {
 
 $('#valid_change_num_question').on('click', function () {
     update_question_num();
-    update_question_button(num_question_courante);
-    document.getElementById('input_num_question').value = num_question_courante;
 });
 
 $('#conservation_num').on('click', function () {
@@ -191,7 +189,10 @@ function update_question_num(){
         num_question_courante = new_num;
     }
     
-    $.post(get_url_quest_num(), function(data){ });
+    $.post(get_url_quest_num(), function(data){ 
+        num_question_courante = Number(data);
+        update_question_button(num_question_courante);
+    });
 }
 
 function update_question_texte(texte){
@@ -589,14 +590,20 @@ function add_question(){
                                                 +Number($('#new_multi').prop("checked"))
                                                 +'&ID_operation='
                                                 +operation_courante;
-                            
+
                             if($('#new_numero').val()>0 && $('#new_texte').val()!=""){
                                 $.post(url_add_quest, function(data){ location.reload(); });
+                            }
+                            else if($('#new_numero').val()<=0){
+                                alert('Le numéro rentré est invalide.');
+                            }
+                            else{
+                                alert('Vous n\'avez pas rentré de texte.');
                             }
                         }
                     }
                 }
-    });
+        });
 
 }
 

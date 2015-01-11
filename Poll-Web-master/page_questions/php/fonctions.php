@@ -103,7 +103,6 @@
     function get_num_questions($operation){
         $nums = array();
         $questions = get_questions($operation);
-        
         while($quest = $questions->fetch(PDO::FETCH_ASSOC)){
             $nums[] = $quest['num_question'];
         }
@@ -262,6 +261,13 @@
      * \param $ID_operation : int, identifiant de l'operation rattachee a la question
      */
     function add_question($num_question, $texte, $multi_rep, $ID_operation){
+        $existing_nums = get_num_questions($ID_operation);
+        $max = get_next_question_num($ID_operation);
+        
+        if(in_array($num_question, $existing_nums) || $num_question==0 || $num_question>($max+1)){
+            $num_question = $max; 
+        }
+        
         $args = array(
                     'champs_cibles'=>array('num_question', 
                                            'texte', 
@@ -276,6 +282,25 @@
                 );
         
         execute_sql("INSERT", "questions", $args);
+    }
+
+    /* 
+     * Renvoie le prochain numero de question a entrer dans la base.
+     *
+     * \param $operation : int, identifiant de l'operation concernee
+     */
+    function get_next_question_num($operation){
+        $args = array(
+                    'champs_cibles'=>array('MAX(num_question) as max'), 
+                    'clause_where'=>array('ID_operation'=>$operation)
+                );
+        
+        $max = execute_sql("SELECT", "questions", $args);
+        if($max = $max->fetch(PDO::FETCH_ASSOC)){
+            $max = $max['max'];
+        }
+        
+        return ($max+1);
     }
 
     /*!
@@ -406,12 +431,25 @@
      * \param $num : int, nouveau numero de la question
      */
     function change_numero($question, $num){
-        $args = array(
-                    'clause_set'=>array('num_question'=>$num),
-                    'clause_where'=>array('ID'=>$question)
-                );
+        $num = (int)$num;
+        $question = get_question($question);
+        $max = get_next_question_num($question['ID_operation']);
+        $existing_nums = get_num_questions($question['ID_operation']);
+        $question = $question['ID'];
         
-        execute_sql("UPDATE", "questions", $args);
+        if($num<=0 || $num>$max){
+            $num = $max;
+        }
+        
+        if(!in_array($num, $existing_nums)){
+            echo $num;
+            $args = array(
+                        'clause_set'=>array('num_question'=>$num),
+                        'clause_where'=>array('ID'=>$question)
+                    );
+
+            execute_sql("UPDATE", "questions", $args);
+        }
     }
 
     /*
