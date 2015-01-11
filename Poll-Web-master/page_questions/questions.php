@@ -19,9 +19,9 @@
             gen_menu('questions');
         ?>
         <div id="background_panel">
-            <div class="panel panel-default" id="center_panel">
-                <div class="panel-heading"><h3 class="panel-title" id="operation_id" id_op="<?php echo get_operation($_GET['operation'])['ID']; ?>">Questionnaire : <?php echo get_operation($_GET['operation'])['nom']; ?> </h3></div>
-                <div class="panel-body">
+            <div class="panel panel-primary" id="center_panel">
+                <div class="panel-heading" id="operation_head"><h3 class="panel-title" id="operation_id" id_op="<?php echo get_operation($_GET['operation'])['ID']; ?>">Questionnaire : <strong><?php echo get_operation($_GET['operation'])['nom']; ?></strong> </h3></div>
+                <div class="panel-body" id="question_body">
 
                     <?php if (total_questions($_GET['operation'])!=0) {?>
                     <div id="btn-centre">
@@ -168,7 +168,7 @@
 
                     <br/>
                     <div class="panel-group" id="accordion_envoi" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default" id="panel_envoi">
+                        <div class="panel panel-primary" id="panel_envoi">
                             <div class="panel-heading" role="tab" id="heading_envoi">
                                 <h3 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion_envoi" href="#collapse_envoi" aria-expanded="true" aria-controls="collapse_envoi">
@@ -177,7 +177,7 @@
                                 </h3>
                             </div>
                             <div id="collapse_envoi" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_envoi">
-                                <div class="panel-body">
+                                <div class="panel-body" id="body_envoi">
 
                                         <div class="input-group">
                                             <span class="input-group-addon" id="input_telephone">Téléphone</span>
@@ -198,14 +198,14 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default" id="panel_resultats">
+                    <div class="panel panel-primary" id="panel_resultats">
                         <div class="panel-heading" role="tab" id="heading_resultats">
                             <h3 class="panel-title">
                                 Résultats
                             </h3>
                         </div>
 
-                        <div class="panel-body">
+                        <div class="panel-body" id="body_resultats">
 
                             <div class="panel panel-default" id="panel_bar">
                                 <div class="panel-body" id="ajax_bar">
@@ -214,7 +214,7 @@
                             </div>
 
                             <div class="panel panel-default" id="panel_table">
-                                <div class="panel-body">
+                                 <div class="panel-heading" role="tab" id="heading_table_resultats">
                                     <div class="btn-group" role="group" aria-label="..." id="categories_messages_boutons">
                                         <button type="button" class="btn btn-default messages_categ" id="Tout">Tout</button>
                                         <button type="button" class="btn btn-success messages_categ" id="Valide">Valide</button>
@@ -222,7 +222,8 @@
                                         <button type="button" class="btn btn-danger messages_categ" id="Erreur">Erreur</button>
                                         <button type="button" class="btn btn-warning messages_categ" id="Retard">Retard</button>
                                     </div>
-                                    <br/><br/>
+                                </div>
+                                <div class="panel-body">
                                     <table class="table" id="table_messages">
                                         <thead>
                                             <tr>

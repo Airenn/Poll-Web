@@ -6,7 +6,8 @@
 
 #center_panel
 {
-
+    border: 0 solid #FFF;
+    border-radius: 0;
     margin-left : 15%;
     margin-right : 15%;
 }
@@ -26,13 +27,19 @@
 #ajouter-question
 {
     border: 1px solid #ccc;
-    border-radius: 0 0 4px 4px;
+    border-radius: 0;
 }
 
 #input_texte_question, #modification_texte_question
 {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: 0;
+}
+
+#input_texte_question
+{
+    color: #FFF;
+    background-color: #337ab7;
+    border-color: #337ab7;
 }
 
 #input_num_question
@@ -176,4 +183,38 @@
 #name_question_and_dropdown
 {
     clear: both;
+}
+
+#validation_numero
+{
+    border-radius: 0 4px 4px 0;
+}
+
+#panel_envoi
+{
+    border-radius: 0;
+    border: 0 solid #FFF;
+}
+
+#panel_resultats
+{
+    border-radius: 0;
+    border: 0 solid #FFF;
+}
+
+#operation_head, #heading_resultats, #heading_envoi
+{
+    border: 1px solid #337ab7;
+    border-radius: 0;
+}
+
+#question_body, #body_envoi, #body_resultats
+{
+    border: 1px solid #DDD;
+}
+
+#heading_table_resultats
+{
+    background-color: #FFF;
+    border: 0 solid #FFF;
 }
