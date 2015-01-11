@@ -7,16 +7,12 @@
     echo $nom_fichier;
     $fh = fopen($nom_fichier,'r'); 								// Ouverture d'un fichier en lecture/écriture, en le créant s'il n'existe pas.
    
+	$page="";
 	while (!feof($fh))											// On parcourt toutes les lignes
 	{
 		$page .= fgets($fh, 4096); 								// Lecture du contenu de la ligne
     }   
     $import_questionnaire = unserialize($page);
-    
-   
-
-
-
 
    fclose($fh); 	
 ?>
