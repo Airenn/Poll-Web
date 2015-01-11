@@ -76,6 +76,11 @@ function get_url_delete($texte){
     return sup;
 }
 
+function get_url_import(){
+    var sup = 'php/importer.php';
+    return sup;
+}
+
 function get_url_nouveau($nom,$date){
     var sup = 'php/nouveau.php?nom=';
         sup = sup.concat($nom);
@@ -155,8 +160,10 @@ function import_quest(){
                         success: {
                         label: "Sauvegarder",
                         className: "btn-success",
-                        callback: function (){         
+                        callback: function (){
+                        $.post(get_url_import(), function(data){ update_page(); });  
                         }
+                            
                     }
                 }
             });
