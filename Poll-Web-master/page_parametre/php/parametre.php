@@ -8,13 +8,15 @@
                 text_format('nbmess','form_nbmess');
             if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='paragraphe')
                 text_format('paragraphe','form_paragraphe');
-            unset($_SESSION['nbmess']['checkbox']);
             if(isset($_POST['checkbox']) and trim($_POST['checkbox']!="")){
                 $_SESSION['nbmess']['checkbox']=$_POST['checkbox'];
             }
-            else
+            elseif(!isset($_POST['checkbox'])){
                 $_SESSION['nbmess']['checkbox']="";
-
+            }
+            else{
+                $_SESSION['nbmess']['checkbox']="on";
+                }
 
             /**********************//**NUMERO-TELEPHONE**//***********************/
             $tel = '#^ *(0|\+33) ?[6-7]([ -\.]?[0-9]{2}){4} *$#';            

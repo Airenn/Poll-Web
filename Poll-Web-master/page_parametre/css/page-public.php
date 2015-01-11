@@ -91,9 +91,10 @@ header
 #ajax_bar
 {
     margin-bottom : 4em;
+}
+#ajax_bar >*{
     <?php text_format_css('reponse','form_reponse');?>
 }
-
 #ajax_bar:last-child
 {
     margin-bottom : 8em;
