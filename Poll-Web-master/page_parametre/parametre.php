@@ -40,7 +40,7 @@
 
                        <div class="btn-group btn-group-justified" role="group" data-toggle="buttons" style="width:100%;">
                             <label class="btn btn-default active" style="border-bottom-left-radius:0;">
-                                <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone,#form_r,#form_m,#form_p','#form_q');"/> Question
+                                <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone,#form_r,#form_m,#form_p','#form_q');" checked/> Question
                             </label>
                             <label class="btn btn-default">
                                 <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess,#div-phone,#form_q,#form_m,#form_p','#form_r');"/> Réponses
