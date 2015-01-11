@@ -1,5 +1,6 @@
 <?php
-    require_once('php/redirect.php');
+    require_once('../php/connexion.php');
+    require_once('php/fonctions.php');
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +18,8 @@
         <?php 
             require('../menu.php'); 
             gen_menu('questions');
+
+            if(isset($_GET['operation']) && trim($_GET['operation'])!=""){
         ?>
         <div id="background_panel">
             <div class="panel panel-primary" id="center_panel">
@@ -262,6 +265,23 @@
                 </div>
             </div>
         </div>
+        <?php } else{ ?>
+         <div id="background_panel">
+            <div class="panel panel-primary" id="center_panel">
+                <div class="panel-heading" id="operation_head"><h3 class="panel-title" id="operation_id" >Aucun questionnaire sélectionné</h3></div>
+                <div class="panel-body" id="question_body">
+                    <div class="container" id="jumbo_back_operation">
+                        <div class="jumbotron">
+                            <h1>Oups!</h1>
+                            <p>Vous n'avez sélectionné aucun questionnaire à éditer, retournez en choisir un dans la page Questionnaires.</p>
+                            <br><br>
+                            <p><a class="btn btn-info btn-lg" href="../page_accueil/accueil.php" role="button">Retour aux questionnaires</a></p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+        <?php }?>
     
         <script src="../bootstrap/dist/js/jquery.min.js"></script>
         <script src="../bootstrap/dist/js/bootstrap.min.js"></script>

@@ -31,6 +31,15 @@
     border: 1px solid #DDD;
 }
 
+#selected_question
+{
+    float: left;
+    width: 97%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-bottom: 1.5%;
+}
+
 #btn-questionnaire
 {
     background-color: rgb(248, 248, 248);
@@ -38,7 +47,8 @@
     margin-top: 2%;
     color: #555;
     height: 60px;
-    width: 60%;
+    width: 50%;
+    float: left;
 }
 
 #btn-questionnaire:hover
@@ -49,11 +59,13 @@
 #create
 {
     width: 30%;
+    float: right;
 }
 
 #import_btn
 {
-    width: 30%; 
+    width: 30%;
+    float: right;
 }
 
 thead

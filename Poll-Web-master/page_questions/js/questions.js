@@ -192,6 +192,7 @@ function update_question_num(){
     $.post(get_url_quest_num(), function(data){ 
         num_question_courante = Number(data);
         update_question_button(num_question_courante);
+        document.getElementById('input_num_question').value = num_question_courante;
     });
 }
 

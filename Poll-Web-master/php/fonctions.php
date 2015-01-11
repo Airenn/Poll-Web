@@ -1429,13 +1429,13 @@
 
 function Affichepage(){
         if(total_quest()!=0){
-            echo'<input id="create" type="button" class="btn btn-warning" onclick="creation_quest();" value="Créer un questionnaire" />
-                 <input id="import_btn" type="button" class="btn btn-danger" onclick="import_quest();" value="Importer un questionnaire" />
-                     <div id="selected_question">
+            echo' <div id="selected_question">
                         <button class="btn btn-default" id="btn-questionnaire">
-                          <span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
-                           <span id="id_questionnaire_selected"><strong>aucun</strong></span>
-                           </button>
+                            <span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
+                            <span id="id_questionnaire_selected"><strong>aucun</strong></span>
+                        </button>
+                        <input id="create" type="button" class="btn btn-warning" onclick="creation_quest();" value="Créer un questionnaire" /><br><br>
+                        <input id="import_btn" type="button" class="btn btn-danger" onclick="import_quest();" value="Importer un questionnaire" />
                      </div>						
                 <div id="liste" class="panel-body">
                     <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >';

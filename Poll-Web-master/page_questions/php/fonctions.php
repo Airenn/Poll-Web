@@ -405,7 +405,7 @@
         if($categorie == 'Tout' || $categorie == 'Erreur'){
             $categories = array("danger"=>"Erreur");
             $total = total_messages($question);
-            construct_full_bar($categories, $question, null, $total, 'Erreur', 0);
+            construct_full_bar($categories, $question, null, $total, 'Erreur', $pourcentage_total);
         }
     }
 
@@ -444,9 +444,9 @@
         }
         
         $question = $question['ID'];
+        echo $num;
         
         if(!in_array($num, $existing_nums)){
-            echo $num;
             $args = array(
                         'clause_set'=>array('num_question'=>$num),
                         'clause_where'=>array('ID'=>$question)
@@ -554,6 +554,10 @@
         $pourcentage_total = 0;
         $pourcentage = 0;
         $pourcentage_total = get_pourcentage_total($question, $reponse, $categories, $total, $limit);
+        
+        if($texte == 'Erreur' && $limit!=0){
+            $pourcentage_total = 100-$limit;   
+        }
 
         echo '<h4>'.$texte;
 
@@ -565,6 +569,9 @@
 
         foreach($categories as $key=>$categ){
             $pourcentage = get_pourcentage($question, $reponse, $categ, $total);
+            if($texte == 'Erreur' && $limit!=0){
+                $pourcentage = 100-$limit;   
+            }
             construct_part_bar($pourcentage, $reponse, $key, $categ, $total);
         }
         echo '</div>';
