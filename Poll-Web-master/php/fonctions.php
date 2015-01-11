@@ -1518,7 +1518,7 @@ function ouverture_questionnaire($ID_operation)
         if($fermer['fermee']==1)
             return 'ouvert';
         else 
-            return 'fermée';
+            return 'fermé';
     }
 }
 function total_quest()
