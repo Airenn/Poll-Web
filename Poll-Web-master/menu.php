@@ -20,17 +20,7 @@
             $accueil = '"../page_accueil/accueil.php"';
             $questions = '"../page_questions/questions.php"';
             $parametre = '"#" class="current"';
-            $plus='<ul id="liste-entete">
-                <li>
-                    <a class="lien-entete" href="#couleur">Formatage de texte</a>
-                </li>
-                <li>
-                    <a class="lien-entete" href="#arriere-plan">Arrière-Plan</a>
-                </li>
-                <li>
-                    <a class="lien-entete" onclick="maximize_screen();" href="">Afficher la page public</a>
-                </li></ul>
-            ';
+            $plus='<a class="lien-entete" onclick="maximize_screen();" href=""><div id="bloc-entete">Afficher la page publique</div></a>';
         }
         
         echo'

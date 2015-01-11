@@ -1,4 +1,4 @@
-var question_courante, question_texte_courante, $bar_refresh, $keydown_refresh;
+var question_courante, $bar_refresh;
 
 question_courante = $('.bar').attr("value");
 question_texte_courante = $('#question').attr("value");
@@ -11,6 +11,7 @@ $("#bouton-right").click(function() {
         update_keydown();
         activer_affichage();
 });
+
 function activer_affichage(){
     update_title();
     update_bar();

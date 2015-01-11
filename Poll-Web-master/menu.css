@@ -41,6 +41,10 @@
     border-radius : 5px 0 0 5px;
 }
 
+#menu ul li:hover{
+    color: #ec971f;
+}
+
 #menu .current li
 {
     margin-left : 0;

@@ -18,10 +18,11 @@ function text_format_css($key, $choix_section){
         echo "font-family : ".$_SESSION[$key]["police-$choix_section"]."px;";
     }
 }
+
 function progress_bars($categorie){
-        $question = get_current_question()['ID'];
-create_progress_bars($question,$categorie);
-    }
+    $question = get_current_question()['ID'];
+    create_progress_bars($question,$categorie);
+}
 
 function open_question($question){
     global $db;
@@ -49,25 +50,13 @@ function open_question($question){
             }
         }
         
+    }catch(PDOException $e){
+        die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
     }
-        catch(PDOException $e){
-            die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-        }
     $val=get_current_question()['ID'];
     echo $val;
 }
 
-function reset_bdd_question($question){
-    global $db;
-    try{
-        $req=$db->prepare('UPDATE questions SET fermee=:fermee WHERE ID=:question');
-        $req->bindvalue(':question',$question);
-        $req->bindvalue(':fermee',0);
-        $req->execute();
-    }catch(PDOException $e){
-    die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
-    }
-}
 function afficher_reponse($question){
     $req=execute_sql("SELECT","reponses",array('clause_where'=>array("ID_question"=>$question)));
     while($rep=$req->fetch(PDO::FETCH_ASSOC)){
@@ -88,6 +77,19 @@ function changer_question_reponse($question,$sens){
     $rep=$req->fetch(PDO::FETCH_ASSOC);
     echo $rep['ID'];
 }
+
+function reset_bdd_question($question){
+    global $db;
+    try{
+        $req=$db->prepare('UPDATE questions SET fermee=:fermee WHERE ID=:question');
+        $req->bindvalue(':question',$question);
+        $req->bindvalue(':fermee',0);
+        $req->execute();
+    }catch(PDOException $e){
+    die('<p>Echec. Erreur['.$e->getCode().']: '.$e->getMessage().'</p>');
+    }
+}
+
 function create_pb(){
     $question = get_current_question()['ID'];
     $texte= get_current_question()['texte'];
@@ -103,32 +105,32 @@ function formulaire_couleur($choix_section){
 ?>
         <div <?php echo "id=formatage-texte-$choix_section"; ?> >
 
-                <span class="input-group-addon" style="border-top-left-radius:0;border-bottom-left-radius:0;"> 
-                    Couleur<br/><br/>
-                    <input type="color" class="form-control" aria-describedby="basic-addon1" <?php echo "name='color-$choix_section'"; ?> >
-                </span>
+            <span class="input-group-addon" style="border-top-left-radius:0;border-bottom-left-radius:0;width:23,33333%;"> 
+                Couleur<br/><br/>
+                <input type="color" class="form-control" aria-describedby="basic-addon1" <?php echo "name='color-$choix_section'"; ?> >
+            </span>
 
-                <span class="input-group-addon">
-                    Police<br/><br/>
-                    <div>
-                        <select style="width:436px;height:2.4em;margin-left:-4px;border:solid #cccccc 1px;position:relative;top:0.09em;border-top-right-radius:2px;border-bottom-right-radius:2px;text-align:center;" <?php echo "name='police-$choix_section'"; ?> value='button-police'>
-                            <option value='Arial'>Arial</option>
-                            <option value='Arial Black'>Arial Black</option>
-                            <option value='Comic Sans MS'>Comic Sans MS</option>
-                            <option value='Courier New'>Courier New</option>
-                            <option value='Georgia'>Georgia</option>
-                            <option value='Impact'>Impact</option>
-                            <option value='Times New Roman'>Times New Roman</option>
-                            <option value='Trebuchet MS'>Trebuchet MS</option>
-                            <option value='Verdana'>Verdana</option>
-                        </select>
-                    </div>
-                </span>
+            <span class="input-group-addon" style="width:23,33333%;">
+                Police<br/><br/>
+                <div>
+                    <select style="width:70%;height:2.4em;border:solid #cccccc 1px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-top-left-radius:4px;border-bottom-left-radius:4px;text-align:center;" <?php echo "name='police-$choix_section'"; ?> value='button-police'>
+                        <option value='Arial'>Arial</option>
+                        <option value='Arial Black'>Arial Black</option>
+                        <option value='Comic Sans MS'>Comic Sans MS</option>
+                        <option value='Courier New'>Courier New</option>
+                        <option value='Georgia'>Georgia</option>
+                        <option value='Impact'>Impact</option>
+                        <option value='Times New Roman'>Times New Roman</option>
+                        <option value='Trebuchet MS'>Trebuchet MS</option>
+                        <option value='Verdana'>Verdana</option>
+                    </select>
+                </div>
+            </span>
 
-                <span class="input-group-addon"style="border-top-right-radius:0;border-bottom-right-radius:0;">
-                    Taille<br/><br/>
-                    <input style="text-align:center;" type="text" class="form-control" placeholder="en px" aria-describedby="basic-addon1" <?php echo "name='taille-police-$choix_section'"; ?> >
-                </span>
+            <span class="input-group-addon"style="border-top-right-radius:0;border-bottom-right-radius:0;width:23,33333%;">
+                Taille<br/><br/>
+                <input style="text-align:center;" type="text" class="form-control" placeholder="en px" aria-describedby="basic-addon1" <?php echo "name='taille-police-$choix_section'"; ?> >
+            </span>
 
        </div> 
 
