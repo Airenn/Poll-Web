@@ -1430,7 +1430,7 @@
 function Affichepage(){
         if(total_quest()!=0){
             echo'<input id="create" type="button" class="btn btn-warning" onclick="creation_quest();" value="Créer un questionnaire" />
-                 <input id="import_btn" type="button" class="btn btn-danger" value="Importer un questionnaire" />
+                 <input id="import_btn" type="button" class="btn btn-danger" onclick="import_quest();" value="Importer un questionnaire" />
                      <div id="selected_question">
                         <button class="btn btn-default" id="btn-questionnaire">
                           <span id="titre_questionnaire_selected">Questionnaire selectionné : </span>

@@ -136,12 +136,8 @@ function creation_quest(){
     return false;
 }
 
-$(function()
-{
-	$('#import_btn').click(function()
-	{
-        bootbox.dialog(
-		{
+function import_quest(){
+        bootbox.dialog({
             title: "Importer un questionnaire",
             message: '<div class="row">  ' +
                 '<div class="col-md-12"> ' +
@@ -154,23 +150,17 @@ $(function()
                 '</div> ' +
                 '</div> </div>' +
                 '</form> </div>  </div>',
-				buttons:
-				{
-                    success:
-					{
-						label: "Importer",
-						className: "btn-success",
-						/*callback: function ()
-						{
-							var name = $('#name').val();
-							$.post(get_url_nouveau(name,date), function(data){ update_table(); });             
-						}*/
-					}
-				}
-		});
-		return false;
-	});
-});
+                    buttons: {
+                        success: {
+                        label: "Sauvegarder",
+                        className: "btn-success",
+                        callback: function (){         
+                        }
+                    }
+                }
+            });
+    return false;
+}
 
 $ajax_table = $('#ajax_tableau_questionnaire');
 $ajax_page = $('#ajax_page_questionnaire');
