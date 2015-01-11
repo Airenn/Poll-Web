@@ -2,14 +2,18 @@
             BALISE NAV
 *****************************************/
 #bloc-entete{
-    color: #3f3f3f;
-    background: #9bd9ea;
+    color: #ffffff;
+    background: #1862a0;
     float: right;
-    margin-top: 2.4%;
-    padding: 1em;
+    padding: 1em 1em 1em 1em;
 	font-weight : bold;
-    border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    width: 13%;
+}
+
+#h4-bloc-entete{
+    display: inline;
+    padding-right: 5%;
 }
 
 #lien-entete{
@@ -77,4 +81,3 @@
 .btn.btn-lg:hover{
     color: #f0ad4e;
 }
-
