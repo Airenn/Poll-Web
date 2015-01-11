@@ -1,6 +1,7 @@
 <?php
     require_once('../../php/fonctions.php');
     require_once('../../php/connexion.php');
+	require_once('class_questionnaire.php');												// On inclus la classe questionnaire
 
     $id_operation=$_GET['ID'];
     $type_operation='SELECT';
@@ -39,38 +40,8 @@
 		}
 	}
 	
-	
 	//$argr = array('clause_where'=>array('ID_question'=>$tab['ID_question'));
-
     //$val = $req->fetch(PDO::FETCH_ASSOC);
-	
-	
-	/*	L'objet questionnaire contient :
-	*
-	*
-	*		#1- Un array contenant le questionnaire
-	*
-	*		#2- Un array contenant la liste de toutes les questions du questionnaire
-	*
-	*		#3- Un array contenant la liste de tous les messages par question
-	*
-	*		#4- Un array contenant la liste de toutes les réponses aux questions
-	*/
-	class questionnaire															// Definition d'un objet questionnaire comportant les questionnaires, ses questions, ainsi que les messages et réponses correspondant
-	{
-		var $quest;																
-		var $questions;
-		var $messages;
-		var $reponses;
-		
-		function questionnaire($ques, $que, $msg, $rep)
-		{
-			$this->quest = $ques;
-			$this->question = $que;
-			$this->messages = $msg;
-			$this->reponses = $rep;
-		}
-	}
 	
 	$nom = htmlentities($ques['nom']).'.poll';									// Nom du fichier (sans lettre avec accent ou caractère spécial) ou sera sauvegardé le questionnaire et totues ses informations relatives
 	$chemin = "../operations_exportees" . $nom;									// Chemin d'accès depuis accueil.php (qui appelera ce fichier) ou seront sauvegardé les questionnaires
