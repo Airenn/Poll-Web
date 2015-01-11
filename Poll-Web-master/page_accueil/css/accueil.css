@@ -11,7 +11,7 @@
     /*margin-right : 15%;*/
 	/*border-top: 2px solid #d3ddff;*/
     border-bottom: 1px solid #fff;
-	-moz-border-radius-topleft: 35px;
+	/*-moz-border-radius-topleft: 35px;
     -moz-border-radius-topright:35px;
     -moz-border-radius-bottomleft:0px;
     -moz-border-radius-bottomright:0px;
@@ -22,7 +22,7 @@
     border-top-left-radius:35px;
     border-top-right-radius:35px;
     border-bottom-left-radius:0px;
-    border-bottom-right-radius:0px;
+    border-bottom-right-radius:0px;*/
 	overflow : hidden;
 }
 /*#liste #titre*/
