@@ -88,13 +88,13 @@ header
     clear : both;
 }
 
-.rep
+#ajax_bar
 {
     margin-bottom : 4em;
     <?php text_format_css('reponse','form_reponse');?>
 }
 
-.rep:last-child
+#ajax_bar:last-child
 {
     margin-bottom : 8em;
 }
