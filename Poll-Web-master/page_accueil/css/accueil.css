@@ -61,6 +61,7 @@
     width: 30%;
     float: right;
     margin-bottom: 4px;
+	margin-right : 1.55%;
 }
 
 #import_btn
@@ -68,6 +69,7 @@
     height: 43px;
     width: 30%;
     float: right;
+	margin-right : 1.55%;
 }
 
 thead
