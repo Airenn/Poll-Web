@@ -115,47 +115,53 @@
                     </div>
                     
                     <div class="input-group" id="info_question">
-                        <span class="input-group-addon informations_question"> 
-                            <br><div>Numéro</div><br>
-                            <span id="ajax_modif_num">
-                                <?php create_input("input", "input_num_question"); ?>
-                            </span>
+                        <div class="input-group-addon" id="changement_num_question">
+                            <span class="informations_question"> 
+                                <br><div>Numéro</div><br>
+                                <span id="ajax_modif_num">
+                                    <?php create_input("input", "input_num_question"); ?>
+                                </span>
 
-                            <div class="btn-group" role="group" aria-label="..." title="Valider le changement de numero" id="ajax_num_btn">
-                                <?php create_input("button", "validation_numero", "modal_num_question"); ?>
-                            </div>
-                            
-                            <div class="modal fade" id="modal_num_question">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            <h4 class="modal-title">Modification du numéro de la question</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Changer le numéro de la question ?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" id="valid_change_num_question" data-dismiss="modal">Oui</button>
-                                            <button type="button" class="btn btn-danger" id="conservation_num" data-dismiss="modal">Non</button>
+                                <div class="btn-group" role="group" aria-label="..." title="Valider le changement de numero" id="ajax_num_btn">
+                                    <?php create_input("button", "validation_numero", "modal_num_question"); ?>
+                                </div>
+
+                                <div class="modal fade" id="modal_num_question">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title">Modification du numéro de la question</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Changer le numéro de la question ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" id="valid_change_num_question" data-dismiss="modal">Oui</button>
+                                                <button type="button" class="btn btn-danger" id="conservation_num" data-dismiss="modal">Non</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </span>
+                            </span>
+                        </div>
                 
-                        <span class="input-group-addon informations_question">
-                            Question fermée<br><br>
-                            <input type="checkbox" aria-label="..." id="input_close_question">
-                        </span>
+                        <div class="input-group-addon" id="fermeture_question">
+                            <span class="informations_question">
+                                Question fermée<br><br>
+                                <input type="checkbox" aria-label="..." id="input_close_question">
+                            </span>
+                        </div>
                         
-                        <span class="input-group-addon informations_question" id="ajax_multi_quest">
-                            Réponses multiples<br><br>
-                            <input type="checkbox" aria-label="..." id="input_multi_question">
-                            <input type="checkbox" aria-label="..." disabled id="input_multi_question_hidden">
-                        </span>
+                        <div class="input-group-addon" id="multiple_reponse">
+                            <span class="informations_question" id="ajax_multi_quest">
+                                Réponses multiples<br><br>
+                                <input type="checkbox" aria-label="..." id="input_multi_question">
+                                <input type="checkbox" aria-label="..." disabled id="input_multi_question_hidden">
+                            </span>
+                        </div>
                     </div>
                     
                     <div class="input-group">

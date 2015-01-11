@@ -4,6 +4,7 @@
     background-size: contain;
     padding: 0;
     margin: 0;
+    margin-bottom: 4%;
 }
 
 #logo
@@ -20,6 +21,7 @@
     max-width: 15%;
 	list-style-type: none;
 	padding-left : 0;
+    margin-top: 2%;
 	text-align : center;
 }
 

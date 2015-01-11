@@ -53,8 +53,19 @@
     display: inline;
 }
 
+#info_question
+{
+    text-align: center;
+}
+
 .informations_question
 {
+    border-radius: 0;
+}
+
+#changement_num_question, #fermeture_question, #multiple_reponse
+{
+    width: 20%;
     border-radius: 0;
 }
 
