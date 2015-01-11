@@ -117,3 +117,9 @@ thead th
 	margin-top : 15px;
 	margin-bottom : 15px;
 }
+
+#jumbo_no_operation
+{
+    margin-top:3%;
+    width: 100%;
+}

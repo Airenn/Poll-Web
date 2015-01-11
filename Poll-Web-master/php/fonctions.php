@@ -1443,13 +1443,13 @@ echo'</table>
 </div>';
 }
 else{
-echo'                    <div class="container" id="jumbo_no_question">
+echo'                    <div class="container" id="jumbo_no_operation">
                         <div class="jumbotron">
                             <h1>Aucun Questionnaire !</h1>
-                            <p>Vous n \'avez aucun questionnaire pour l\'instant, commencez par créer ou importer un questionnaire.</p>
+                            <p>Vous n\'avez aucun questionnaire pour l\'instant, commencez par en créer ou en importer un.</p>
                             <br>
                             <br>
-                            <p><a class="btn btn-info btn-lg"  href="#" role="button"onclick="creation_quest();">Créer un formulaire</a> <a class="btn btn-info btn-lg" href="#" role="button" onclick="">Importer un formulaire</a></p>
+                            <p><a class="btn btn-info btn-lg"  href="#" role="button"onclick="creation_quest();">Créer un questionnaire</a> <a class="btn btn-info btn-lg" href="#" role="button" onclick="">Importer un questionnaire</a></p>
                         </div>
                     </div>';
                      }
