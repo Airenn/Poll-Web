@@ -1519,9 +1519,9 @@ function ouverture_questionnaire($ID_operation)
     while($fermer = $total->fetch(PDO::FETCH_ASSOC))
 	{
         if($fermer['fermee']==0)
-            return 'ouvert';
+            return '<span style="color:green;"> ouvert </span>';
         else 
-            return 'fermé';
+            return '<span style="color:red;"> fermé </span>';
     }
 }
 function total_quest()
