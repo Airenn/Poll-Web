@@ -1478,6 +1478,7 @@ function AfficheQuestionnaires()
         $click_suppr = 'onclick="modal_suppr('.$val['ID'].', \'Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?\');"';
         $click_close = 'onclick="modal_close('.$val['ID'].', \'Etes-vous certain de vouloir fermer le questionnaire '.$val['nom'].' ?\');"';
         $click_open = 'onclick="modal_open('.$val['ID'].', \'Etes-vous certain de vouloir ouvrir le questionnaire '.$val['nom'].' ?\');"';
+        $click_export = 'onclick="modal_export('.$val['ID'].', \'Etes-vous certain de vouloir exporter le questionnaire '.$val['nom'].' ?\');"';      
 		echo'
 		<tr id="'.$val['ID'].'" data-toggle="collapse" data-target=".'.$val['ID'].'" class="accordion-toggle" '.$click.'>
             <td class="titre">'.$val['nom'].'</td>
@@ -1485,11 +1486,11 @@ function AfficheQuestionnaires()
             <td class="option">
             <!--<div class="options_part_1">-->
             <a href="../page_questions/questions.php?operation='.$val['ID'].'" title="Modifier les questions de ce questionnaire"><img class="edit_button" src="images/editer.png" alt="" /></a>
-             <a href="#" '.$click_open.' title="Ouvrir ce questionnaire au vote"><img class="open_button" src="images/ouvrir.png" alt="" /></a>
+            <a href="#" '.$click_open.' title="Ouvrir ce questionnaire au vote"><img class="open_button" src="images/ouvrir.png" alt="" /></a>
             <a href="#" '.$click_close.' title="Fermer ce questionnaire au vote"><img class="close_button" src="images/cloturer.png" alt="" /></a>
             <!--</div>-->
             <!--<div class="options_part_2">-->
-            <img class="export_button" src="images/exporter.png" alt="" />
+            <a href="#" '.$click_export.' title="Supprimer ce questionnaire de la liste"><img class="export_button" src="images/exporter.png" alt="" /></a>
             <a href="#" '.$click_suppr.' title="Supprimer ce questionnaire de la liste"><img class="delete_button" src="images/supprimer.png" alt="" /></a>
             <!--</div>-->
 		</td></tr>
