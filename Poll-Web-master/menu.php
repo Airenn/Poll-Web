@@ -25,7 +25,7 @@
         
         echo'
             <div id="title_logo">
-                <img src="../final_logo_1.png" width="10%" height="10%" id="logo"/>
+                <img src="../final_logo.png" width="10%" height="10%" id="logo"/>
                 '.$plus.'
             </div>
             <div id="menu">
