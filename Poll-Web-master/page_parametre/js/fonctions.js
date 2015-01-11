@@ -7,6 +7,16 @@ $keydown_refresh="";
 
 activer_affichage();
 
+
+
+$("#afficher_public").click(function(){
+    maximize_screen();
+});
+
+
+
+
+
 $("#bouton-right").click(function() {
         update_keydown();
         activer_affichage();

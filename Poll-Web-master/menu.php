@@ -20,7 +20,7 @@
             $accueil = '"../page_accueil/accueil.php"';
             $questions = '"../page_questions/questions.php"';
             $parametre = '"#" class="current"';
-            $plus='<a class="lien-entete" onclick="maximize_screen();" href=""><div id="bloc-entete">Afficher la page publique</div></a>';
+            $plus='<a class="lien-entete" id="afficher_public" href=""><div id="bloc-entete">Afficher la page publique</div></a>';
         }
         
         echo'
