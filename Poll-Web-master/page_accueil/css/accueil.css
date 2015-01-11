@@ -1,35 +1,46 @@
-#background
+#background_panel
 {
-    padding-top : 15px;
-    padding-bottom : 15px;
+    padding-top : 1%;
+    padding-bottom : 1%;
 
 }
+
+#jumbo_no_operation
+{
+    margin-top:3%;
+    width: 100%;
+}
+
+#center_panel
+{
+    border: 0 solid #FFF;
+    border-radius: 0;
+    margin-left : 15%;
+    margin-right : 15%;
+}
+
+#operation_heading
+{
+    background-color: rgba(0, 102, 153, 0.82);
+    border: 1px solid #337ab7;
+    border-radius: 0;
+}
+
+#operation_body
+{
+    border: 1px solid #DDD;
+}
+
+/*
 #liste{
-    /*margin-top : 15px;
-    margin-bottom : 15px;*/
-    /*margin-left : 15%;*/
-    /*margin-right : 15%;*/
-	/*border-top: 2px solid #d3ddff;*/
-    border-bottom: 1px solid #fff;
-	/*-moz-border-radius-topleft: 35px;
-    -moz-border-radius-topright:35px;
-    -moz-border-radius-bottomleft:0px;
-    -moz-border-radius-bottomright:0px;
-    -webkit-border-top-left-radius:35px;
-    -webkit-border-top-right-radius:35px;
-    -webkit-border-bottom-left-radius:0px;
-    -webkit-border-bottom-right-radius:0px;
-    border-top-left-radius:35px;
-    border-top-right-radius:35px;
-    border-bottom-left-radius:0px;
-    border-bottom-right-radius:0px;*/
 	overflow : hidden;
 }
-/*#liste #titre*/
+
 ajax_tableau_questionnaire
 {
 	width : 100.3%
 }
+
 thead
 {
     font-weight: normal;
@@ -57,21 +68,12 @@ thead th
 	text-align : center;
 }
 
-/*#liste #titre span {
-    margin-left : 15%;
-    margin-right : 14.5%;
-
-}*/
-
 #ajax_tableau_questionnaire {
     border: center;
     text-align: center;
     border-collapse: collapse;
 }
 
-#ajax_tableau_questionnaire th {
-
-}
 #ajax_tableau_questionnaire td {
     border-bottom: 1px solid #fff;
     color: #669;
@@ -80,19 +82,17 @@ thead th
     width: 33%;
 }
 
-/*#tableau td :last-child{
-	width : 40%;
-}*/
-
 #ajax_tableau_questionnaire tfoot tr td {
     background: #e8edff;
     font-size: 16px;
     color: #99c;
 }
+
 #ajax_tableau_questionnaire tbody tr:hover td {
     background: #d0dafd repeat-x;
     color: #339;
 }
+
 #ajax_tableau_questionnaire a:hover {
     text-decoration:underline;
 }
@@ -116,10 +116,5 @@ thead th
 	width : 49.9%;
 	margin-top : 15px;
 	margin-bottom : 15px;
-}
+}*/
 
-#jumbo_no_operation
-{
-    margin-top:3%;
-    width: 100%;
-}

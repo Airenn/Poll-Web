@@ -19,9 +19,9 @@
         ?>
         
 		<div id="background_panel">
-            <div class="panel panel-default" id="center_panel">
-                <div class="panel-heading"><h3 class="panel-title">Liste des questionnaires</h3></div>
-				<div class="panel-body">
+            <div class="panel panel-primary" id="center_panel">
+                <div class="panel-heading" id="operation_heading"><h3 class="panel-title">Liste des questionnaires</h3></div>
+				<div class="panel-body" id="operation_body">
                     <div id="ajax_page_questionnaire">
                     <?php Affichepage(); ?>
                     </div>
