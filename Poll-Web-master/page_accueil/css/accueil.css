@@ -55,79 +55,60 @@
     width: 30%; 
 }
 
-/*
-#liste{
-	overflow : hidden;
-}
-
-ajax_tableau_questionnaire
-{
-	width : 100.3%
-}
-
 thead
 {
-    font-weight: normal;
-    padding: 8px;
-    background: #b9c9fe  repeat-x;
-    border-top: 2px solid #d3ddff;
-    border-bottom: 1px solid #fff;
-    color: #039;
-    -moz-border-radius-topleft: 75px;
-    -moz-border-radius-topright:75px;
-    -moz-border-radius-bottomleft:0px;
-    -moz-border-radius-bottomright:0px;
-    -webkit-border-top-left-radius:75px;
-    -webkit-border-top-right-radius:75px;
-    -webkit-border-bottom-left-radius:0px;
-    -webkit-border-bottom-right-radius:0px;
-    border-top-left-radius:75px;
-    border-top-right-radius:75px;
-    border-bottom-left-radius:0px;
-    border-bottom-right-radius:0px;
+    border: 1px solid rgb(119, 154, 255);
 }
 
-thead th
+thead tr
 {
-	text-align : center;
+    border: 1px solid rgb(119, 154, 255);
 }
 
-#ajax_tableau_questionnaire {
-    border: center;
+thead tr th
+{
+    border: 1px solid rgb(119, 154, 255);
     text-align: center;
-    border-collapse: collapse;
+    background-color: rgba(101, 185, 255, 0.89);
+    color: white; 
 }
 
-#ajax_tableau_questionnaire td {
-    border-bottom: 1px solid #fff;
-    color: #669;
-    border-top: 1px solid #fff;
-    background: #e8edff  repeat-x;
+#ajax_tableau_questionnaire 
+{
+    text-align: center;
+}
+
+#ajax_tableau_questionnaire tr
+{
+    border: 1px solid rgb(192, 192, 192);
+}
+
+.accordion-toggle td
+{
+    border: 1px solid rgb(192, 192, 192);
+}
+
+#ajax_tableau_questionnaire td 
+{
+    color: black;
+    background-color: rgb(248, 248, 248);
     width: 33%;
 }
 
-#ajax_tableau_questionnaire tfoot tr td {
+#ajax_tableau_questionnaire tfoot tr td 
+{
     background: #e8edff;
     font-size: 16px;
     color: #99c;
 }
 
-#ajax_tableau_questionnaire tbody tr:hover td {
+#ajax_tableau_questionnaire tbody tr:hover td 
+{
     background: #d0dafd repeat-x;
     color: #339;
 }
 
-#ajax_tableau_questionnaire a:hover {
+#ajax_tableau_questionnaire a:hover 
+{
     text-decoration:underline;
 }
-
-
-.panel-group{
-    margin: auto;
-    width: 1000px;
-}
-
-#center_panel {
-    margin: 15px 15%;
-}*/
-
