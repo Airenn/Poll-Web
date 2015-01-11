@@ -145,7 +145,7 @@ $(function()
             title: "Importer un questionnaire",
             message: '<div class="row">  ' +
                 '<div class="col-md-12"> ' +
-                '<form class="form-horizontal"> ' +
+                '<form class="form-horizontal" method="post" enctype="multipart/form-data" action="../php/importer.php"> ' +
                 '<div class="form-group"> ' +
                 '<label class="col-md-5 control-label" for="awesomeness">Choisissez le questionnaire voulu</label> ' +
                 '<div class="col-md-5">' +
@@ -158,7 +158,7 @@ $(function()
 				{
                     success:
 					{
-						label: "Ajouter",
+						label: "Importer",
 						className: "btn-success",
 						/*callback: function ()
 						{
