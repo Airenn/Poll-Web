@@ -85,7 +85,7 @@ function get_url_nouveau($nom,$date){
     return sup;
 }
 function get_url_export($nom){
-    var  exp = 'php/exporter.php?ID=';
+    var  exp = 'php/exporter.php?id=';
     return exp;
 }
 function close_quest($id){
