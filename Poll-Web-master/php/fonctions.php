@@ -1432,8 +1432,10 @@ function Affichepage(){
             echo'<input id="create" type="button" class="btn btn-warning" onclick="creation_quest();" value="Créer un questionnaire" />
                  <input id="import_btn" type="button" class="btn btn-danger" value="Importer un questionnaire" />
                      <div id="selected_question">
+                        <button class="btn btn-default" id="btn-questionnaire">
                           <span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
-                           <span id="id_questionnaire_selected">aucun</span>
+                           <span id="id_questionnaire_selected"><strong>aucun</strong></span>
+                           </button>
                      </div>						
                 <div id="liste" class="panel-body">
                     <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >';
