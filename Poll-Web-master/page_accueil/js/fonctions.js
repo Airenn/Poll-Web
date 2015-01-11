@@ -76,9 +76,10 @@ function get_url_delete($texte){
     return sup;
 }
 
-function get_url_import(){
-    var sup = 'php/importer.php';
-    return sup;
+function get_url_import($nom){
+    var imp = 'php/importer.php?nom=';
+        imp = imp.concat($nom);
+    return imp;
 }
 
 function get_url_nouveau($nom,$date){
@@ -86,7 +87,6 @@ function get_url_nouveau($nom,$date){
         sup = sup.concat($nom);
         sup = sup.concat('&date=');
         sup = sup.concat($date);
-    
     return sup;
 }
 function get_url_export($nom){
@@ -161,7 +161,8 @@ function import_quest(){
                         label: "Sauvegarder",
                         className: "btn-success",
                         callback: function (){
-                        $.post(get_url_import(), function(data){ update_page(); });  
+                        var file = $('#import_field').val();
+                        $.post(get_url_import(file), function(data){ update_page(); });  
                         }
                             
                     }
