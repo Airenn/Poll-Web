@@ -25,7 +25,7 @@
         
         echo'
             <div id="title_logo">
-                <img src="../poll_redux.png" width="10%" height="10%" id="logo"/>
+                <img src="../final_logo.png" width="10%" height="10%" id="logo"/>
                 '.$plus.'
             </div>
             <div id="menu">

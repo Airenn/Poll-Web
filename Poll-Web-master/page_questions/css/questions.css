@@ -38,7 +38,7 @@
 #input_texte_question
 {
     color: #FFF;
-    background-color: #337ab7;
+    background-color: rgba(0, 102, 153, 0.82);
     border-color: #337ab7;
 }
 
@@ -50,7 +50,7 @@
 
 #ajax_num_btn
 {
-    display:inline;
+    display: inline;
 }
 
 .informations_question
@@ -204,6 +204,7 @@
 
 #operation_head, #heading_resultats, #heading_envoi
 {
+    background-color: rgba(0, 102, 153, 0.82);
     border: 1px solid #337ab7;
     border-radius: 0;
 }
