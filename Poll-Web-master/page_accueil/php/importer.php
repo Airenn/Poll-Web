@@ -3,12 +3,15 @@
     require_once('../../php/connexion.php');
 	require_once('class_questionnaire.php');
 
-echo $_FILE['icone']['name'];
-	if($_FILE['import']['type'] != 'poll')
-		echo '<p> Non</p>';
-	else
-	{
-        $import_questionnaire = unserialize($_FILE['import']);
-	}
+    $nom_fichier ='../../operations_exportees/'.$_GET['nom'];
+    echo $nom_fichier;
+    $fh = fopen($nom_fichier,'r'); 													// Ouverture d'un fichier en lecture/écriture, en le créant s'il n'existe pas.
+    while (!feof($fp)) { //on parcourt toutes les lignes
+    $page .= fgets($fp, 4096); // lecture du contenu de la ligne
+    }   
+    $import_questionnaire = unserialize($page);
+    echo $import_questionnaire;// On écrit.
+    fclose($fh); 	
+
 
 ?>
