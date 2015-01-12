@@ -26,10 +26,9 @@
         </nav>
         
             
-        <div id="tout-formulaire">
+        <div id="background_panel">
             <form method="post">
 
-            <div id="background_panel">
                 <div class="panel panel-default center-panel" id="panel-texte">
                     <div class="panel-heading" id="head-texte">
                         <h3 class="panel-title">Formatage de texte</h3>
@@ -96,8 +95,9 @@
 
                 </div>
             </form><br/><br/>
-
-
+                
+                
+                
             <form method="post" enctype="multipart/form-data">
                 <div class="panel panel-default center-panel" id="panel-arriere-plan">
                     <div class="panel-heading" id="head-arriere-plan">
@@ -120,12 +120,11 @@
                             </div>
                         </div>
 
+                        
 
-
-                        <div id="arriere-plan">
-
-                            <div id="choix_arriere_plan" class="input-group">
-                                <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;"> 
+                        <div id="arriere-plan" style="width:100%;">
+                            <div id="choix_arriere_plan" class="input-group pull-left" style="width:50%;">
+                                <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;border-right:none;"> 
                                     <strong>Type d'arrière-plan</strong><br/><br/>
 
                                     <label>Couleur <input type="radio" name="radio-a" value="color" onchange="hide_and_seek('#background-image','#background-color');" checked="on"/>
@@ -136,15 +135,15 @@
                             </div>
 
 
-                            <div id="background-color">
-                                <span class="input-group-addon" style="border:solid 1px #cccccc;border-top:none;"> 
-                                    <input style="width:30%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="arriere-plan-color">
+                            <div id="background-color" class="pull-right" style="width:50%;">
+                                <span class="input-group-addon" style="border:solid 1px #cccccc;border-left:none;border-bottom:none;padding:22px 0 22px 0;"> 
+                                    <input style="width:62%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="arriere-plan-color">
                                 </span>
                             </div>
 
-                            <div id="background-image" style="display:none;">
-                                <span class="input-group-addon" style="border:solid 1px #cccccc;border-top:none;">
-                                    <div style="width:25%;margin-left:auto;margin-right:auto;">
+                            <div id="background-image" class="pull-right" style="display:none;width:50%;">
+                                <span class="input-group-addon" style="border:solid 1px #cccccc;border-left:none;border-bottom:none;padding:27.5px 0 27.5px 0;">
+                                    <div class="center-block" style="width:62%;">
                                         <div>
                                             <input type="file" name="file" ng-disabled="disabled" accept="image/x-png, image/gif, image/jpeg"/>
                                         </div>
@@ -155,12 +154,14 @@
 
                         <div id="barre-progressive" style="display:none;">
                             <div id="choix_barre_progressive">
-                                <span class="input-group-addon" style="border:1px solid #cccccc;"> 
+                                <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;padding-bottom:0.26cm;"> 
                                     Couleur de la barre progressive<br/><br/>
                                     <input style="width:30%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="bar-color"/>
                                 </span>
                             </div>
 
+
+<!--
                             <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;"> 
                                 Afficher le hors délai<br/><br/>
                                 <input id="offline-checkbox" type="checkbox" name="hors-delai" onchange="hide_checkbox('#offline-checkbox','#offline-color');">
@@ -174,15 +175,20 @@
                                     </div>
                                 </span>
                             </div>
+-->
                         </div>
 
-                        <span class="input-group-addon" id="save_barres" style="border-radius:0;border:1px solid #cccccc;">
-                            <div class="span6" style="text-align:center;">
-                                <button type="submit" class="btn btn-info">Sauvegarder</button>
-                            </div>
-                        </span>
+
+
+
+                        <div style="clear:both;">
+                            <span class="input-group-addon" id="save_barres" style="border-radius:0;border:1px solid #cccccc;">
+                                <div class="span6" style="text-align:center;">
+                                    <button type="submit" class="btn btn-info">Sauvegarder</button>
+                                </div>
+                            </span>
+                        </div>
                     </div>
-                </div>
                 </div>
             </form>
         </div>

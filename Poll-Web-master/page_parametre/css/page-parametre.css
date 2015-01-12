@@ -27,6 +27,11 @@
     color: #ffffff;
 }
 
+#bloc-entete:hover>*,
+#bloc-entete:hover{
+    color: #ec971f;
+}
+
 #bloc-entete .glyphicon{
     margin-right: 4%;
 }
@@ -90,6 +95,30 @@
     padding-right : 1.5em;
 }
 
+#bouton-reponse,
+#bouton-left,
+#bouton-result,
+#bouton-right{
+    color: #ffffff;
+    
+    background: #4c4c4c; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #4c4c4c 0%, #353535 99%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#4c4c4c), color-stop(99%,#353535)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #4c4c4c 0%,#353535 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #4c4c4c 0%,#353535 99%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #4c4c4c 0%,#353535 99%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  #4c4c4c 0%,#353535 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#353535',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#bouton-reponse:hover,
+#bouton-left:hover,
+#bouton-result:hover,
+#bouton-right:hover{
+    color: #ec971f;
+}
+
+
 /*****************************************
                 REMOTE
 *****************************************/
@@ -99,3 +128,6 @@
     right : 0;
     bottom : 0;
 }
+
+
+
