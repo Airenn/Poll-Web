@@ -1468,7 +1468,7 @@ function Affichepage(){
                             <br>
                             <br>
                             <p><a class="btn btn-info btn-lg"  href="#" role="button"onclick="creation_quest();">Créer un questionnaire</a> 
-                            <a class="btn btn-info btn-lg" href="#" role="button" onclick="">Importer un questionnaire</a></p>
+                            <a class="btn btn-info btn-lg" href="#" role="button" onclick="import_quest();">Importer un questionnaire</a></p>
                         </div>
                 </div>';
         }
