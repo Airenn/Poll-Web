@@ -263,6 +263,8 @@
     function add_question($num_question, $texte, $multi_rep, $ID_operation){
         $existing_nums = get_num_questions($ID_operation);
         $max = get_next_question_num($ID_operation);
+        $texte = str_replace("'", "\'", $texte);
+        $texte = str_replace('"', "\'", $texte);
         
         if(in_array($num_question, $existing_nums) || $num_question==0 || $num_question>$max){
             $num_question = $max; 
@@ -314,14 +316,15 @@
         $texte = "";
         
         while($question_tab = $questions->fetch(PDO::FETCH_ASSOC)){
-            $texte = htmlspecialchars($question_tab['num_question']).' : '.htmlspecialchars($question_tab['texte']);
+            $question_texte = str_replace("\'", "'", $question_tab['texte']);
+            $texte = $question_tab['num_question'].' : '.$question_texte;
             echo '<li class="question"';
-            echo ' onclick="affichage_question('.htmlspecialchars($question_tab['ID_operation']).'
-                                                , '.htmlspecialchars($question_tab['fermee']).'
-                                                , '.htmlspecialchars($question_tab['multi_rep']).'
-                                                , '.htmlspecialchars($question_tab['ID']).'
-                                                , '.htmlspecialchars($question_tab['num_question']).'
-                                                , \''.htmlspecialchars($question_tab['texte']).'\')"';
+            echo ' onclick="affichage_question('.$question_tab['ID_operation'].'
+                                                , '.$question_tab['fermee'].'
+                                                , '.$question_tab['multi_rep'].'
+                                                , '.$question_tab['ID'].'
+                                                , '.$question_tab['num_question'].'
+                                                , \''.$question_tab['texte'].'\')"';
             echo '>';
             echo '<a href="#">'.$texte.'</a>';
             echo '</li>';
@@ -416,6 +419,9 @@
      * \param $texte : string, nouveau texte de la question
      */
     function change_name($question, $texte){
+        $texte = str_replace("'", "\'", $texte);
+        $texte = str_replace('"', "\'", $texte);
+        
         $args = array(
                     'clause_set'=>array('texte'=>$texte),
                     'clause_where'=>array('ID'=>$question)
@@ -724,7 +730,7 @@
         $doublon;
         $retard;
         $valide;
-        $texte = htmlentities($texte);
+        //$texte = htmlentities($texte);
         
         if(isset($current_question['ID'])){
             $current_question = $current_question['ID'];

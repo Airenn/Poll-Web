@@ -86,7 +86,9 @@ function init_page(){
     update_suppr_button();
     update_modif();
     refresh_dropdown();
-    document.getElementById('input_num_question').value = '';
+    if(document.getElementById('input_num_question')){
+        document.getElementById('input_num_question').value = '';
+    }
     $resultats.css("visibility", "hidden");
 }
 
@@ -197,110 +199,128 @@ function update_question_num(){
 }
 
 function update_question_texte(texte){
-    document.getElementById('question_texte').value = texte;
+    if(document.getElementById('question_texte')){
+        document.getElementById('question_texte').value = texte;
+    }
 }
 
 function update_delete_quest_button(){
-    if(question_courante === ""){
-        document.getElementById("effacer_question").setAttribute("disabled", "disabled")
-    }
-    else{
-        document.getElementById("effacer_question").removeAttribute("disabled");
+    if(document.getElementById("effacer_question")){
+        if(question_courante === ""){
+            document.getElementById("effacer_question").setAttribute("disabled", "disabled")
+        }
+        else{
+            document.getElementById("effacer_question").removeAttribute("disabled");
 
-        $.post(get_url_delete_quest_button(), function(data){
-            $ajax_suppr_quest.html(data);
-        });
+            $.post(get_url_delete_quest_button(), function(data){
+                $ajax_suppr_quest.html(data);
+            });
+        }
     }
 }
 
 function update_modify_quest_button(){
-    if(question_courante === ""){
-        document.getElementById("validation_modification").setAttribute("disabled", "disabled");
-    }
-    else{
-        document.getElementById("validation_modification").removeAttribute("disabled");
-    
-        $.post(get_url_modify_quest_button(), function(data){
-            $ajax_modif_nom.html(data);
-        });
+    if(document.getElementById("validation_modification")){
+        if(question_courante === ""){
+            document.getElementById("validation_modification").setAttribute("disabled", "disabled");
+        }
+        else{
+            document.getElementById("validation_modification").removeAttribute("disabled");
+
+            $.post(get_url_modify_quest_button(), function(data){
+                $ajax_modif_nom.html(data);
+            });
+        }
     }
 }
 
 function update_num_quest_input(){
-    if(question_courante === ""){
-        document.getElementById("input_num_question").setAttribute("disabled", "disabled");
-    }
-    else{
-        document.getElementById("input_num_question").removeAttribute("disabled");
+    if(document.getElementById("input_num_question")){
+        if(question_courante === ""){
+            document.getElementById("input_num_question").setAttribute("disabled", "disabled");
+        }
+        else{
+            document.getElementById("input_num_question").removeAttribute("disabled");
 
-        $.post(get_url_num_quest_input(), function(data){
-            $ajax_modif_num.html(data);
-        });
+            $.post(get_url_num_quest_input(), function(data){
+                $ajax_modif_num.html(data);
+            });
+        }
     }
 }
 
 function update_num_quest_btn(){
-    if(question_courante === ""){
-        document.getElementById("validation_numero").setAttribute("disabled", "disabled");
-    }
-    else{
-        document.getElementById("validation_numero").removeAttribute("disabled");
+    if(document.getElementById("validation_numero")){
+        if(question_courante === ""){
+            document.getElementById("validation_numero").setAttribute("disabled", "disabled");
+        }
+        else{
+            document.getElementById("validation_numero").removeAttribute("disabled");
 
-        $.post(get_url_num_quest_btn(), function(data){
-            $ajax_num_btn.html(data);
-        });
+            $.post(get_url_num_quest_btn(), function(data){
+                $ajax_num_btn.html(data);
+            });
+        }
     }
 }
 
 function update_close_quest_input(){
-    if(question_courante === ""){
-        document.getElementById("input_close_question").setAttribute("disabled", "disabled");
+    if(document.getElementById("input_close_question")){
+        if(question_courante === ""){
+            document.getElementById("input_close_question").setAttribute("disabled", "disabled");
+        }
+        else{
+            document.getElementById("input_close_question").removeAttribute("disabled");
+        }
+
+        (question_fermee)
+        ? $ferme_question.prop("checked", 1)
+        : $ferme_question.prop("checked", 0);
     }
-    else{
-        document.getElementById("input_close_question").removeAttribute("disabled");
-    }
-    
-    (question_fermee)
-    ? $ferme_question.prop("checked", 1)
-    : $ferme_question.prop("checked", 0);
 }
 
 function update_multi_quest_input(){
-    (question_courante === "")
-    ? document.getElementById("input_multi_question").setAttribute("disabled", "disabled")
-    : document.getElementById("input_multi_question").removeAttribute("disabled");
-    
-    if(modif_enabled){
-        $multi_question.css("visibility", "visible");
-        $('#input_multi_question_hidden').css("visibility", "hidden");
-    }
-    else{
-        $multi_question.css("visibility", "hidden");
-        $('#input_multi_question_hidden').css("visibility", "visible");
-    }
-    
-    if(multi_rep){
-        $multi_question.prop("checked", 1);
-        $('#input_multi_question_hidden').prop("checked", 1);
-    }
-    else{
-        $multi_question.prop("checked", 0);
-        $('#input_multi_question_hidden').prop("checked", 0);
+    if(document.getElementById("input_multi_question")){
+        (question_courante === "")
+        ? document.getElementById("input_multi_question").setAttribute("disabled", "disabled")
+        : document.getElementById("input_multi_question").removeAttribute("disabled");
+
+        if(modif_enabled){
+            $multi_question.css("visibility", "visible");
+            $('#input_multi_question_hidden').css("visibility", "hidden");
+        }
+        else{
+            $multi_question.css("visibility", "hidden");
+            $('#input_multi_question_hidden').css("visibility", "visible");
+        }
+
+        if(multi_rep){
+            $multi_question.prop("checked", 1);
+            $('#input_multi_question_hidden').prop("checked", 1);
+        }
+        else{
+            $multi_question.prop("checked", 0);
+            $('#input_multi_question_hidden').prop("checked", 0);
+        }
     }
 }
 
 function update_multi_bot_button(){
-    (question_courante === "")
-    ? document.getElementById("robot_masse").setAttribute("disabled", "disabled")
-    : document.getElementById("robot_masse").removeAttribute("disabled");
-    
-    update_multi_bot_text();
+    if(document.getElementById("robot_masse")){
+        (question_courante === "")
+        ? document.getElementById("robot_masse").setAttribute("disabled", "disabled")
+        : document.getElementById("robot_masse").removeAttribute("disabled");
+
+        update_multi_bot_text();
+    }
 }
 
 function update_suppr_button(){
-    (question_courante == "")
-    ? document.getElementById("reinit_quest").setAttribute("disabled", "disabled")
-    : document.getElementById("reinit_quest").removeAttribute("disabled");
+    if(document.getElementById("reinit_quest")){
+        (question_courante == "")
+        ? document.getElementById("reinit_quest").setAttribute("disabled", "disabled")
+        : document.getElementById("reinit_quest").removeAttribute("disabled");
+    }
 }
 
 function update_multi_bot_text(){

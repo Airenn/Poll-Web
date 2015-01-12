@@ -10,8 +10,6 @@
     position:absolute;
     top:0;
     right:0;
-    padding-top: 13px;
-    height: 50px;
     background: rgba(0, 102, 153, 0.90);
     border: 1px solid rgba(0, 102, 153, 1);
 }
@@ -23,6 +21,8 @@
 }
 
 #bloc-entete{
+    padding-top: 13px;
+    height: 48px;
     color: #ffffff;
 }
 
@@ -98,38 +98,3 @@
     right : 0;
     bottom : 0;
 }
-
-
-/*****************************************
-                FORMULAIRE
-*****************************************/
-/*
-#tout-formulaire{
-    width:70%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top:1%;
-}
-
-.btn.btn-default{
-    background: #9bd9ea;
-}
-
-.btn.btn-default.active,
-.btn.btn-default:hover{
-    background: #40bfe8;
-}
-
-.label.center-block{
-    color: #3f3f3f;
-    padding: 0;
-}
-
-.btn.btn-lg{
-    color: white;
-    background: #3f3f3f;
-}
-
-.btn.btn-lg:hover{
-    color: #f0ad4e;
-}*/
