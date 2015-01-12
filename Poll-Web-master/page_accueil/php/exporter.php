@@ -27,13 +27,13 @@
 					);
 	}
 	
-	$tabl = array();
+	//$tabl = array();
 	$tubl = array();
 	foreach($tab as $val)														// Si il y a plusieurs questions on parcours le tableau $tab qui contient les questions elle-mêmes récupérées sous forme de tableau
 	{
 		$argz = array('clause_where'=>array('ID_question'=>$val['ID']));					// Condition de selection des messages et réponse appartenant a la question selectionnée
 																							// Qui peut varier si il y a plusieurs questions
-		$msg = execute_sql($type_operation, "messages", $argz);
+		/*$msg = execute_sql($type_operation, "messages", $argz);
 		while($question = $msg->fetch(PDO::FETCH_ASSOC))									// Pour chaque message remplissant la condition précédente
 		{
 			array_push($tabl, array(
@@ -49,7 +49,7 @@
 									'ID_question' => $question['ID_question']
 									)
 						);
-		}
+		}*/
 	
 		$rep = execute_sql($type_operation, "reponses", $argz);
 		while($question = $rep->fetch(PDO::FETCH_ASSOC))									// Pour chaque reponse remplissant la condition précédente
@@ -68,7 +68,7 @@
 	$nom = htmlentities($ques['nom']).'.poll';										// Nom du fichier (sans lettre avec accent ou caractère spécial) ou sera sauvegardé le questionnaire et totues ses informations relatives
 	$chemin = "../../operations_exportees/".$nom;									// Chemin d'accès depuis accueil.php (qui appelera ce fichier) ou seront sauvegardé les questionnaires
 	echo $chemin;
-	$quest_export = new questionnaire($ques, $tab, $tabl, $tubl);
+	$quest_export = new questionnaire($ques, $tab/*, $tabl */, $tubl);
     $export_txt = serialize($quest_export);
 	
     $fh = fopen($chemin,'w'); 													// Ouverture d'un fichier en lecture/écriture, en le créant s'il n'existe pas.
