@@ -8,14 +8,14 @@ function text_format($key, $choix_section){
                 if(isset($_POST["taille-police-$choix_section"]) and is_numeric($_POST["taille-police-$choix_section"]))
                     $_SESSION[$key]["taille-police-$choix_section"]=$_POST["taille-police-$choix_section"];              
                 elseif(isset($_POST["taille-police-$choix_section"]) and trim($_POST["taille-police-$choix_section"])!="")
-                                echo "la taille de police saisie n'est pas valide";
+                    echo "la taille de police saisie n'est pas valide";
 }
 
 function text_format_css($key, $choix_section){
     if(isset($_SESSION[$key]["color-$choix_section"]) and isset($_SESSION[$key]["police-$choix_section"]) or isset($_SESSION[$key]["taille-police-$choix_section"])){
         echo "color : ".$_SESSION[$key]["color-$choix_section"].";";
         echo "font-size : ".$_SESSION[$key]["taille-police-$choix_section"]."px;";
-        echo "font-family : ".$_SESSION[$key]["police-$choix_section"]."px;";
+        echo "font-family : ".$_SESSION[$key]["police-$choix_section"].";";
     }
 }
 

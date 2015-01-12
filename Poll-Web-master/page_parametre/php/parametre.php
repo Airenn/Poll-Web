@@ -11,11 +11,8 @@
             if(isset($_POST['checkbox']) and trim($_POST['checkbox']!="")){
                 $_SESSION['nbmess']['checkbox']=$_POST['checkbox'];
             }
-            elseif(!isset($_POST['checkbox'])){
-                $_SESSION['nbmess']['checkbox']="";
-            }
             else{
-                $_SESSION['nbmess']['checkbox']="on";
+                $_SESSION['nbmess']['checkbox']="";
                 }
 
             /**********************//**NUMERO-TELEPHONE**//***********************/
