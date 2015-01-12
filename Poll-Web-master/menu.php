@@ -20,12 +20,12 @@
             $accueil = '"../page_accueil/accueil.php"';
             $questions = '"../page_questions/questions.php"';
             $parametre = '"#" class="current"';
-            $plus='<div id="afficher-p-p"><a class="lien-entete" id="afficher_public" href=""><div id="bloc-entete"><h4 id="h4-bloc-entete"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></h4>Afficher la page publique</div></a></div>';
+            $plus='<div id="afficher-p-p"><a class="lien-entete" id="afficher_public" href=""><div id="bloc-entete"><h4 id="h4-bloc-entete"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></h4>Page publique</div></a></div>';
         }
         
         echo'
             <div id="title_logo">
-                <img src="../final_logo.png" width="10%" height="10%" id="logo"/>
+                <img src="../final_logo.png" width="144px" height="50px" id="logo"/>
                 '.$plus.'
             </div>
             <div id="menu">

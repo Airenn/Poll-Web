@@ -1,29 +1,80 @@
 /*****************************************
             BALISE NAV
 *****************************************/
+#afficher-p-p
+{
+    color: white;
+    float: right;
+    text-align: center;
+    width: 15%;
+    position:absolute;
+    top:0;
+    right:0;
+    padding-top: 13px;
+    height: 50px;
+    background: rgba(0, 102, 153, 0.90);
+    border: 1px solid rgba(0, 102, 153, 1);
+}
+
+#h4-bloc-entete
+{
+    display: inline;
+    color: white;
+}
+
 #bloc-entete{
     color: #ffffff;
-    background: #1862a0;
-    float: right;
-    padding: 1.5em 1em 1.5em 1em;
-	font-weight : bold;
-    margin-bottom: 2%;
-    width: 20%;
-    height: 7%;
-    position: absolute;
-    top: 0;
-    right: 0;
 }
 
-#h4-bloc-entete{
-    display: inline;
-    padding-right: 8%;
-    padding-left: 15%;
+#bloc-entete .glyphicon{
+    margin-right: 4%;
 }
 
-#bloc-entete:hover{
-    color: #ec971f;
+#afficher_public:hover{
     text-decoration: none;
+}
+
+#background_panel
+{
+    padding-top : 1%;
+    padding-bottom : 1%;
+}
+
+#panel-texte, #panel-arriere-plan
+{
+    border: 0 solid #FFF;
+    border-radius: 0;
+    margin-left : 15%;
+    margin-right : 15%;
+    box-shadow: none;
+}
+
+#head-texte, #head-arriere-plan
+{
+    color: white;
+    background-color: rgba(0, 102, 153, 0.82);
+    border: 1px solid #337ab7;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: center;
+}
+
+#body-texte, #body-arriere-plan
+{
+    border: 1px solid #DDD;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#nb-messages-bouton, #paragraphe-bouton, #reponses-bouton, #question-bouton, #arriere-plan-bouton, #barres-bouton
+{
+    background-color: rgba(101, 185, 255, 0.89);
+    border-radius: 0;
+}
+
+.active#nb-messages-bouton, .active#paragraphe-bouton, .active#reponses-bouton, .active#question-bouton, .active#arriere-plan-bouton, .active#barres-bouton
+{
+    background-color: rgba(0, 102, 153, 0.82);
 }
 
 
@@ -52,7 +103,7 @@
 /*****************************************
                 FORMULAIRE
 *****************************************/
-
+/*
 #tout-formulaire{
     width:70%;
     margin-left: auto;
@@ -81,4 +132,4 @@
 
 .btn.btn-lg:hover{
     color: #f0ad4e;
-}
+}*/

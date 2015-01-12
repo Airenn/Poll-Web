@@ -29,25 +29,25 @@
         <div id="tout-formulaire">
             <form method="post">
 
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><span class="label center-block">Formatage de texte</span></h4>
+            <div id="background_panel">
+                <div class="panel panel-default center-panel" id="panel-texte">
+                    <div class="panel-heading" id="head-texte">
+                        <h3 class="panel-title">Formatage de texte</h3>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body" id="body-texte">
 
                        <div class="btn-group btn-group-justified" role="group" data-toggle="buttons" style="width:100%;">
-                            <label class="btn btn-default active" style="border-bottom-left-radius:0;">
+                            <label class="btn btn-info active" id="question-bouton">
                                 <input type="radio" name="radio-f-d-t" autocomplete="off" value="question" onchange="hide_and_seek('#div-mess,#div-phone,#form_r,#form_m,#form_p','#form_q');" checked/> Question
                             </label>
-                            <label class="btn btn-default">
+                            <label class="btn btn-info" id="reponses-bouton">
                                 <input type="radio" name="radio-f-d-t" autocomplete="off" value="reponse" onchange="hide_and_seek('#div-mess,#div-phone,#form_q,#form_m,#form_p','#form_r');"/> Réponses
                             </label>
-                            <label class="btn btn-default">
+                            <label class="btn btn-info" id="paragraphe-bouton">
                                 <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess,#form_q,#form_m,#form_r','#div-phone,#form_p');"/> Paragraphe
                             </label>
-                            <label class="btn btn-default" style="border-bottom-right-radius:0;">
+                            <label class="btn btn-info" id="nb-messages-bouton">
                                 <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess(); hide_and_seek('#form_q,#form_r,#form_p','#form_m');"/> Nombre de messages
                             </label>
                         </div>
@@ -86,9 +86,9 @@
                         <span id="form_p" style="display:none;"> <?php formulaire_couleur("form_paragraphe") ?> </span>
 
 
-                        <span class="input-group-addon" style="border-bottom-left-radius:4px;border-top-right-radius:0;border:1px solid #cccccc;">
+                        <span class="input-group-addon" style="border-radius:0;border:1px solid #cccccc;">
                             <div class="span6" style="text-align:center;">
-                                <button type="submit" class="btn btn-default">Sauvegarder</button>
+                                <button type="submit" class="btn btn-info">Sauvegarder</button>
                             </div>
                         </span>
 
@@ -99,22 +99,22 @@
 
 
             <form method="post" enctype="multipart/form-data">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="panel panel-default center-panel" id="panel-arriere-plan">
+                    <div class="panel-heading" id="head-arriere-plan">
 
-                        <h4><span class="label center-block">Arrière-plan<br/><br/>Barres progressives</span></h4>
+                        <h3 class="panel-title">Arrière-plan &#38; Barres progressives</h3>
                     </div>
 
 
 
-                    <div class="panel-body">
+                    <div class="panel-body" id="body-arriere-plan">
 
                         <div id="block-a-p-b-p" class="center-block">
                             <div id="radio-a-p-b-p" class="btn-group btn-group-justified" role="group" data-toggle="buttons" style="width:100%;">
-                                <label class="btn btn-default active" style="border-bottom-left-radius:0;">
+                                <label class="btn btn-info active" id="arriere-plan-bouton">
                                     <input type="radio" name="radio-a-b" autocomplete="off" value="arriere-plan" onchange="hide_and_seek('#barre-progressive','#arriere-plan');" checked="on"/> Arrière-plan
                                 </label>
-                                <label class="btn btn-default" style="border-bottom-right-radius:0;">
+                                <label class="btn btn-info" id="barres-bouton">
                                     <input type="radio" name="radio-a-b" autocomplete="off" value="barre-progressive" onchange="hide_and_seek('#arriere-plan','#barre-progressive');"/> Barres progressives
                                 </label>
                             </div>
@@ -124,9 +124,9 @@
 
                         <div id="arriere-plan">
 
-                            <div id="choix_arriere_plan" style="width:100%;" class="input-group">
+                            <div id="choix_arriere_plan" class="input-group">
                                 <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;"> 
-                                    Type d'arrière-plan<br/><br/>
+                                    <strong>Type d'arrière-plan</strong><br/><br/>
 
                                     <label>Couleur <input type="radio" name="radio-a" value="color" onchange="hide_and_seek('#background-image','#background-color');" checked="on"/>
                                     </label><br/>
@@ -176,12 +176,13 @@
                             </div>
                         </div>
 
-                        <span class="input-group-addon" style="border-bottom-left-radius:4px;border-top-right-radius:0;border:1px solid #cccccc;">
+                        <span class="input-group-addon" id="save_barres" style="border-radius:0;border:1px solid #cccccc;">
                             <div class="span6" style="text-align:center;">
-                                <button type="submit" class="btn btn-default">Sauvegarder</button>
+                                <button type="submit" class="btn btn-info">Sauvegarder</button>
                             </div>
                         </span>
                     </div>
+                </div>
                 </div>
             </form>
         </div>
