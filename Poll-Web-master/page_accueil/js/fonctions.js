@@ -1,72 +1,72 @@
 function modal_suppr(id, texte){
     var href = id;
 		
-    if (!$('#dataConfirmModal').length) {
-        $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+    if (!$('#modal_suprimmer').length) {
+        $('body').append('<div id="modal_suprimmer" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="dataConfirmOK">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_suprimmerConfirmOK">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
-    $('#dataConfirmModal').find('.modal-body').text(texte);
-    $('#dataConfirmModal').modal({show:true});
-    $('#dataConfirmOK').click(function(){
+    $('#modal_suprimmer').find('.modal-body').text(texte);
+    $('#modal_suprimmer').modal({show:true});
+    $('#modal_suprimmerConfirmOK').click(function(){
         $.post(get_url_delete(href), function(data){ update_page() });
         $('#id_questionnaire_selected').text('aucun');
-        $("#dataConfirmModal").modal('hide');
+        $("#modal_suprimmer").modal('hide');
     });
 }
 function modal_close(id, texte){
     var href = id;
 		
-    if (!$('#dataConfirmModal').length) {
-        $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+    if (!$('#modal_fermer').length) {
+        $('body').append('<div id="modal_fermer" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="dataConfirmOK">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_fermerdataConfirmOK">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
-    $('#dataConfirmModal').find('.modal-body').text(texte);
-    $('#dataConfirmModal').modal({show:true});
-    $('#dataConfirmOK').click(function(){
+    $('#modal_fermer').find('.modal-body').text(texte);
+    $('#modal_fermer').modal({show:true});
+    $('#modal_fermerdataConfirmOK').click(function(){
         $.post(close_quest(href), function(data){location.reload();});
-        $("#dataConfirmModal").modal('hide');
+        $("#modal_fermer").modal('hide');
     });
 }
 
 function modal_open(id, texte){
     var href = id;
 		
-    if (!$('#dataConfirmModal').length) {
-        $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+    if (!$('#modal_ouvrir').length) {
+        $('body').append('<div id="modal_ouvrir" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="dataConfirmOK">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_ouvrirConfirmOK">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
-    $('#dataConfirmModal').find('.modal-body').text(texte);
-    $('#dataConfirmModal').modal({show:true});
-    $('#dataConfirmOK').click(function(){
+    $('#modal_ouvrir').find('.modal-body').text(texte);
+    $('#modal_ouvrir').modal({show:true});
+    $('#modal_ouvrirConfirmOK').click(function(){
         $.post(open_quest(href), function(data){location.reload();});
-        $("#dataConfirmModal").modal('hide');
+        $("#modal_ouvrir").modal('hide');
     });
 }
 function modal_export(id, texte){
     var href = id;
 		
-    if (!$('#dataConfirmModal').length) {
-        $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+    if (!$('#modal_export').length) {
+        $('body').append('<div id="modal_export" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>'+
-                         '<a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_exportConfirmOK">Oui</a>'+
+                         '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
-    $('#dataConfirmModal').find('.modal-body').text(texte);
-    $('#dataConfirmModal').modal({show:true});
-    $('#dataConfirmOK').click(function(){
+    $('#modal_export').find('.modal-body').text(texte);
+    $('#modal_export').modal({show:true});
+    $('#modal_exportConfirmOK').click(function(){
         $.post(get_url_export(href), function(data){ update_table() });
         $('#id_questionnaire_selected').text('aucun');
-        $("#dataConfirmModal").modal('hide');
+        $("#modal_export").modal('hide');
     });
 }
 
