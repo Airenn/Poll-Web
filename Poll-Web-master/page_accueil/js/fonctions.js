@@ -1,72 +1,72 @@
 function modal_suppr(id, texte){
     var href = id;
-		
-    if (!$('#modal_suprimmer').length) {
-        $('body').append('<div id="modal_suprimmer" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+  
+    if (!$('#modal_suprimmer'+id).length) {
+        $('body').append('<div id="modal_suprimmer' + id + '" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_suprimmerConfirmOK">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_suprimmerConfirmOK' +id +'">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
-    $('#modal_suprimmer').find('.modal-body').text(texte);
-    $('#modal_suprimmer').modal({show:true});
-    $('#modal_suprimmerConfirmOK').click(function(){
+    $('#modal_suprimmer'+ id).find('.modal-body').text(texte);
+    $('#modal_suprimmer'+ id).modal({show:true});
+    $('#modal_suprimmerConfirmOK'+id).click(function(){
         $.post(get_url_delete(href), function(data){ update_page() });
         $('#id_questionnaire_selected').text('aucun');
-        $("#modal_suprimmer").modal('hide');
+        $('#modal_suprimmer'+ id ).modal('hide');
     });
 }
 function modal_close(id, texte){
     var href = id;
 		
-    if (!$('#modal_fermer').length) {
-        $('body').append('<div id="modal_fermer" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+    if (!$('#modal_close'+id).length) {
+        $('body').append('<div id="modal_close'+id+'" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_fermerdataConfirmOK">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_closedataConfirmOK' + id +'">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
-    $('#modal_fermer').find('.modal-body').text(texte);
-    $('#modal_fermer').modal({show:true});
-    $('#modal_fermerdataConfirmOK').click(function(){
+    $('#modal_close'+id).find('.modal-body').text(texte);
+    $('#modal_close'+id).modal({show:true});
+    $('#modal_fermerdataConfirmOK'+id).click(function(){
         $.post(close_quest(href), function(data){location.reload();});
-        $("#modal_fermer").modal('hide');
+        $('#modal_close'+id).modal('hide');
     });
 }
 
 function modal_open(id, texte){
     var href = id;
 		
-    if (!$('#modal_ouvrir').length) {
-        $('body').append('<div id="modal_ouvrir" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+    if (!$('#modal_ouvrir'+id).length) {
+        $('body').append('<div id="#modal_ouvrir '+ id +' " class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_ouvrirConfirmOK">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_ouvrirConfirmOK' + id + '">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
-    $('#modal_ouvrir').find('.modal-body').text(texte);
-    $('#modal_ouvrir').modal({show:true});
-    $('#modal_ouvrirConfirmOK').click(function(){
+    $('#modal_ouvrir'+id).find('.modal-body').text(texte);
+    $('#modal_ouvrir'+id).modal({show:true});
+    $('#modal_ouvrirConfirmOK'+id).click(function(){
         $.post(open_quest(href), function(data){location.reload();});
-        $("#modal_ouvrir").modal('hide');
+        $('#modal_ouvrir'+id).modal('hide');
     });
 }
 function modal_export(id, texte){
     var href = id;
 		
-    if (!$('#modal_export').length) {
-        $('body').append('<div id="modal_export" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+    if (!$('#modal_export'+id).length) {
+        $('body').append('<div id="modal_export'+id+'" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_exportConfirmOK">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_exportConfirmOK' + id + '">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
-    $('#modal_export').find('.modal-body').text(texte);
-    $('#modal_export').modal({show:true});
-    $('#modal_exportConfirmOK').click(function(){
+    $('#modal_export'+id).find('.modal-body').text(texte);
+    $('#modal_export'+id).modal({show:true});
+    $('#modal_exportConfirmOK'+id).click(function(){
         $.post(get_url_export(href), function(data){ update_table() });
         $('#id_questionnaire_selected').text('aucun');
-        $("#modal_export").modal('hide');
+        $("#modal_export"+id).modal('hide');
     });
 }
 

@@ -28,7 +28,6 @@
 				</div>
 			</div>
 		</div>
-		  
 		<script src="../bootstrap/dist/js/jquery.min.js"></script>
         <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../bootstrap-table/dist/js/bootstrap-table.min.js"></script>
