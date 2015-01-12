@@ -23,12 +23,12 @@ function modal_close(id, texte){
         $('body').append('<div id="modal_close'+id+'" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_closedataConfirmOK' + id +'">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_closeConfirmOK' + id +'">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
     $('#modal_close'+id).find('.modal-body').text(texte);
     $('#modal_close'+id).modal({show:true});
-    $('#modal_fermerdataConfirmOK'+id).click(function(){
+    $('#modal_closeConfirmOK'+id).click(function(){
         $.post(close_quest(href), function(data){location.reload();});
         $('#modal_close'+id).modal('hide');
     });
@@ -38,10 +38,10 @@ function modal_open(id, texte){
     var href = id;
 		
     if (!$('#modal_ouvrir'+id).length) {
-        $('body').append('<div id="#modal_ouvrir '+ id +' " class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
+        $('body').append('<div id="modal_ouvrir'+id+'" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_ouvrirConfirmOK' + id + '">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_ouvrirConfirmOK'+id+'">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
     $('#modal_ouvrir'+id).find('.modal-body').text(texte);
@@ -58,7 +58,7 @@ function modal_export(id, texte){
         $('body').append('<div id="modal_export'+id+'" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
                          '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_exportConfirmOK' + id + '">Oui</a>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="modal_exportConfirmOK'+id+'">Oui</a>'+
                          '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
     $('#modal_export'+id).find('.modal-body').text(texte);
@@ -66,7 +66,7 @@ function modal_export(id, texte){
     $('#modal_exportConfirmOK'+id).click(function(){
         $.post(get_url_export(href), function(data){ update_table() });
         $('#id_questionnaire_selected').text('aucun');
-        $("#modal_export"+id).modal('hide');
+        $('#modal_export'+id).modal('hide');
     });
 }
 
