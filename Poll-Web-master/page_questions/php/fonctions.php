@@ -472,11 +472,28 @@
      * \param $question : int, identifiant de la question 
      */
     function delete_question($question){
+        $order_by = array('colonne_tri'=>'num_question', 'ordre_tri'=>"ASC");
+        $question = get_question($question);
+        $num_question = $question['num_question'];
+        
         $args = array(
-                    'clause_where'=>array('ID'=>$question)
+                    'clause_where'=>array('ID'=>$question['ID'])
                 );
         
         execute_sql("DELETE", "questions", $args);
+        
+        $questions =  get_questions($question['ID_operation'], $order_by);
+        
+        while($quest = $questions->fetch(PDO::FETCH_ASSOC)){
+            if($quest['num_question']>$num_question){
+                $args = array(
+                            'clause_set'=>array('num_question'=>($quest['num_question']-1)),
+                            'clause_where'=>array('ID'=>$quest['ID'])
+                        );
+
+                execute_sql("UPDATE", "questions", $args);
+            }
+        }
     }
 
     /*
