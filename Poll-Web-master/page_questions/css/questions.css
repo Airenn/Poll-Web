@@ -221,6 +221,11 @@
     border-radius: 0;
 }
 
+#heading_resultats, #heading_envoi
+{
+    width: 17%;
+}
+
 #question_body, #body_envoi, #body_resultats
 {
     border: 1px solid #DDD;
