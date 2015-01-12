@@ -55,7 +55,7 @@
                     </div>
                     <div class="input-group" id="name_question_and_dropdown">
                         <span class="input-group-addon" id="input_texte_question">
-                            Question
+                            <h3 class="panel-title" style="display:inline;">Question</h3>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="btn-question">
                                 <span class="caret" id="caret_question"></span>
                             </button>
@@ -167,7 +167,7 @@
                         </div>
                     </div>
                     
-                    <div class="input-group">
+                    <div class="input-group" id="rajout_question">
                         <span class="input-group-addon" id="ajouter-question">
                             <div class="btn-group" role="group" aria-label="...">
                                 <button type="button" class="btn btn-info" id="btn-ajouter-question">Ajouter une question</button>
