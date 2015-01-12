@@ -7,6 +7,10 @@ $keydown_refresh="";
 
 activer_affichage();
 
+$("#afficher_public").click(function(){
+    maximize_screen();
+});
+
 $("#bouton-right").click(function() {
         update_keydown();
         activer_affichage();
@@ -84,3 +88,9 @@ function maximize_screen(){
         var myWindow = window.open("page-public.php", "", "width=100%", "height=100%");
         myWindow.resizeTo(screen.availWidth, screen.availHeight);
 }
+
+function PopupWindow(source, strWindowToOpen){
+    var strWindowFeatures = "toolbar=no,resize=no,titlebar=no,";
+    strWindowFeatures = strWindowFeatures + "menubar=no,width=413,height=299,maximize=null";
+    window.open(strWindowToOpen, '', strWindowFeatures);
+} 

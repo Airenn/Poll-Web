@@ -117,7 +117,6 @@ function formulaire_couleur($key,$choix_section){
                 Police<br/><br/>
                 <div>
                     <select style="width:70%;height:2.4em;border:solid #cccccc 1px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-top-left-radius:4px;border-bottom-left-radius:4px;text-align:center;" <?php echo "name='police-$choix_section'"; ?> value='button-police'>
-                        
                         <?php  
                             $tab_police = array("Arial","Arial Black","Comic Sans MS","Courier New","Georgia",
                                                     "Impact","Times New Roman","Trebuchet MS","Verdana");

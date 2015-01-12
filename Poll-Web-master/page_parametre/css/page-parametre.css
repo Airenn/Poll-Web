@@ -36,8 +36,7 @@
     margin-right: 4%;
 }
 
-#afficher_public, #afficher_public:hover, #afficher_public:focus
-{
+#afficher_public, #afficher_public:hover, #afficher_public:focus{
     text-decoration: none;
 }
 
