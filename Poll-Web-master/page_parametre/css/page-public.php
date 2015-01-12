@@ -36,6 +36,8 @@ html, body
 }
 
 
+
+
 /* HAUT DE PAGE */
 
 header
@@ -48,6 +50,7 @@ header
 
 #question
 {
+    background : white;
     padding : .3em 79% .3em .3em;
     border : solid black 1px;
     border-radius : 5px;
