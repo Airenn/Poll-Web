@@ -266,7 +266,7 @@
         $texte = str_replace("'", "\'", $texte);
         $texte = str_replace('"', "\'", $texte);
         
-        if(in_array($num_question, $existing_nums) || $num_question==0 || $num_question>$max){
+        if(in_array($num_question, $existing_nums) || $num_question<=0 || $num_question>$max){
             $num_question = $max; 
         }
         
@@ -445,7 +445,7 @@
         if(($num<=0 || $num>$max) && $max!=($question['num_question']+1)){
             $num = $max;
         }
-        else if($num>=$max && $max==($question['num_question']+1)){
+        else if(($num>=$max && ($max==($question['num_question']+1) || in_array($max-1, $existing_nums))) || (in_array($num, $existing_nums))){
             $num = $question['num_question'];
         }
         
