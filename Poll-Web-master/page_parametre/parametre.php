@@ -76,13 +76,13 @@
 
 
 
-                        <span id="form_q"> <?php formulaire_couleur("form_question") ?> </span>
+                        <span id="form_q"> <?php formulaire_couleur("question","form_question") ?> </span>
 
-                        <span id="form_r" style="display:none;"> <?php formulaire_couleur("form_reponse") ?> </span>
+                        <span id="form_r" style="display:none;"> <?php formulaire_couleur("reponse","form_reponse") ?> </span>
 
-                        <span id="form_m" style="display:none;"> <?php formulaire_couleur("form_nbmess") ?> </span>
+                        <span id="form_m" style="display:none;"> <?php formulaire_couleur('nbmess','form_nbmess') ?> </span>
 
-                        <span id="form_p" style="display:none;"> <?php formulaire_couleur("form_paragraphe") ?> </span>
+                        <span id="form_p" style="display:none;"> <?php formulaire_couleur('paragraphe','form_paragraphe') ?> </span>
 
 
                         <span class="input-group-addon" style="border-radius:0;border:1px solid #cccccc;">

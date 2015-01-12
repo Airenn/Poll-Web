@@ -8,7 +8,7 @@
                 text_format('nbmess','form_nbmess');
             if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='paragraphe')
                 text_format('paragraphe','form_paragraphe');
-            if(isset($_POST['checkbox']) and trim($_POST['checkbox']!="")){
+            if(isset($_POST['checkbox'])){
                 $_SESSION['nbmess']['checkbox']=$_POST['checkbox'];
             }
             else{

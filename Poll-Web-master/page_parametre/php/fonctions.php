@@ -101,13 +101,16 @@ function create_title(){
     echo '<p id="question">'.$texte.'</p>';
 }
 
-function formulaire_couleur($choix_section){
+function formulaire_couleur($key,$choix_section){
 ?>
         <div <?php echo "id=formatage-texte-$choix_section"; ?> >
 
             <span class="input-group-addon" style="border-top-left-radius:0;border-bottom-left-radius:0;width:23,33333%;"> 
                 Couleur<br/><br/>
-                <input type="color" class="form-control" aria-describedby="basic-addon1" <?php echo "name='color-$choix_section'"; ?> >
+                <input type="color" class="form-control" aria-describedby="basic-addon1" <?php echo "name='color-$choix_section'"; ?> value=<?php 
+                                    if(isset($_SESSION[$key]["color-$choix_section"]))
+                                        echo $_SESSION[$key]["color-$choix_section"]; 
+                       ?> />
             </span>
 
             <span class="input-group-addon" style="width:23,33333%;">
@@ -129,7 +132,13 @@ function formulaire_couleur($choix_section){
 
             <span class="input-group-addon"style="border-top-right-radius:0;border-bottom-right-radius:0;width:23,33333%;">
                 Taille<br/><br/>
-                <input style="text-align:center;" type="text" class="form-control" placeholder="en px" aria-describedby="basic-addon1" <?php echo "name='taille-police-$choix_section'"; ?> >
+                <input style="text-align:center;" type="text" class="form-control" placeholder="<?php 
+                       if(isset($_POST["taille-police-$choix_section"]))
+                           echo $_POST["taille-police-$choix_section"].' px';
+                        else
+                            echo 'en px';
+                       
+                       ?> "aria-describedby="basic-addon1" <?php echo "name='taille-police-$choix_section'"; ?> >
             </span>
 
        </div> 

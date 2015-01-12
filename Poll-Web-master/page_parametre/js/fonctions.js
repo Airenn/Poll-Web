@@ -14,7 +14,9 @@ $("#afficher_public").click(function(){
 });
 
 
-
+$document.ready(function(){
+    ("button[type=submit]").submit();
+});
 
 
 $("#bouton-right").click(function() {
