@@ -1481,6 +1481,7 @@ function AfficheQuestionnaires()
         
     $req = execute_sql("SELECT", "operations", $args);
     $click = "";
+    $name = "";
 	
 	echo'
 								<thead>
@@ -1493,6 +1494,7 @@ function AfficheQuestionnaires()
 	
     while($val = $req->fetch(PDO::FETCH_ASSOC))
     {
+        $name = str_replace("\'", "'", $val['nom']);
         $click = 'onclick="questionnaire_selected('.$val['ID'].', \''.$val['nom'].'\');"';
         $click_suppr = 'onclick="modal_suppr('.$val['ID'].', \'Etes-vous certain de vouloir supprimer le questionnaire '.$val['nom'].' ?\');"';
         $click_close = 'onclick="modal_close('.$val['ID'].', \'Etes-vous certain de vouloir fermer le questionnaire '.$val['nom'].' ?\');"';
@@ -1501,7 +1503,7 @@ function AfficheQuestionnaires()
         $click_edit = 'onclick="modal_edit('.$val['ID'].');"';  		
 		echo'
 		<tr id="'.$val['ID'].'" data-toggle="collapse" data-target=".'.$val['ID'].'" class="accordion-toggle" '.$click.'>
-            <td class="titre">'.$val['nom'].'</td>
+            <td class="titre">'.$name.'</td>
             <td>'.$val['date_prevue'].'</td> 
             <td class="option">
             <!--<div class="options_part_1">-->

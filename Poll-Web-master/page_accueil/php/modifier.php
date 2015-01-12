@@ -3,7 +3,8 @@
     require_once('../../php/connexion.php');
 	
     $id_operation = $_GET['id'];
-    $nom_operation = $_GET['nom'];
+    $nom_operation = str_replace("'", "\'", $_GET['nom']);
+    $nom_operation = str_replace('"', "\'", $nom_operation);
     $date_operation = $_GET['date'];
     $type_operation='UPDATE';
     $table_cible='operations';

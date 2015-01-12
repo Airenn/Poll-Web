@@ -2,7 +2,8 @@
     require_once('../../php/fonctions.php');
     require_once('../../php/connexion.php');
 
-    $nom_operation = $_GET['nom'];
+    $nom_operation = str_replace("'", "\'", $_GET['nom']);
+    $nom_operation = str_replace('"', "\'", $nom_operation);
     $date_operation = $_GET['date'];
     $type_operation='INSERT';
     $table_cible='operations';
