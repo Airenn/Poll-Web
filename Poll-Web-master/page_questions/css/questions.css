@@ -125,6 +125,7 @@
 #panel_resultats
 {
     visibility: hidden;
+    min-height: 500px;
 }
 
 .valide_message
@@ -227,6 +228,7 @@
 {
     border-radius: 0;
     border: 0 solid #FFF;
+    box-shadow: none;
 }
 
 #panel_resultats
@@ -240,16 +242,19 @@
     background-color: rgba(0, 102, 153, 0.82);
     border: 1px solid #337ab7;
     border-radius: 0;
+    box-shadow: none;
 }
 
 #heading_resultats, #heading_envoi
 {
     width: 20%;
+    box-shadow: none;
 }
 
 #question_body, #body_envoi, #body_resultats
 {
     border: 1px solid #DDD;
+    box-shadow: none;
 }
 
 #body_envoi

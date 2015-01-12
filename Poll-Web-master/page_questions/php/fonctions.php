@@ -386,7 +386,8 @@
         $reponses = get_reponses($question);
         $total = nb_messages_quest($question, $categorie);
         $pourcentage_total = 0;
-        $categories = array();
+        $draw = 1;
+        $categories = array("success"=>"Valide", "default"=>"Doublon", "warning"=>"Retard");
         
         if($categorie == 'Valide'){
             $categories = array("success"=>$categorie);
@@ -400,15 +401,18 @@
         else if($categorie == 'Tout'){
             $categories = array("success"=>"Valide", "default"=>"Doublon", "warning"=>"Retard");
         }
-        
+        else{
+            $draw = 0;
+            $total = nb_messages_quest($question, 'Tout');
+        }
         while($rep = $reponses->fetch(PDO::FETCH_ASSOC)){
-            $pourcentage_total += construct_full_bar($categories, $question, $rep['ID'], $total, $rep['lettre_reponse'].' : '.$rep['texte'], $pourcentage_total);
+            $pourcentage_total += construct_full_bar($categories, $question, $rep['ID'], $total, $rep['lettre_reponse'].' : '.$rep['texte'], $pourcentage_total, $draw);
         }
         
         if($categorie == 'Tout' || $categorie == 'Erreur'){
             $categories = array("danger"=>"Erreur");
             $total = total_messages($question);
-            construct_full_bar($categories, $question, null, $total, 'Erreur', $pourcentage_total);
+            $pourcentage_total += construct_full_bar($categories, $question, null, $total, 'Erreur', $pourcentage_total, 1);
         }
     }
 
@@ -538,8 +542,13 @@
      * \param $progress_clas : string, classe de la progress-bar a construire
      * \param $categorie : string, categorie de message a representer
      * \param $total : int, total de messages a prendre en compte
+     * \param $draw : bool, 0 si on ne doit pas dessiner la barre, 1 sinon
      */
-    function construct_part_bar($pourcentage, $reponse, $progress_class, $categorie, $total){
+    function construct_part_bar($pourcentage, $reponse, $progress_class, $categorie, $total, $draw=1){
+        if($draw==0){
+            $pourcentage = 0;   
+        }
+        
         echo
             '<div class="progress-bar progress-bar-'.$progress_class.' progress-bar-striped" style="width: '.$pourcentage.'%">
                 <span class="sr-only">'.$pourcentage.'%</span>
@@ -555,8 +564,9 @@
      * \param $total : int, total de messages a prendre en compte
      * \param $texte : string, texte a inclure dans le titre de la barre
      * \param $limit : int, pourcentage de la categorie deja calcule
+     * \param $draw : bool, 0 si on ne doit pas dessiner la barre, 1 sinon
      */
-    function construct_full_bar($categories, $question, $reponse, $total, $texte, $limit){
+    function construct_full_bar($categories, $question, $reponse, $total, $texte, $limit, $draw=1){
         $pourcentage_total = 0;
         $pourcentage = 0;
         $pourcentage_total = get_pourcentage_total($question, $reponse, $categories, $total, $limit);
@@ -567,7 +577,7 @@
 
         echo '<h4>'.$texte;
 
-        if($pourcentage_total != 0){
+        if($pourcentage_total != 0 && $draw){
             echo '<span class="label label-default" style="float: right;">'.$pourcentage_total.'%</span>';
         }
 
@@ -578,7 +588,7 @@
             if($texte == 'Erreur' && $limit!=0){
                 $pourcentage = 100-$limit;   
             }
-            construct_part_bar($pourcentage, $reponse, $key, $categ, $total);
+            construct_part_bar($pourcentage, $reponse, $key, $categ, $total, $draw);
         }
         echo '</div>';
         
