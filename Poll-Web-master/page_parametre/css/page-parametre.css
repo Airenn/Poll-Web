@@ -75,6 +75,10 @@
     box-shadow: none;
 }
 
+#body-arriere-plan{
+    height:100;
+}
+
 #nb-messages-bouton,
 #paragraphe-bouton,
 #reponses-bouton,
@@ -94,8 +98,7 @@
 .active#barres-bouton
 {
     background-color: rgba(0, 102, 153, 0.82);
-    pointer-events: none;
-    cursor: default;
+    
 }
 
 #nb-messages-bouton:hover,
@@ -155,8 +158,16 @@
     bottom : 0;
 }
 
-
-
 option.style-police{
     padding-right:2.5em;
+}
+
+#police_selectionnee{
+    border-top:1px solid black;
+    margin-top:0.5em;
+    padding:2px 0 2px 0;
+    color:white;
+    background:#353535;
+    pointer-events: none;
+    cursor: default;
 }

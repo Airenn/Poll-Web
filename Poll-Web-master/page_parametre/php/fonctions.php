@@ -117,65 +117,28 @@ function formulaire_couleur($key,$choix_section){
                 Police<br/><br/>
                 <div>
                     <select style="width:70%;height:2.4em;border:solid #cccccc 1px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-top-left-radius:4px;border-bottom-left-radius:4px;text-align:center;" <?php echo "name='police-$choix_section'"; ?> value='button-police'>
-                        <optgroup style="font-family:'Arial'">
-                            <option class="style-police" value='Arial'>Arial</option>
-                        </optgroup>
-                        <optgroup style="font-family:'Arial Black'">
-                            <option class="style-police" value='Arial Black'>Arial Black</option>
-                        </optgroup>
-                        <optgroup style="font-family:'Comic Sans MS'">
-                            <option class="style-police" value='Comic Sans MS'>Comic Sans MS</option>
-                        </optgroup>
-                        <optgroup style="font-family:'Courier New'">
-                            <option class="style-police" value='Courier New'>Courier New</option>
-                        </optgroup>
-                        <optgroup style="font-family:'Georgia'">
-                            <option class="style-police" value='Georgia'>Georgia</option>
-                        </optgroup>
-                        <optgroup style="font-family:'Impact'">
-                            <option class="style-police" value='Impact'>Impact</option>
-                        </optgroup>
-                        <optgroup style="font-family:'Times New Roman'">
-                            <option class="style-police" value='Times New Roman'>Times New Roman</option>
-                        </optgroup>
-                        <optgroup style="font-family:'Trebuchet MS'">
-                            <option class="style-police" value='Trebuchet MS'>Trebuchet MS</option>
-                        </optgroup>
-                        <optgroup style="font-family:'Verdana'">
-                            <option class="style-police" value='Verdana'>Verdana</option>
-                        </optgroup>
                         
-                        <?php  if(isset($_SESSION[$key]["police-$choix_section"])){
+                        <?php  
+                            $tab_police = array("Arial","Arial Black","Comic Sans MS","Courier New","Georgia",
+                                                    "Impact","Times New Roman","Trebuchet MS","Verdana");
+
+                            foreach($tab_police as $polices_style){
+                                echo "<optgroup style=font-family:'$polices_style';>
+                                        <option class='style-police' value='$polices_style'>$polices_style</option>
+                                      </optgroup>";
+                            }
+
+                            if(isset($_SESSION[$key]["police-$choix_section"])){
+                                foreach($tab_police as $police_selected){
                                     switch($_SESSION[$key]["police-$choix_section"]){
-                                        case "Arial":
-                                            echo "<option value='Arial' selected >Arial</option>";
-                                            break;
-                                        case "Arial Black":
-                                            echo "<option value='Arial Black' selected >Arial Black</option>";
-                                            break;
-                                        case "Comic Sans MS";
-                                            echo "<option value='Comic Sans MS' selected >Comic Sans MS</option>";
-                                            break;
-                                        case "Courrier New":
-                                        echo "<option value='Courier New' selected >Courier New</option>";
-                                            break;
-                                        case "Georgia":
-                                        echo "<option value='Georgia' selected >Georgia</option>";
-                                            break;
-                                        case "Impact":
-                                        echo "<option value='Impact' selected >Impact</option>";
-                                            break;
-                                        case "Times New Roman":
-                                        echo "<option value='Times New Roman' selected >Times New Roman</option>";
-                                            break;
-                                        case "Trebuchet MS":
-                                        echo "<option value='Trebuchet MS' selected >Trebuchet MS</option>";
-                                            break;
-                                        case "Verdana":
-                                            echo "<option value='Verdana' selected >Verdana</option>";
-                                            break;
+                                        case "$police_selected":
+                                        echo "<optgroup style=font-family:$police_selected>
+                                                <option id='police_selectionnee' class='style-police' value=$police_selected selected>$police_selected</option>
+                                            </optgroup>";
+                                        break;
                                     }
-                            } 
+                                }
+                            }
                         ?>
                     </select>
                 </div>

@@ -34,7 +34,7 @@
                         <h3 class="panel-title">Formatage de texte</h3>
                     </div>
 
-                    <div class="panel-body" id="body-texte">
+                    <div class="panel-body" id="body-texte" style="padding:30px;">
 
                        <div class="btn-group btn-group-justified" role="group" data-toggle="buttons" style="width:100%;">
                             <label class="btn btn-info active" id="question-bouton">
@@ -107,7 +107,7 @@
 
 
 
-                    <div class="panel-body" id="body-arriere-plan">
+                    <div class="panel-body" id="body-arriere-plan" style="padding:30px;">
 
                         <div id="block-a-p-b-p" class="center-block">
                             <div id="radio-a-p-b-p" class="btn-group btn-group-justified" role="group" data-toggle="buttons" style="width:100%;">
@@ -124,7 +124,7 @@
 
                         <div id="arriere-plan" style="width:100%;">
                             <div id="choix_arriere_plan" class="input-group pull-left" style="width:50%;">
-                                <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;border-right:none;"> 
+                                <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;border-right:none;padding-bottom:7px;"> 
                                     <strong>Type d'arrière-plan</strong><br/><br/>
 
                                     <label>Couleur <input type="radio" name="radio-a" value="color" onchange="hide_and_seek('#background-image','#background-color');" checked="on"/>
@@ -136,9 +136,10 @@
 
 
                             <div id="background-color" class="pull-right" style="width:50%;">
-                                <span class="input-group-addon" style="border:solid 1px #cccccc;border-left:none;border-bottom:none;padding:22px 0 22px 0;"> 
-                                    <input style="width:62%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="arriere-plan-color" value='<?php 
-                                                                if(isset($_SESSION['arriere-plan']['radio-a']))
+                                <span class="input-group-addon" style="border:solid 1px #cccccc;border-left:none;border-bottom:none;padding:24px 0 24px 0;height:100%;"> 
+                                    <input style="width:62%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="arriere-plan-color"
+                                                         value='<?php 
+                                                                if(isset($_SESSION['arriere-plan']['radio-a']) && $_SESSION['arriere-plan']['radio-a']=="color")
                                                                     echo $_SESSION['arriere-plan']["color"];
                                                                 else
                                                                     echo "#ffffff";
@@ -148,7 +149,7 @@
                             </div>
 
                             <div id="background-image" class="pull-right" style="display:none;width:50%;">
-                                <span class="input-group-addon" style="border:solid 1px #cccccc;border-left:none;border-bottom:none;padding:27.5px 0 27.5px 0;">
+                                <span class="input-group-addon" style="border:solid 1px #cccccc;border-left:none;border-bottom:none;padding:28.5px 0 28.5px 0;height:100%;">
                                     <div class="center-block" style="width:62%;">
                                         <div>
                                             <input type="file" name="file" ng-disabled="disabled" accept="image/x-png, image/gif, image/jpeg"/>
@@ -160,7 +161,7 @@
 
                         <div id="barre-progressive" style="display:none;">
                             <div id="choix_barre_progressive">
-                                <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;padding-bottom:0.26cm;"> 
+                                <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;padding-bottom:0.37cm;"> 
                                     Couleur de la barre progressive<br/><br/>
                                     <input style="width:30%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="bar-color"  value='<?php 
                                             if(isset($_SESSION['barre-progressive']['hors-delai']))
