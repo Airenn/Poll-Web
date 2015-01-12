@@ -68,7 +68,7 @@
 	$nom = htmlentities($ques['nom']).'.poll';										// Nom du fichier (sans lettre avec accent ou caractère spécial) ou sera sauvegardé le questionnaire et totues ses informations relatives
 	$chemin = "../../operations_exportees/".$nom;									// Chemin d'accès depuis accueil.php (qui appelera ce fichier) ou seront sauvegardé les questionnaires
 	echo $chemin;
-	$quest_export = new questionnaire($ques, $tab/*, $tabl */, $tubl);
+	$quest_export = new questionnaire($ques, $tab, $tubl);
     $export_txt = serialize($quest_export);
 	
     $fh = fopen($chemin,'w'); 													// Ouverture d'un fichier en lecture/écriture, en le créant s'il n'existe pas.

@@ -13,7 +13,7 @@
 	class questionnaire															// Definition d'un objet questionnaire comportant les questionnaires, ses questions, ainsi que les réponses correspondant
 	{
 		var $quest;																
-		var $questions;
+		var $question;
 		var $reponses;
 		
 		function questionnaire($ques, $que, $rep)
