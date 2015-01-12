@@ -16,7 +16,15 @@
 	$tab = array();
 	while($question = $que->fetch(PDO::FETCH_ASSOC))										// On récupère sous forme de tableau les questions du questionnaire selectionné
 	{
-		array_push($tab, array('ID' => $question['ID'],'num_question' => $question['num_question'],'texte' => $question['texte'],'multi_rep' => $question['multi_rep'],'fermee' => $question['fermee'],'ID_operation' => $question['ID_operation']));
+		array_push($tab, array(
+								'ID' => $question['ID'],
+								'num_question' => $question['num_question'],
+								'texte' => $question['texte'],
+								'multi_rep' => $question['multi_rep'],
+								'fermee' => $question['fermee'],
+								'ID_operation' => $question['ID_operation']
+								)
+					);
 	}
 	
 	$tabl = array();
@@ -28,13 +36,32 @@
 		$msg = execute_sql($type_operation, "messages", $argz);
 		while($question = $msg->fetch(PDO::FETCH_ASSOC))									// Pour chaque message remplissant la condition précédente
 		{
-			array_push($tabl, $question);
+			array_push($tabl, array(
+									'ID' => $question['ID'],
+									'num_tel' => $question['num_tel'],
+									'texte' => $question['texte'],
+									'date_reception' => $question['date_reception'],
+									'valide' => $question['valide'],
+									'erreur' => $question['erreur'],
+									'doublon' => $question['doublon'],
+									'retard' => $question['retard'],
+									'ID_reponse' => $question['ID_reponse'],
+									'ID_question' => $question['ID_question']
+									)
+						);
 		}
 	
 		$rep = execute_sql($type_operation, "reponses", $argz);
 		while($question = $rep->fetch(PDO::FETCH_ASSOC))									// Pour chaque reponse remplissant la condition précédente
 		{
-			array_push($tubl, $question);
+			array_push($tubl, array(
+									'ID' => $question['ID'],
+									'lettre_reponse' => $question['lettre_reponse'],
+									'texte' => $question['texte'],
+									'points' => $question['points'],
+									'ID_question' => $question['ID_question']
+									)
+						);
 		}
 	}
 	
