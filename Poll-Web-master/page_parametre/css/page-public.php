@@ -57,7 +57,6 @@ header
 
 #question
 {
-    background : white;
     padding : .3em 79% .3em .3em;
     border : solid black 1px;
     border-radius : 5px;
@@ -68,9 +67,10 @@ header
 #nbmsg
 {
 <?php
-    if(isset($_SESSION['nbmess']['checkbox']) and trim($_SESSION['nbmess']['checkbox']!=""))
+    if(isset($_SESSION['nbmess']['checkbox']) and trim($_SESSION['nbmess']['checkbox'])!="")
+    {
         text_format_css('nbmess','form_nbmess');
-    else{
+    }else{
         echo "display:none;";
     }
 ?>

@@ -85,6 +85,6 @@ function hide_checkbox(checkbox,hide){
 }
 
 function maximize_screen(){
-        var myWindow = window.open("page-public.php", "", "width=100%", "height=100%")
+        var myWindow = window.open("page-public.php", "", "width=100%", "height=100%");
         myWindow.resizeTo(screen.availWidth, screen.availHeight);
 }
