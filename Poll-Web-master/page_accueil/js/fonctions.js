@@ -4,9 +4,9 @@ function modal_suppr(id, texte){
     if (!$('#dataConfirmModal').length) {
         $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
-                         '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>'+
-                         '<a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+                         '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="dataConfirmOK">Oui</a>'+
+                         '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
     $('#dataConfirmModal').find('.modal-body').text(texte);
     $('#dataConfirmModal').modal({show:true});
@@ -22,14 +22,14 @@ function modal_close(id, texte){
     if (!$('#dataConfirmModal').length) {
         $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
-                         '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>'+
-                         '<a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+                         '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="dataConfirmOK">Oui</a>'+
+                         '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
     $('#dataConfirmModal').find('.modal-body').text(texte);
     $('#dataConfirmModal').modal({show:true});
     $('#dataConfirmOK').click(function(){
-        $.post(close_quest(href), function(data){update_table()});
+        $.post(close_quest(href), function(data){location.reload();});
         $("#dataConfirmModal").modal('hide');
     });
 }
@@ -40,14 +40,14 @@ function modal_open(id, texte){
     if (!$('#dataConfirmModal').length) {
         $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
                          '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'+
-                         '<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
-                         '<div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>'+
-                         '<a class="btn btn-danger" id="dataConfirmOK">Oui</a></div></div></div></div>');
+                         '<button type="button" class="close " data-dismiss="modal" aria-hidden="true"></button><h3 id="dataConfirmLabel">Merci de confirmer</h3></div>'+
+                         '<div class="modal-body"></div><div class="modal-footer"><a class="btn btn-success" id="dataConfirmOK">Oui</a>'+
+                         '<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Non</button></div></div></div></div>');
     }
     $('#dataConfirmModal').find('.modal-body').text(texte);
     $('#dataConfirmModal').modal({show:true});
     $('#dataConfirmOK').click(function(){
-        $.post(open_quest(href), function(data){ update_table() });
+        $.post(open_quest(href), function(data){location.reload();});
         $("#dataConfirmModal").modal('hide');
     });
 }
