@@ -7,17 +7,9 @@ $keydown_refresh="";
 
 activer_affichage();
 
-
-
 $("#afficher_public").click(function(){
     maximize_screen();
 });
-
-
-$document.ready(function(){
-    ("button[type=submit]").submit();
-});
-
 
 $("#bouton-right").click(function() {
         update_keydown();
