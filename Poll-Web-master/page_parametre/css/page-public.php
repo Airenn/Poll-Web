@@ -59,7 +59,7 @@ header
 {
 <?php
     if(isset($_SESSION['nbmess']['checkbox']) and trim($_SESSION['nbmess']['checkbox']!=""))
-        text_format('nbmess','form_nbmess');
+        text_format_css('nbmess','form_nbmess');
     else{
         echo "display:none;";
     }

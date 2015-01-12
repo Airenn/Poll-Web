@@ -13,8 +13,7 @@
             }
             else{
                 $_SESSION['nbmess']['checkbox']="";
-                }
-
+            }
             /**********************//**NUMERO-TELEPHONE**//***********************/
             $tel = '#^ *(0|\+33) ?[6-7]([ -\.]?[0-9]{2}){4} *$#';            
             (isset($_POST['tel']) and trim($_POST['tel']!=""))
