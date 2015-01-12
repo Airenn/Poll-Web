@@ -1492,6 +1492,7 @@ function AfficheQuestionnaires()
 									</tr>
 								</thead>';
 	
+    echo '<tbody>';
     while($val = $req->fetch(PDO::FETCH_ASSOC))
     {
         $name = str_replace("\'", "'", $val['nom']);
@@ -1524,6 +1525,7 @@ function AfficheQuestionnaires()
             <td class="hiddenRow"><div class="accordian-body collapse  '.$val['ID'].' ">Questionnaire '.ouverture_questionnaire($val['ID']).'</div></td>
 		</tr>';        
     }
+    echo '</tbody>';
 }
 
 function ouverture_questionnaire($ID_operation)
