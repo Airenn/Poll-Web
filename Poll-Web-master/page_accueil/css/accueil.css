@@ -33,9 +33,9 @@
 #selected_question
 {
     float: left;
-    width: 97%;
+    width: 100%;
     margin-left: 15px;
-    margin-right: 15px;
+    padding-right: 30px;
     margin-bottom: 1.5%;
 }
 
@@ -60,7 +60,7 @@
     width: 30%;
     float: right;
     margin-bottom: 4px;
-	margin-right : 1.55%;
+	/*margin-right : 15px;*/
 }
 
 #import_btn
@@ -68,7 +68,7 @@
     height: 43px;
     width: 30%;
     float: right;
-	margin-right : 1.55%;
+	/*margin-right : 15px;*/
 }
 
 thead
