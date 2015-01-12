@@ -117,7 +117,7 @@ function get_url_edit($id,$nom,$date){
     return sup;
 }
 
-function creation_quest(id){
+function creation_quest(){
         bootbox.dialog({
                 title: "Création d'un questionnaire",
                 message: '<div class="row">  ' +
@@ -144,7 +144,7 @@ function creation_quest(id){
                         callback: function (){
                             var name = $('#name').val();
                             var date = $('#date').val();
-                            $.post(get_url_modif(name,date), function(data){ update_page(); });             
+                            $.post(get_url_nouveau(name,date), function(data){ update_page(); });             
                         }
                     }
                 }
