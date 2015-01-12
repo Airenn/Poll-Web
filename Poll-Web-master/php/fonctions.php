@@ -1457,7 +1457,6 @@ function Affichepage(){
                     <table id="ajax_tableau_questionnaire" class="table table-striped table-hover" >';
             AfficheQuestionnaires();
             echo'</table>
-                </div>
             </div>';
         }
         else{
@@ -1467,7 +1466,7 @@ function Affichepage(){
                             <p>Vous n\'avez aucun questionnaire pour l\'instant, commencez par en créer ou en importer un.</p>
                             <br>
                             <br>
-                            <p><a class="btn btn-info btn-lg"  href="#" role="button"onclick="creation_quest();">Créer un questionnaire</a> 
+                            <p><a class="btn btn-info btn-lg"  href="#" role="button" onclick="creation_quest();">Créer un questionnaire</a> 
                             <a class="btn btn-info btn-lg" href="#" role="button" onclick="import_quest();">Importer un questionnaire</a></p>
                         </div>
                 </div>';
