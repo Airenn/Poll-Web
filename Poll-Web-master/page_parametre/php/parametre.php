@@ -1,12 +1,12 @@
 <?php
             /*********************//**FORMATAGE-DE-TEXTE**//*********************/
-            if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='question')
+            if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']==='question')
                 text_format('question','form_question');
-            if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='reponse')
+            if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']==='reponse')
                 text_format('reponse','form_reponse');
-            if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='nbmess')
+            if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']==='nbmess')
                 text_format('nbmess','form_nbmess');
-            if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']=='paragraphe')
+            if(isset($_POST['radio-f-d-t']) and $_POST['radio-f-d-t']==='paragraphe')
                 text_format('paragraphe','form_paragraphe');
             if(isset($_POST['checkbox'])){
                 $_SESSION['nbmess']['checkbox']=$_POST['checkbox'];
@@ -14,6 +14,8 @@
             else{
                 $_SESSION['nbmess']['checkbox']="";
             }
+            
+            
             /**********************//**NUMERO-TELEPHONE**//***********************/
             $tel = '#^ *(0|\+33) ?[6-7]([ -\.]?[0-9]{2}){4} *$#';            
             (isset($_POST['tel']) and trim($_POST['tel']!=""))

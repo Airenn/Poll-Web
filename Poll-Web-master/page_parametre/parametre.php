@@ -67,7 +67,7 @@
                                 Numéro de téléphone<br/><br/>
                                 <div style="width:200px;margin-left:auto;margin-right:auto;">
                                     <div>
-                                        <input style="text-align:center;width:200px;border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-left-radius:4px;border-bottom-right-radius:4px;" id='numtel' type='text' name='tel' class="form-control" aria-describedby="basic-addon1">
+                                        <input style="text-align:center;width:200px;border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-left-radius:4px;border-bottom-right-radius:4px;" id='numtel' type='text' name='tel' class="form-control" aria-describedby="basic-addon1" placeholder="+33612345678">
                                     </div>
                                 </div>
                             </span>
@@ -137,7 +137,13 @@
 
                             <div id="background-color" class="pull-right" style="width:50%;">
                                 <span class="input-group-addon" style="border:solid 1px #cccccc;border-left:none;border-bottom:none;padding:22px 0 22px 0;"> 
-                                    <input style="width:62%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="arriere-plan-color">
+                                    <input style="width:62%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="arriere-plan-color" value='<?php 
+                                                                if(isset($_SESSION['arriere-plan']['radio-a']))
+                                                                    echo $_SESSION['arriere-plan']["color"];
+                                                                else
+                                                                    echo "#ffffff";
+                                                            ?>' />
+                                    
                                 </span>
                             </div>
 
@@ -156,7 +162,12 @@
                             <div id="choix_barre_progressive">
                                 <span class="input-group-addon" style="border:1px solid #cccccc;border-bottom:none;padding-bottom:0.26cm;"> 
                                     Couleur de la barre progressive<br/><br/>
-                                    <input style="width:30%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="bar-color"/>
+                                    <input style="width:30%;" type="color" class="form-control center-block" aria-describedby="basic-addon1" name="bar-color"  value='<?php 
+                                            if(isset($_SESSION['barre-progressive']['hors-delai']))
+                                                echo $_SESSION['barre-progressive']['color'];
+                                            else
+                                                echo "#5cb85c";
+                                                    ?>'/>
                                 </span>
                             </div>
 

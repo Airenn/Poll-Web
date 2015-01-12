@@ -16,6 +16,11 @@ html, body
             if($_SESSION['arriere-plan']['radio-a']=="image" and isset($_SESSION['arriere-plan']['file']))
                 echo 'background-image:url(../'.$_SESSION['arriere-plan']['file'].');'; 
         }
+        if(isset($_SESSION['arriere-plan']['radio-a']) and isset($_SESSION['arriere-plan']['color']) ){         
+            if($_SESSION['arriere-plan']['radio-a']=="color"){
+                echo 'background:'.$_SESSION['arriere-plan']['color'].';'; 
+            }
+        }
     ?>
 }
 
@@ -27,6 +32,10 @@ html, body
     margin-left : auto;
     margin-right : auto;
     <?php
+        if(isset($_SESSION['arriere-plan']['radio-a'])){
+            if($_SESSION['arriere-plan']['radio-a']=="image" and isset($_SESSION['arriere-plan']['file']))
+                echo 'background-image:url(../'.$_SESSION['arriere-plan']['file'].');'; 
+        }
         if(isset($_SESSION['arriere-plan']['radio-a']) and isset($_SESSION['arriere-plan']['color']) ){         
             if($_SESSION['arriere-plan']['radio-a']=="color"){
                 echo 'background:'.$_SESSION['arriere-plan']['color'].';'; 
@@ -34,8 +43,6 @@ html, body
         }
     ?>
 }
-
-
 
 
 /* HAUT DE PAGE */

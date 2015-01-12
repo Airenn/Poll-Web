@@ -46,7 +46,8 @@
     padding-bottom : 1%;
 }
 
-#panel-texte, #panel-arriere-plan
+#panel-texte,
+#panel-arriere-plan
 {
     border: 0 solid #FFF;
     border-radius: 0;
@@ -55,7 +56,8 @@
     box-shadow: none;
 }
 
-#head-texte, #head-arriere-plan
+#head-texte,
+#head-arriere-plan
 {
     color: white;
     background-color: rgba(0, 102, 153, 0.82);
@@ -65,23 +67,47 @@
     text-align: center;
 }
 
-#body-texte, #body-arriere-plan
+#body-texte,
+#body-arriere-plan
 {
     border: 1px solid #DDD;
     border-radius: 0;
     box-shadow: none;
 }
 
-#nb-messages-bouton, #paragraphe-bouton, #reponses-bouton, #question-bouton, #arriere-plan-bouton, #barres-bouton
+#nb-messages-bouton,
+#paragraphe-bouton,
+#reponses-bouton,
+#question-bouton,
+#arriere-plan-bouton,
+#barres-bouton
 {
     background-color: rgba(101, 185, 255, 0.89);
     border-radius: 0;
 }
 
-.active#nb-messages-bouton, .active#paragraphe-bouton, .active#reponses-bouton, .active#question-bouton, .active#arriere-plan-bouton, .active#barres-bouton
+.active#nb-messages-bouton,
+.active#paragraphe-bouton,
+.active#reponses-bouton,
+.active#question-bouton,
+.active#arriere-plan-bouton,
+.active#barres-bouton
 {
     background-color: rgba(0, 102, 153, 0.82);
+    pointer-events: none;
+    cursor: default;
 }
+
+#nb-messages-bouton:hover,
+#paragraphe-bouton:hover,
+#reponses-bouton:hover,
+#question-bouton:hover,
+#arriere-plan-bouton:hover,
+#barres-bouton:hover
+{
+    background-color: #31b0d5;
+}
+
 
 
 /*****************************************
@@ -131,3 +157,6 @@
 
 
 
+option.style-police{
+    padding-right:2.5em;
+}

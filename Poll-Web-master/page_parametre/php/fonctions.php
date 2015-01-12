@@ -107,38 +107,89 @@ function formulaire_couleur($key,$choix_section){
 
             <span class="input-group-addon" style="border-top-left-radius:0;border-bottom-left-radius:0;width:23,33333%;"> 
                 Couleur<br/><br/>
-                <input type="color" class="form-control" aria-describedby="basic-addon1" <?php echo "name='color-$choix_section'"; ?> value=<?php 
-                                    if(isset($_SESSION[$key]["color-$choix_section"]))
-                                        echo $_SESSION[$key]["color-$choix_section"]; 
-                       ?> />
+                <input type="color" class="form-control" aria-describedby="basic-addon1" <?php echo "name='color-$choix_section'"; ?> value='<?php 
+                                if(isset($_SESSION[$key]["color-$choix_section"]))
+                                    echo $_SESSION[$key]["color-$choix_section"]; 
+                            ?>' />
             </span>
 
             <span class="input-group-addon" style="width:23,33333%;">
                 Police<br/><br/>
                 <div>
                     <select style="width:70%;height:2.4em;border:solid #cccccc 1px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-top-left-radius:4px;border-bottom-left-radius:4px;text-align:center;" <?php echo "name='police-$choix_section'"; ?> value='button-police'>
-                        <option value='Arial'>Arial</option>
-                        <option value='Arial Black'>Arial Black</option>
-                        <option value='Comic Sans MS'>Comic Sans MS</option>
-                        <option value='Courier New'>Courier New</option>
-                        <option value='Georgia'>Georgia</option>
-                        <option value='Impact'>Impact</option>
-                        <option value='Times New Roman'>Times New Roman</option>
-                        <option value='Trebuchet MS'>Trebuchet MS</option>
-                        <option value='Verdana'>Verdana</option>
+                        <optgroup style="font-family:'Arial'">
+                            <option class="style-police" value='Arial'>Arial</option>
+                        </optgroup>
+                        <optgroup style="font-family:'Arial Black'">
+                            <option class="style-police" value='Arial Black'>Arial Black</option>
+                        </optgroup>
+                        <optgroup style="font-family:'Comic Sans MS'">
+                            <option class="style-police" value='Comic Sans MS'>Comic Sans MS</option>
+                        </optgroup>
+                        <optgroup style="font-family:'Courier New'">
+                            <option class="style-police" value='Courier New'>Courier New</option>
+                        </optgroup>
+                        <optgroup style="font-family:'Georgia'">
+                            <option class="style-police" value='Georgia'>Georgia</option>
+                        </optgroup>
+                        <optgroup style="font-family:'Impact'">
+                            <option class="style-police" value='Impact'>Impact</option>
+                        </optgroup>
+                        <optgroup style="font-family:'Times New Roman'">
+                            <option class="style-police" value='Times New Roman'>Times New Roman</option>
+                        </optgroup>
+                        <optgroup style="font-family:'Trebuchet MS'">
+                            <option class="style-police" value='Trebuchet MS'>Trebuchet MS</option>
+                        </optgroup>
+                        <optgroup style="font-family:'Verdana'">
+                            <option class="style-police" value='Verdana'>Verdana</option>
+                        </optgroup>
+                        
+                        <?php  if(isset($_SESSION[$key]["police-$choix_section"])){
+                                    switch($_SESSION[$key]["police-$choix_section"]){
+                                        case "Arial":
+                                            echo "<option value='Arial' selected >Arial</option>";
+                                            break;
+                                        case "Arial Black":
+                                            echo "<option value='Arial Black' selected >Arial Black</option>";
+                                            break;
+                                        case "Comic Sans MS";
+                                            echo "<option value='Comic Sans MS' selected >Comic Sans MS</option>";
+                                            break;
+                                        case "Courrier New":
+                                        echo "<option value='Courier New' selected >Courier New</option>";
+                                            break;
+                                        case "Georgia":
+                                        echo "<option value='Georgia' selected >Georgia</option>";
+                                            break;
+                                        case "Impact":
+                                        echo "<option value='Impact' selected >Impact</option>";
+                                            break;
+                                        case "Times New Roman":
+                                        echo "<option value='Times New Roman' selected >Times New Roman</option>";
+                                            break;
+                                        case "Trebuchet MS":
+                                        echo "<option value='Trebuchet MS' selected >Trebuchet MS</option>";
+                                            break;
+                                        case "Verdana":
+                                            echo "<option value='Verdana' selected >Verdana</option>";
+                                            break;
+                                    }
+                            } 
+                        ?>
                     </select>
                 </div>
             </span>
-
+            
             <span class="input-group-addon"style="border-top-right-radius:0;border-bottom-right-radius:0;width:23,33333%;">
                 Taille<br/><br/>
-                <input style="text-align:center;" type="text" class="form-control" placeholder="<?php 
-                       if(isset($_POST["taille-police-$choix_section"]))
-                           echo $_POST["taille-police-$choix_section"].' px';
-                        else
-                            echo 'en px';
+                <input style="text-align:center;" type="text" class="form-control" placeholder='<?php 
+                            if(isset($_SESSION[$key]["taille-police-$choix_section"]))
+                                echo $_SESSION[$key]["taille-police-$choix_section"]." px";
+                            else
+                                echo "en px";
                        
-                       ?> "aria-describedby="basic-addon1" <?php echo "name='taille-police-$choix_section'"; ?> >
+                       ?>' "aria-describedby="basic-addon1" <?php echo "name='taille-police-$choix_section'"; ?> >
             </span>
 
        </div> 
