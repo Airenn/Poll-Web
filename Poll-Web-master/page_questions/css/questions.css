@@ -31,6 +31,11 @@
     border-radius: 0;
 }
 
+#btn-question
+{
+   margin-left: 10%; 
+}
+
 #input_texte_question, #modification_texte_question
 {
     border-radius: 0;
@@ -38,6 +43,7 @@
 
 #input_texte_question
 {
+    width: 17%;
     color: #FFF;
     background-color: rgba(0, 102, 153, 0.82);
     border-color: #337ab7;
