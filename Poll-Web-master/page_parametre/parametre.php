@@ -8,7 +8,7 @@
        
         <link href="../menu.css" rel="stylesheet">
 
-        <title>Paramètre (Provisoire)</title>
+        <title>Paramètres</title>
     </head>
 
     <body>
