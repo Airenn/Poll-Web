@@ -8,7 +8,7 @@ function text_format($key, $choix_section){
                 if(isset($_POST["taille-police-$choix_section"]) and is_numeric($_POST["taille-police-$choix_section"]))
                     $_SESSION[$key]["taille-police-$choix_section"]=$_POST["taille-police-$choix_section"];              
                 elseif(isset($_POST["taille-police-$choix_section"]) and trim($_POST["taille-police-$choix_section"])!="")
-                    echo "la taille de police saisie n'est pas valide";
+                    $_SESSION[$key]["taille-police-$choix_section"]="";
 }
 
 function text_format_css($key, $choix_section){
@@ -146,10 +146,10 @@ function formulaire_couleur($key,$choix_section){
             <span class="input-group-addon"style="border-top-right-radius:0;border-bottom-right-radius:0;width:23,33333%;">
                 Taille<br/><br/>
                 <input style="text-align:center;" type="text" class="form-control" placeholder='<?php 
-                            if(isset($_SESSION[$key]["taille-police-$choix_section"]))
+                            if(isset($_SESSION[$key]["taille-police-$choix_section"]) && is_numeric($_SESSION[$key]["taille-police-$choix_section"]))
                                 echo $_SESSION[$key]["taille-police-$choix_section"]." px";
                             else
-                                echo "en px";
+                                echo "Entrez un nombre (en px)";
                        
                        ?>' "aria-describedby="basic-addon1" <?php echo "name='taille-police-$choix_section'"; ?> >
             </span>

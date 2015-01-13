@@ -57,7 +57,9 @@
                          <div id="div-mess" style="display:none;width:70%;" class="input-group">
                             <span class="input-group-addon" style="border:1px solid #cccccc;"> 
                                 Afficher le nombre de messages<br/><br/>
-                                <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#form_m');" checked="on">
+                                <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#form_m');" 
+                                       <?php if(isset($_SESSION['nbmess']['checkbox']) && trim($_SESSION['nbmess']['checkbox'])!="")
+                                                echo "checked";?> />
                             </span>
                         </div>
 

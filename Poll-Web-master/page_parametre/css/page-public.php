@@ -47,12 +47,13 @@ html, body
 
 /* HAUT DE PAGE */
 
-header
+header.public
 {
-    width : 98%;
+    width : 97%;
     margin-top : 1%;
     margin-left : auto;
     margin-right : auto;
+    
 }
 
 #question
@@ -95,7 +96,10 @@ header
 
 #section_bar
 {
+    margin-top : 20em;
     margin-left : 2em;
+    display : block;
+    width : 80%;
     clear : both;
 }
 

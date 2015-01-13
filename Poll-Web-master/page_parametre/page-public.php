@@ -25,11 +25,11 @@
                     <p id="nbrecus"><?php echo nb_messages_quest(get_current_question()['ID'],'Valide'); ?></p>
                 </div>
             </header>
-                <section id="section_bar">
-                    <?php create_pb(); ?>
-                    <div id="ajax_bar"></div>  
-                    <div id="ajax_keydown"></div> 
-                </section>
+            <section id="section_bar">
+                <?php create_pb(); ?>
+                <div id="ajax_bar"></div>  
+                <div id="ajax_keydown"></div> 
+            </section>
             <footer>
                 <p>
                     Envoyez votre réponse (exemple: <strong>2A</strong>, ou <strong>2B</strong>) par SMS au <strong>
