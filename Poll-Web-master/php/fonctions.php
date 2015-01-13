@@ -1446,7 +1446,7 @@
 function Affichepage(){
         if(total_quest()!=0){
             echo' <div id="selected_question">
-                        <button class="btn btn-default" id="btn-questionnaire">
+                        <button disabled="disabled" class="btn btn-default" id="btn-questionnaire">
                             <span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
                             <span id="id_questionnaire_selected"><strong>aucun</strong></span>
                         </button>
@@ -1476,8 +1476,11 @@ function Affichepage(){
 
 function AfficheQuestionnaires()
 {
-    $args = array('clause_where'=>array('ID!'=>1));
-        
+    $args = array(
+					'clause_where'=>array('ID!'=>1)
+                    'clause_order_by' => array("colonne_tri" => 'date_prevue', "ordre_tri" => "DESC")
+				);
+    
     $req = execute_sql("SELECT", "operations", $args);
     $click = "";
     $name = "";

@@ -44,6 +44,10 @@
 {
     margin-top: 15px;
 }
+#ajax_tableau_questionnaire tr:focus
+{
+	background-color : #CEF6D8;
+}
 
 #btn-questionnaire
 {
@@ -53,6 +57,7 @@
     height: 90px;
     width: 50%;
     float: left;
+    opacity: 1;
 }
 
 #btn-questionnaire:hover
