@@ -116,23 +116,25 @@ function formulaire_couleur($key,$choix_section){
             <span class="input-group-addon" style="width:23,33333%;">
                 Police<br/><br/>
                 <div>
-                    <select style="width:70%;height:2.4em;border:solid #cccccc 1px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-top-left-radius:4px;border-bottom-left-radius:4px;text-align:center;" <?php echo "name='police-$choix_section'"; ?> value='button-police'>
+                    <select id="choix_police" <?php echo "name='police-$choix_section'"; ?> value='button-police'>
                         <?php  
-                            $tab_police = array("Arial","Arial Black","Comic Sans MS","Courier New","Georgia",
+                            $tab_police = array("Arial","Arial Black","Calibri","Cambria","Comic Sans MS","Constantia","Courier New","Georgia",
                                                     "Impact","Times New Roman","Trebuchet MS","Verdana");
-
+                                                 
+                                                 
                             foreach($tab_police as $polices_style){
                                 echo "<optgroup style=font-family:'$polices_style';>
                                         <option class='style-police' value='$polices_style'>$polices_style</option>
                                       </optgroup>";
                             }
-
+                        
+                        
                             if(isset($_SESSION[$key]["police-$choix_section"])){
                                 foreach($tab_police as $police_selected){
                                     switch($_SESSION[$key]["police-$choix_section"]){
                                         case "$police_selected":
-                                        echo "<optgroup style=font-family:$police_selected>
-                                                <option id='police_selectionnee' class='style-police' value=$police_selected selected>$police_selected</option>
+                                        echo "<optgroup style=font-family:'$police_selected'>
+                                                <option id='police_selectionnee' class='style-police' value='$police_selected' selected>$police_selected</option>
                                             </optgroup>";
                                         break;
                                     }

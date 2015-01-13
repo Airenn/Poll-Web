@@ -171,3 +171,14 @@ option.style-police{
     pointer-events: none;
     cursor: default;
 }
+
+#choix_police{
+    width:70%;
+    height:2.4em;
+    border:solid #cccccc 1px;
+    border-top-right-radius:2px;
+    border-bottom-right-radius:2px;
+    border-top-left-radius:4px;
+    border-bottom-left-radius:4px;
+    text-align:center;
+}
