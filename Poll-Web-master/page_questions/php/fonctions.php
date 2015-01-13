@@ -441,29 +441,47 @@
      * \param $num : int, nouveau numero de la question
      */
     function change_numero($question, $num){
-        $num = (int)$num;
-        $question = get_question($question);
-        $max = get_next_question_num($question['ID_operation']);
-        $existing_nums = get_num_questions($question['ID_operation']);
+        $new_num = (int)$num;
+        $old_num = 0;
+        $new_question = get_question($question);
+        $old_question = "";
+        $max = get_next_question_num($new_question['ID_operation']);
+        $existing_nums = get_num_questions($new_question['ID_operation']);
         
-        if(($num<=0 || $num>$max) && $max!=($question['num_question']+1)){
-            $num = $max;
+        // Pas de changement du numero si il est invalide
+        if($new_num<=0 || $new_num>=$max){
+            $new_num = $new_question['num_question'];
         }
-        else if(($num>=$max && ($max==($question['num_question']+1) || in_array($max-1, $existing_nums))) || (in_array($num, $existing_nums))){
-            $num = $question['num_question'];
-        }
-        
-        $question = $question['ID'];
-        echo $num;
-        
-        if(!in_array($num, $existing_nums)){
+        // Echange des places de deux questions si le numero est valide
+        else if(in_array($new_num, $existing_nums)){
             $args = array(
-                        'clause_set'=>array('num_question'=>$num),
-                        'clause_where'=>array('ID'=>$question)
+                        'clause_where'=>array('num_question'=>$new_num,
+                                              'ID_operation'=>$new_question['ID_operation'])
+                    );
+            
+            $old_question = execute_sql("SELECT", "questions", $args);
+            $old_question = $old_question->fetch(PDO::FETCH_ASSOC);
+            $old_num = $new_question['num_question'];
+        }
+
+        echo $new_num;
+
+        $args = array(
+                    'clause_set'=>array('num_question'=>$new_num),
+                    'clause_where'=>array('ID'=>$new_question['ID'])
+                );
+
+        execute_sql("UPDATE", "questions", $args);
+        
+        if($old_num!=0){
+            $args = array(
+                        'clause_set'=>array('num_question'=>$old_num),
+                        'clause_where'=>array('ID'=>$old_question['ID'])
                     );
 
-            execute_sql("UPDATE", "questions", $args);
+            execute_sql("UPDATE", "questions", $args);   
         }
+
     }
 
     /*
