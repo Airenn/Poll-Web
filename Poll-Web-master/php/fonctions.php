@@ -1477,7 +1477,7 @@ function Affichepage(){
 function AfficheQuestionnaires()
 {
     $args = array(
-					'clause_where'=>array('ID!'=>1)
+					'clause_where'=>array('ID!'=>1),
                     'clause_order_by' => array("colonne_tri" => 'date_prevue', "ordre_tri" => "DESC")
 				);
     
