@@ -1447,7 +1447,7 @@ function Affichepage(){
         if(total_quest()!=0){
             echo' <div id="selected_question">
                         <button disabled="disabled" class="btn btn-default" id="btn-questionnaire">
-                            <span id="titre_questionnaire_selected">Questionnaire selectionné : </span>
+                            <span id="titre_questionnaire_selected">Questionnaire sélectionné : </span>
                             <span id="id_questionnaire_selected"><strong>aucun</strong></span>
                         </button>
                         <input id="create" type="button" class="btn btn-warning" onclick="creation_quest();" value="Créer un questionnaire" /><br><br>
