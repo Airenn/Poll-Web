@@ -448,8 +448,8 @@
         $max = get_next_question_num($new_question['ID_operation']);
         $existing_nums = get_num_questions($new_question['ID_operation']);
         
-        // Pas de changement du numero si il est invalide
-        if($new_num<=0 || $new_num>=$max){
+        // Pas de changement du numero si il est invalide ou que la question a deja recu des messages
+        if($new_num<=0 || $new_num>=$max || total_messages($new_question['ID'])!=0 || $new_num == $new_question['num_question']){
             $new_num = $new_question['num_question'];
         }
         // Echange des places de deux questions si le numero est valide
@@ -458,22 +458,21 @@
                         'clause_where'=>array('num_question'=>$new_num,
                                               'ID_operation'=>$new_question['ID_operation'])
                     );
-            
+
             $old_question = execute_sql("SELECT", "questions", $args);
             $old_question = $old_question->fetch(PDO::FETCH_ASSOC);
             $old_num = $new_question['num_question'];
         }
 
-        echo $new_num;
+        // On peut changer la question seulement si elle n'a reçu aucun message
+        if($old_num!=0 && total_messages($old_question['ID'])==0){
+            $args = array(
+                        'clause_set'=>array('num_question'=>$new_num),
+                        'clause_where'=>array('ID'=>$new_question['ID'])
+                    );
 
-        $args = array(
-                    'clause_set'=>array('num_question'=>$new_num),
-                    'clause_where'=>array('ID'=>$new_question['ID'])
-                );
+            execute_sql("UPDATE", "questions", $args);
 
-        execute_sql("UPDATE", "questions", $args);
-        
-        if($old_num!=0){
             $args = array(
                         'clause_set'=>array('num_question'=>$old_num),
                         'clause_where'=>array('ID'=>$old_question['ID'])
@@ -481,7 +480,11 @@
 
             execute_sql("UPDATE", "questions", $args);   
         }
-
+        else{
+            $new_num = $new_question['num_question'];
+        }
+        
+        echo $new_num;
     }
 
     /*
