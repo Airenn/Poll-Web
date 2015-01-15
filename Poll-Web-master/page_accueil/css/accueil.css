@@ -44,7 +44,8 @@
 {
     margin-top: 15px;
 }
-#ajax_tableau_questionnaire tr:focus
+
+#ajax_tableau_questionnaire tbody tr:focus td 
 {
 	background-color : #CEF6D8;
 }
