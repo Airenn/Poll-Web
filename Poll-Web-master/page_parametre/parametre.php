@@ -47,7 +47,7 @@
                                 <input type="radio" name="radio-f-d-t" autocomplete="off" value="paragraphe" onchange="hide_and_seek('#div-mess,#form_q,#form_m,#form_r','#div-phone,#form_p');"/> Paragraphe
                             </label>
                             <label class="btn btn-info" id="nb-messages-bouton">
-                                <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess(); hide_and_seek('#form_q,#form_r,#form_p','#form_m');"/> Nombre de messages
+                                <input type="radio" name="radio-f-d-t" autocomplete="off" value="nbmess" onchange="show_div_mess(); hide_and_seek('#form_q,#form_r,#form_p','');"/> Nombre de messages
                             </label>
                         </div>
 
@@ -58,7 +58,7 @@
                             <span class="input-group-addon" style="border:1px solid #cccccc;"> 
                                 Afficher le nombre de messages<br/><br/>
                                 <input id="nbmessages" type="checkbox" name="checkbox" onchange="hide_checkbox('#nbmessages','#form_m');" 
-                                       <?php //if(isset($_SESSION['nbmess']['checkbox']) && trim($_SESSION['nbmess']['checkbox'])!="")
+                                       <?php if(isset($_SESSION['nbmess']['checkbox']) && trim($_SESSION['nbmess']['checkbox'])!="")
                                                 echo "checked";?> />
                             </span>
                         </div>
